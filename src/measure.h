@@ -27,5 +27,7 @@ private:
     qreal tempo_;
     int noteValuePerBeat_;
     int beatsPerBar_;
+
+    quint64 appearElapsed_;
 };
 #endif // MEASURE_H

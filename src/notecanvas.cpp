@@ -17,5 +17,5 @@ void NoteCanvas::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 
 void NoteCanvas::advance(int step)
 {
-
+    
 }

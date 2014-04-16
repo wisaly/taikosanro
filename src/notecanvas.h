@@ -1,6 +1,8 @@
 #ifndef NOTECANVAS_H
 #define NOTECANVAS_H
 
+#include "measure.h"
+
 #include <QGraphicsItem>
 
 class NoteCanvas : public QGraphicsItem
@@ -17,6 +19,7 @@ protected:
 
 private:
     QRectF rect_;
+    QList<Measure*> measures_;
 };
 
 #endif // NOTECANVAS_H
