@@ -8,16 +8,17 @@ class Note : public QGraphicsItem
 {
 public:
     enum Type{
+        Blank,
         RedMarker,
         BlueMarker,
         BigRedMarker,
         BigBlueMarker,
         YellowBar,
         Ballon,
-        Yam
+        Yam,
     };
 
-    explicit Note(Type noteType,QGraphicsItem *parent = 0);
+    explicit Note(Type noteType_,QGraphicsItem *parent = 0);
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
@@ -27,9 +28,11 @@ protected:
     void advance(int step);
 
 private:
-    Type noteType;
-    QPixmap notePixmap;
-    DetermineRange determineRange;
+    Type noteType_;
+    QPixmap notePixmap_;
+    DetermineRange determineRange_;
 };
+
+typedef QList<Note::Type> NoteTypeList;
 
 #endif // NOTE_H

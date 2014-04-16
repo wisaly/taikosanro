@@ -17,13 +17,15 @@ SOURCES += main.cpp\
     note.cpp \
     determinerange.cpp \
     pixmapmanager.cpp \
-    measure.cpp
+    measure.cpp \
+    notecanvas.cpp
 
 HEADERS  += mainwindow.h \
     note.h \
     determinerange.h \
     pixmapmanager.h \
     stable.h \
-    measure.h
+    measure.h \
+    notecanvas.h
 
 FORMS    += mainwindow.ui

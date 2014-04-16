@@ -1,5 +1,7 @@
 #include "mainwindow.h"
+#include "measure.h"
 #include "note.h"
+#include "notecanvas.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -11,13 +13,31 @@ MainWindow::MainWindow(QWidget *parent) :
     QGraphicsScene *scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
 
-    scene->addItem(new Note(Note::RedMarker));
-    Note *n = new Note(Note::RedMarker);
-    scene->addItem(n);
-    n->setPos(10,0);
-    n = new Note(Note::BlueMarker);
-    scene->addItem(n);
-    n->setPos(20,0);
+    NoteCanvas *canvas = new NoteCanvas();
+    scene->addItem(canvas);
+
+    NoteTypeList notes;
+    notes << Note::RedMarker
+          << Note::RedMarker
+          << Note::BlueMarker
+          << Note::BlueMarker
+          << Note::RedMarker
+          << Note::RedMarker
+          << Note::BlueMarker
+          << Note::BlueMarker
+          << Note::Blank
+          << Note::Blank
+          << Note::Blank
+          << Note::Blank
+          << Note::RedMarker
+          << Note::RedMarker
+          << Note::BlueMarker
+          << Note::BlueMarker
+          << Note::RedMarker
+          << Note::RedMarker
+          << Note::BlueMarker
+          << Note::BlueMarker;
+    Measure *m = new Measure(canvas,notes,0,0,0);
 }
 
 MainWindow::~MainWindow()

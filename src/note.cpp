@@ -9,28 +9,28 @@ Note::Note(Type noteType, QGraphicsItem *parent)
 {
     switch (noteType) {
     case RedMarker:
-        notePixmap = PixmapManager::getRedMarker();
+        notePixmap_ = PixmapManager::getRedMarker();
         break;
     case BlueMarker:
-        notePixmap = PixmapManager::getBlueMarker();
+        notePixmap_ = PixmapManager::getBlueMarker();
         break;
     case BigRedMarker:
-        notePixmap = PixmapManager::getBigRedMarker();
+        notePixmap_ = PixmapManager::getBigRedMarker();
         break;
     case BigBlueMarker:
-        notePixmap = PixmapManager::getBigBlueMarker();
+        notePixmap_ = PixmapManager::getBigBlueMarker();
         break;
     default:
-        Q_ASSERT(false);
+        Q_ASSERT(true);
         break;
     }
 
-    this->noteType = noteType;
+    this->noteType_ = noteType;
 }
 
 QRectF Note::boundingRect() const
 {
-    return notePixmap.rect();
+    return notePixmap_.rect();
 }
 
 void Note::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -38,7 +38,7 @@ void Note::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->drawPixmap(this->pos(),notePixmap);
+    painter->drawPixmap(notePixmap_.rect(),notePixmap_);
 }
 
 void Note::advance(int step)

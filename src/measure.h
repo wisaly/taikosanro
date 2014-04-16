@@ -1,13 +1,18 @@
 #ifndef MEASURE_H
 #define MEASURE_H
 
+#include "note.h"
+
 #include <QGraphicsItem>
 
 class Measure : public QGraphicsItem
 {
 public:
-    Measure(QGraphicsItem *parent = 0);
-
+    Measure(QGraphicsItem *parent,
+            NoteTypeList &notes,
+            qreal tempo,
+            int noteValuePerBeat,
+            int beatsPerBar);
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
@@ -17,6 +22,10 @@ protected:
     void advance(int step);
 
 private:
-    QRectF canvasRect;
+    QRectF canvasRect_;
+    QList<Note*> notes_;
+    qreal tempo_;
+    int noteValuePerBeat_;
+    int beatsPerBar_;
 };
 #endif // MEASURE_H
