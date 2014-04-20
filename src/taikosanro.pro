@@ -18,7 +18,10 @@ SOURCES += main.cpp\
     determinerange.cpp \
     pixmapmanager.cpp \
     measure.cpp \
-    notecanvas.cpp
+    notecanvas.cpp \
+    notechart.cpp \
+    notefileparser.cpp \
+    song.cpp
 
 HEADERS  += mainwindow.h \
     note.h \
@@ -26,6 +29,9 @@ HEADERS  += mainwindow.h \
     pixmapmanager.h \
     stable.h \
     measure.h \
-    notecanvas.h
+    notecanvas.h \
+    notechart.h \
+    notefileparser.h \
+    song.h
 
 FORMS    += mainwindow.ui
