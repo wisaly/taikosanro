@@ -24,7 +24,7 @@ DetermineRange::Type DetermineRange::determine(int currentElapsed)
     return Miss;
 }
 
-void DetermineRange::set(int elapsed, int goodRange, int greatRange, int failRange)
+void DetermineRange::setRange(int elapsed, int goodRange, int greatRange, int failRange)
 {
     greatBegin = elapsed - greatRange;
     greatEnd = elapsed + greatRange;

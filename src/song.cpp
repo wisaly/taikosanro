@@ -1,5 +1,7 @@
 #include "song.h"
 
+#include "notefileparser.h"
+
 Song::Song(QString filePath)
     :fileParser_(new NoteFileParser(filePath))
 {

@@ -2,10 +2,13 @@
 #define SONG_H
 
 #include <QList>
+#include <QString>
 
 class NoteChart;
 class NoteFileParser;
 
+// Song is the most top container
+// Song -> NoteChart -> Measure -> Note
 class Song
 {
 public:

@@ -2,6 +2,7 @@
 #define NOTECHART_H
 
 #include "measure.h"
+#include "stable.h"
 
 #include <QGraphicsItem>
 
@@ -14,8 +15,13 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 QWidget *widget);
 
-    void addMeasure(Measure* measure);
-    
+    void play();
+    void hit(TaikoState state);
+
+    Measure* createMeasure(NoteTypeList &notes,
+                           qreal tempo,
+                           int noteValuePerBeat,
+                           int beatsPerBar);
 protected:
     void advance(int step);
 
@@ -26,6 +32,8 @@ private:
     int scoreDiff_;
     QRectF rect_;
     QList<Measure*> measures_;
+    int currentMeasure_;
+    int playProgress_;
 };
 
-#ENDIF // NOTECHART_H
+#endif // NOTECHART_H

@@ -1,6 +1,5 @@
 #ifndef DETERMINERANGE_H
 #define DETERMINERANGE_H
-#include <QDateTime>
 
 class DetermineRange
 {
@@ -16,7 +15,7 @@ public:
 
     Type determine(int currentElapsed);
 
-    void set(int elapsed,int goodRange,int greatRange,int failRange);
+    void setRange(int elapsed,int goodRange,int greatRange,int failRange);
 private:
     int greatBegin;
     int greatEnd;

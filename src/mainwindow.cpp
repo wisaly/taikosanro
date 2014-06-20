@@ -2,6 +2,7 @@
 #include "measure.h"
 #include "note.h"
 #include "notecanvas.h"
+#include "notechart.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -16,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     NoteCanvas *canvas = new NoteCanvas();
     scene->addItem(canvas);
 
+    NoteChart *n = new NoteChart(canvas);
     NoteTypeList notes;
     notes << Note::RedMarker
           << Note::RedMarker
@@ -37,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
           << Note::RedMarker
           << Note::BlueMarker
           << Note::BlueMarker;
-    Measure *m = new Measure(canvas,notes,0,0,0);
+    n->createMeasure(notes,0,0,0);
 }
 
 MainWindow::~MainWindow()
