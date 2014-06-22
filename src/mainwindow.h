@@ -16,6 +16,8 @@ public:
     ~MainWindow();
 
 private:
+    void timerEvent(QTimerEvent *event);
+private:
     Ui::MainWindow *ui;
 };
 

@@ -39,10 +39,19 @@ MainWindow::MainWindow(QWidget *parent) :
           << Note::RedMarker
           << Note::BlueMarker
           << Note::BlueMarker;
-    n->createMeasure(notes,0,0,0);
+
+    n->createMeasure(notes,100,4,4);
+
+    startTimer(1000);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::timerEvent(QTimerEvent *event)
+{
+    Q_UNUSED(event);
+    ui->graphicsView->scene()->advance();
 }

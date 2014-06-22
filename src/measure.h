@@ -28,6 +28,6 @@ private:
     int noteValuePerBeat_;
     int beatsPerBar_;
 
-    quint64 appearElapsed_;
+    int appearElapsed_;
 };
 #endif // MEASURE_H

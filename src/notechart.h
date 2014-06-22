@@ -4,6 +4,7 @@
 #include "measure.h"
 #include "stable.h"
 
+#include <QElapsedTimer>
 #include <QGraphicsItem>
 
 class NoteChart : public QGraphicsItem
@@ -33,7 +34,8 @@ private:
     QRectF rect_;
     QList<Measure*> measures_;
     int currentMeasure_;
-    int playProgress_;
+    //int playProgress_;
+    QElapsedTimer playProgress_;
 };
 
 #endif // NOTECHART_H
