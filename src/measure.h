@@ -18,6 +18,9 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 QWidget *widget);
 
+    void calcPos(int currentElapsed);
+    int appearElapsed();
+
 protected:
     void advance(int step);
 

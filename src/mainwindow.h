@@ -7,6 +7,7 @@ namespace Ui {
 class MainWindow;
 }
 
+class NoteChart;
 class MainWindow : public QWidget
 {
     Q_OBJECT
@@ -17,8 +18,10 @@ public:
 
 private:
     void timerEvent(QTimerEvent *event);
+    void keyPressEvent(QKeyEvent *event);
 private:
     Ui::MainWindow *ui;
+    NoteChart *chart_;
 };
 
 #endif // MAINWINDOW_H

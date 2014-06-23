@@ -1,3 +1,4 @@
+#include <QKeyEvent>
 #include "mainwindow.h"
 #include "measure.h"
 #include "note.h"
@@ -17,7 +18,9 @@ MainWindow::MainWindow(QWidget *parent) :
     NoteCanvas *canvas = new NoteCanvas();
     scene->addItem(canvas);
 
-    NoteChart *n = new NoteChart(canvas);
+    chart_ = new NoteChart(canvas);
+    chart_->setBoundingRect(ui->graphicsView->rect());
+
     NoteTypeList notes;
     notes << Note::RedMarker
           << Note::RedMarker
@@ -30,19 +33,10 @@ MainWindow::MainWindow(QWidget *parent) :
           << Note::Blank
           << Note::Blank
           << Note::Blank
-          << Note::Blank
-          << Note::RedMarker
-          << Note::RedMarker
-          << Note::BlueMarker
-          << Note::BlueMarker
-          << Note::RedMarker
-          << Note::RedMarker
-          << Note::BlueMarker
-          << Note::BlueMarker;
+          << Note::Blank;
 
-    n->createMeasure(notes,100,4,4);
+    chart_->createMeasure(notes,100,4,3);
 
-    startTimer(1000);
 }
 
 MainWindow::~MainWindow()
@@ -54,4 +48,19 @@ void MainWindow::timerEvent(QTimerEvent *event)
 {
     Q_UNUSED(event);
     ui->graphicsView->scene()->advance();
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Space)
+    {
+        startTimer(1000 / 60);
+        chart_->play();
+        event->accept();
+    }
+    else
+    {
+        event->ignore();
+        QWidget::keyPressEvent(event);
+    }
 }

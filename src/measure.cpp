@@ -1,4 +1,5 @@
 #include "measure.h"
+#include <QDebug>
 
 Measure::Measure(QGraphicsItem *parent,
                  NoteTypeList &notes,
@@ -35,6 +36,21 @@ QRectF Measure::boundingRect() const
 void Measure::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
 
+}
+
+void Measure::calcPos(int currentElapsed)
+{
+    qreal offset = tempo_ * currentElapsed * canvasRect_.width() / (noteValuePerBeat_ * beatsPerBar_ * 60000);
+
+    //qDebug() << offset;
+    //prepareGeometryChange();
+    //canvasRect_.moveLeft(canvasRect_.width() - offset);
+    setPos(canvasRect_.width() - offset,0);
+}
+
+int Measure::appearElapsed()
+{
+    return appearElapsed_;
 }
 
 void Measure::advance(int step)

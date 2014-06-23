@@ -18,6 +18,7 @@ public:
 
     void play();
     void hit(TaikoState state);
+    void setBoundingRect(QRectF rect);
 
     Measure* createMeasure(NoteTypeList &notes,
                            qreal tempo,

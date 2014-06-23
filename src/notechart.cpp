@@ -1,8 +1,9 @@
 #include "notechart.h"
 #include <QDebug>
+#include <QPainter>
 
 NoteChart::NoteChart(QGraphicsItem *parent)
-    :QGraphicsItem(parent),rect_(0,0,700,100)
+    :QGraphicsItem(parent)
 {
 }
 
@@ -13,7 +14,7 @@ QRectF NoteChart::boundingRect() const
 
 void NoteChart::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-
+    painter->drawRect(rect_);
 }
 
 void NoteChart::play()
@@ -25,6 +26,11 @@ void NoteChart::play()
 void NoteChart::hit(TaikoState state)
 {
 
+}
+
+void NoteChart::setBoundingRect(QRectF rect)
+{
+    rect_ = rect;
 }
 
 Measure *NoteChart::createMeasure(NoteTypeList &notes, qreal tempo, int noteValuePerBeat, int beatsPerBar)
@@ -40,10 +46,19 @@ void NoteChart::advance(int step)
     if (step)
     {
         if (currentMeasure_ + 1 < measures_.count() &&
-                playProgress_.elapsed() >= measures_[currentMeasure_ + 1])
+                playProgress_.elapsed() >= measures_[currentMeasure_ + 1]->appearElapsed())
         {
+            if (currentMeasure_ >= 0)
+            {
+                measures_[currentMeasure_]->setVisible(false);
+            }
             currentMeasure_++;
             measures_[currentMeasure_]->setVisible(true);
+        }
+
+        if (currentMeasure_ >= 0 && currentMeasure_ < measures_.count())
+        {
+            measures_[currentMeasure_]->calcPos(playProgress_.elapsed());
         }
     }
 }
