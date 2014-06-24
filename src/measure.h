@@ -20,6 +20,7 @@ public:
 
     void calcPos(int currentElapsed);
     int appearElapsed();
+    void setBoundingRect(QRectF rect);
 
 protected:
     void advance(int step);
@@ -30,6 +31,7 @@ private:
     qreal tempo_;
     int noteValuePerBeat_;
     int beatsPerBar_;
+    int notePosCount_;
 
     int appearElapsed_;
 };

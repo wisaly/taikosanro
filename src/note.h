@@ -18,11 +18,13 @@ public:
         Yam,
     };
 
-    explicit Note(Type noteType_,QGraphicsItem *parent = 0);
+    explicit Note(Type noteType_,int index,QGraphicsItem *parent = 0);
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 QWidget *widget);
+
+    int index();
 
 protected:
     void advance(int step);
@@ -31,6 +33,7 @@ private:
     Type noteType_;
     QPixmap notePixmap_;
     DetermineRange determineRange_;
+    int index_;
 };
 
 typedef QList<Note::Type> NoteTypeList;

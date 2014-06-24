@@ -37,6 +37,7 @@ private:
     int currentMeasure_;
     //int playProgress_;
     QElapsedTimer playProgress_;
+    bool isPlaying_;
 };
 
 #endif // NOTECHART_H

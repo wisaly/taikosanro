@@ -19,6 +19,7 @@ public:
 private:
     void timerEvent(QTimerEvent *event);
     void keyPressEvent(QKeyEvent *event);
+    void showEvent(QShowEvent *event);
 private:
     Ui::MainWindow *ui;
     NoteChart *chart_;

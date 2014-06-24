@@ -4,8 +4,8 @@
 
 #include <QPainter>
 
-Note::Note(Type noteType, QGraphicsItem *parent)
-    :QGraphicsItem(parent)
+Note::Note(Type noteType, int index, QGraphicsItem *parent)
+    :QGraphicsItem(parent),index_(index)
 {
     switch (noteType) {
     case RedMarker:
@@ -39,6 +39,11 @@ void Note::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     Q_UNUSED(widget);
 
     painter->drawPixmap(notePixmap_.rect(),notePixmap_);
+}
+
+int Note::index()
+{
+    return index_;
 }
 
 void Note::advance(int step)

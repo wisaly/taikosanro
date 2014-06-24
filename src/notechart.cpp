@@ -3,8 +3,9 @@
 #include <QPainter>
 
 NoteChart::NoteChart(QGraphicsItem *parent)
-    :QGraphicsItem(parent)
+    :QGraphicsItem(parent),isPlaying_(false)
 {
+    setFlag(QGraphicsItem::ItemClipsChildrenToShape);
 }
 
 QRectF NoteChart::boundingRect() const
@@ -21,6 +22,7 @@ void NoteChart::play()
 {
     currentMeasure_ = -1;
     playProgress_.start();
+    isPlaying_ = true;
 }
 
 void NoteChart::hit(TaikoState state)
@@ -31,6 +33,11 @@ void NoteChart::hit(TaikoState state)
 void NoteChart::setBoundingRect(QRectF rect)
 {
     rect_ = rect;
+
+    for (int i = 0;i < measures_.count();i++)
+    {
+        measures_[i]->setBoundingRect(rect);
+    }
 }
 
 Measure *NoteChart::createMeasure(NoteTypeList &notes, qreal tempo, int noteValuePerBeat, int beatsPerBar)
@@ -43,6 +50,10 @@ Measure *NoteChart::createMeasure(NoteTypeList &notes, qreal tempo, int noteValu
 
 void NoteChart::advance(int step)
 {
+    if (!isPlaying_)
+    {
+        return ;
+    }
     if (step)
     {
         if (currentMeasure_ + 1 < measures_.count() &&

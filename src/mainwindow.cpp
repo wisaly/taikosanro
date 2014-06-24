@@ -19,7 +19,6 @@ MainWindow::MainWindow(QWidget *parent) :
     scene->addItem(canvas);
 
     chart_ = new NoteChart(canvas);
-    chart_->setBoundingRect(ui->graphicsView->rect());
 
     NoteTypeList notes;
     notes << Note::RedMarker
@@ -37,6 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     chart_->createMeasure(notes,100,4,3);
 
+    startTimer(1000 / 60);
 }
 
 MainWindow::~MainWindow()
@@ -54,7 +54,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Space)
     {
-        startTimer(1000 / 60);
         chart_->play();
         event->accept();
     }
@@ -63,4 +62,11 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         event->ignore();
         QWidget::keyPressEvent(event);
     }
+}
+
+void MainWindow::showEvent(QShowEvent *event)
+{
+    QRectF rect = ui->graphicsView->rect().adjusted(0,0,-100,-10);
+    chart_->setBoundingRect(rect);
+    ui->graphicsView->setSceneRect(rect);
 }

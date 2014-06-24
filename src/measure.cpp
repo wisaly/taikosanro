@@ -15,16 +15,16 @@ Measure::Measure(QGraphicsItem *parent,
 
     canvasRect_ = parent->boundingRect();
 
-    qreal noteUnit = canvasRect_.width() / notes.count();
-    for(int i = notes.count() - 1;i >= 0;i--)
+    notePosCount_ = notes.count();
+    for(int i = 0;i < notes.count();i++)
     {
         if(notes[i] == Note::Blank)
         {
             continue;
         }
 
-        Note *note = new Note(notes[i],this);
-        note->setPos(i * noteUnit,0);
+        Note *note = new Note(notes[i],i,this);
+        notes_.append(note);
     }
 }
 
@@ -40,7 +40,7 @@ void Measure::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
 
 void Measure::calcPos(int currentElapsed)
 {
-    qreal offset = tempo_ * currentElapsed * canvasRect_.width() / (noteValuePerBeat_ * beatsPerBar_ * 60000);
+    qreal offset = tempo_ * currentElapsed * canvasRect_.width() / (notePosCount_ * 60000);
 
     //qDebug() << offset;
     //prepareGeometryChange();
@@ -51,6 +51,17 @@ void Measure::calcPos(int currentElapsed)
 int Measure::appearElapsed()
 {
     return appearElapsed_;
+}
+
+void Measure::setBoundingRect(QRectF rect)
+{
+    canvasRect_ = rect;
+    qreal noteUnit = canvasRect_.width() / notePosCount_;
+    for(int i = 0;i < notes_.count();i++)
+    {
+        notes_[i]->setPos(notes_[i]->index() * noteUnit,0);
+        notes_[i]->setZValue(notes_.count() - i);
+    }
 }
 
 void Measure::advance(int step)
