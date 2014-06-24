@@ -3,16 +3,17 @@
 
 #include "notechart.h"
 
+class Song;
 class NoteFileParser
 {
 public:
-    NoteFileParser(QString filePath);
+    NoteFileParser(QString filePath,Song *song);
 
-    void loadSongInfo();
-    void loadChart(NoteChart *noteChart);
+    bool parse();
 
 protected:
     QString filePath_;
+    Song *song_;
 };
 
 #endif // NOTEFILEPARSER_H

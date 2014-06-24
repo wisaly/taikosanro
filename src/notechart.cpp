@@ -73,3 +73,43 @@ void NoteChart::advance(int step)
         }
     }
 }
+int NoteChart::scoreDiff() const
+{
+    return scoreDiff_;
+}
+
+void NoteChart::setScoreDiff(int scoreDiff)
+{
+    scoreDiff_ = scoreDiff;
+}
+
+int NoteChart::scoreInit() const
+{
+    return scoreInit_;
+}
+
+void NoteChart::setScoreInit(int scoreInit)
+{
+    scoreInit_ = scoreInit;
+}
+
+int NoteChart::course() const
+{
+    return course_;
+}
+
+void NoteChart::setCourse(int course)
+{
+    course_ = course;
+}
+
+int NoteChart::level() const
+{
+    return level_;
+}
+
+void NoteChart::setLevel(int level)
+{
+    level_ = level;
+}
+

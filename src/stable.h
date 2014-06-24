@@ -11,4 +11,8 @@ enum TaikoState
     KA_BOTH = KA_LEFT | KA_RIGHT
 };
 
+const int GREAT_RANGE = 50;
+const int GOOD_RANGE = 150;
+const int FAIL_RANGE = 217;
+
 #endif // STABLE_H

@@ -6,19 +6,24 @@
 
 class NoteChart;
 class NoteFileParser;
+class QGraphicsItem;
 
 // Song is the most top container
 // Song -> NoteChart -> Measure -> Note
 class Song
 {
 public:
-    Song(QString filePath);
+    Song(QGraphicsItem *parent);
 
+    NoteChart *createNoteChart();
     int chartCount() const;
-    NoteChart* chartAt(int index) const;
+    NoteChart *chartAt(int index) const;
 
     QString title() const;
     void setTitle(const QString &title);
+
+    QString subtitle() const;
+    void setSubtitle(const QString &subtitle);
 
     int side() const;
     void setSide(int side);
@@ -37,13 +42,14 @@ public:
 
 private:
     QString title_;
+    QString subtitle_;
     int side_;
     qreal bpm_;
     QString wave_;
     qreal offset_;
     qreal demoStart_;
     QList<NoteChart*> noteCharts_;
-    NoteFileParser *fileParser_;
+    QGraphicsItem *parentItem_;
 };
 
 #endif // SONG_H

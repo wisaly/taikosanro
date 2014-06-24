@@ -24,11 +24,23 @@ public:
                            qreal tempo,
                            int noteValuePerBeat,
                            int beatsPerBar);
+    int level() const;
+    void setLevel(int level);
+
+    int course() const;
+    void setCourse(int course);
+
+    int scoreInit() const;
+    void setScoreInit(int scoreInit);
+
+    int scoreDiff() const;
+    void setScoreDiff(int scoreDiff);
+
 protected:
     void advance(int step);
 
 private:
-    QString course_;
+    int course_;
     int level_;
     int scoreInit_;
     int scoreDiff_;

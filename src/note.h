@@ -14,7 +14,9 @@ public:
         BigRedMarker,
         BigBlueMarker,
         YellowBar,
+        BigYellowBar,
         Ballon,
+        EndYellowBar,
         Yam,
     };
 
