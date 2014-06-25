@@ -21,7 +21,9 @@ SOURCES += main.cpp\
     notecanvas.cpp \
     notechart.cpp \
     notefileparser.cpp \
-    song.cpp
+    song.cpp \
+    noteyellowbar.cpp \
+    noteballon.cpp
 
 HEADERS  += mainwindow.h \
     note.h \
@@ -32,6 +34,8 @@ HEADERS  += mainwindow.h \
     notecanvas.h \
     notechart.h \
     notefileparser.h \
-    song.h
+    song.h \
+    noteyellowbar.h \
+    noteballon.h
 
 FORMS    += mainwindow.ui

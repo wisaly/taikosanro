@@ -4,6 +4,8 @@
 #include "note.h"
 #include "notecanvas.h"
 #include "notechart.h"
+#include "notefileparser.h"
+#include "song.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -18,23 +20,9 @@ MainWindow::MainWindow(QWidget *parent) :
     NoteCanvas *canvas = new NoteCanvas();
     scene->addItem(canvas);
 
-    chart_ = new NoteChart(canvas);
-
-    NoteTypeList notes;
-    notes << Note::RedMarker
-          << Note::RedMarker
-          << Note::BlueMarker
-          << Note::BlueMarker
-          << Note::RedMarker
-          << Note::RedMarker
-          << Note::BlueMarker
-          << Note::BlueMarker
-          << Note::Blank
-          << Note::Blank
-          << Note::Blank
-          << Note::Blank;
-
-    chart_->createMeasure(notes,100,4,3);
+    Song *song = new Song(canvas);
+    NoteFileParser *parser = new NoteFileParser("../res/example.tja",song);
+    chart_ = song->chartAt(0);
 
     startTimer(1000 / 60);
 }

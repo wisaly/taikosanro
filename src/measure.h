@@ -10,12 +10,15 @@ class Measure : public QGraphicsItem
 public:
     Measure(QGraphicsItem *parent,
             NoteTypeList &notes,
+            QList<int> &ballonHits,
             qreal tempo,
             int noteValuePerBeat,
-            int beatsPerBar);
+            int beatsPerBar,
+            bool isGGT,
+            int appearElapsed);
 
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+    virtual QRectF boundingRect() const;
+    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 QWidget *widget);
 
     void calcPos(int currentElapsed);
@@ -23,7 +26,7 @@ public:
     void setBoundingRect(QRectF rect);
 
 protected:
-    void advance(int step);
+    virtual void advance(int step);
 
 private:
     QRectF canvasRect_;
@@ -31,7 +34,8 @@ private:
     qreal tempo_;
     int noteValuePerBeat_;
     int beatsPerBar_;
-    int notePosCount_;
+    int noteUnitCount_;
+    bool isGGT_;
 
     int appearElapsed_;
 };

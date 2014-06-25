@@ -40,12 +40,17 @@ void NoteChart::setBoundingRect(QRectF rect)
     }
 }
 
-Measure *NoteChart::createMeasure(NoteTypeList &notes, qreal tempo, int noteValuePerBeat, int beatsPerBar)
+Measure *NoteChart::createMeasure(NoteTypeList &notes, QList<int> &ballonHits, qreal tempo, int noteValuePerBeat, int beatsPerBar, bool isGGT, int appearElapsed)
 {
-    Measure *measure = new Measure(this,notes,tempo,noteValuePerBeat,beatsPerBar);
+    Measure *measure = new Measure(this,notes,ballonHits,tempo,noteValuePerBeat,beatsPerBar,isGGT,appearElapsed);
     measures_.append(measure);
 
     return measure;
+}
+
+int NoteChart::measureCount()
+{
+    return measures_.count();
 }
 
 void NoteChart::advance(int step)
@@ -59,15 +64,19 @@ void NoteChart::advance(int step)
         if (currentMeasure_ + 1 < measures_.count() &&
                 playProgress_.elapsed() >= measures_[currentMeasure_ + 1]->appearElapsed())
         {
-            if (currentMeasure_ >= 0)
+            if (currentMeasure_ > 0)
             {
-                measures_[currentMeasure_]->setVisible(false);
+                measures_[currentMeasure_ - 1]->setVisible(false);
             }
             currentMeasure_++;
             measures_[currentMeasure_]->setVisible(true);
         }
 
-        if (currentMeasure_ >= 0 && currentMeasure_ < measures_.count())
+        if (currentMeasure_ > 0)
+        {
+            measures_[currentMeasure_ - 1]->calcPos(playProgress_.elapsed());
+        }
+        if (currentMeasure_ >= 0)
         {
             measures_[currentMeasure_]->calcPos(playProgress_.elapsed());
         }

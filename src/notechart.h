@@ -12,8 +12,8 @@ class NoteChart : public QGraphicsItem
 public:
     NoteChart(QGraphicsItem *parent = 0);
 
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+    virtual QRectF boundingRect() const;
+    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 QWidget *widget);
 
     void play();
@@ -21,9 +21,14 @@ public:
     void setBoundingRect(QRectF rect);
 
     Measure* createMeasure(NoteTypeList &notes,
+                           QList<int> &ballonHits,
                            qreal tempo,
                            int noteValuePerBeat,
-                           int beatsPerBar);
+                           int beatsPerBar,
+                           bool isGGT,
+                           int appearElapsed);
+    int measureCount();
+
     int level() const;
     void setLevel(int level);
 

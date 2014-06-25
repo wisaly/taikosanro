@@ -43,24 +43,58 @@ QPixmap PixmapManager::getBigBlueMarker()
     return get("../res/bigbluemarker.png");
 }
 
+QPixmap PixmapManager::getYellowBarBody()
+{
+    return get("../res/yellowbarbody.png");
+}
+
+QPixmap PixmapManager::getYellowBarHead()
+{
+    return get("../res/yellowbarhead.png");
+}
+
+QPixmap PixmapManager::getYellowBarTail()
+{
+    return get("../res/yellowbartail.png");
+}
+
+QPixmap PixmapManager::getBigYellowBarBody()
+{
+    return get("../res/bigyellowbarbody.png");
+}
+
+QPixmap PixmapManager::getBigYellowBarHead()
+{
+    return get("../res/bigyellowbarhead.png");
+}
+
+QPixmap PixmapManager::getBigYellowBarTail()
+{
+    return get("../res/bigyellowbartail.png");
+}
+
 bool PixmapManager::loadAll()
 {
-    if(getRedMarker().isNull())
-    {
+    if (getRedMarker().isNull())
         return false;
-    }
-    if(getBlueMarker().isNull())
-    {
+    if (getBlueMarker().isNull())
         return false;
-    }
-    if(getBigRedMarker().isNull())
-    {
+    if (getBigRedMarker().isNull())
         return false;
-    }
-    if(getBigBlueMarker().isNull())
-    {
+    if (getBigBlueMarker().isNull())
         return false;
-    }
+    if (getYellowBarBody().isNull())
+        return false;
+    if (getYellowBarHead().isNull())
+        return false;
+    if (getYellowBarTail().isNull())
+        return false;
+    if (getBigYellowBarBody().isNull())
+        return false;
+    if (getBigYellowBarHead().isNull())
+        return false;
+    if (getBigYellowBarTail().isNull())
+        return false;
 
     return true;
 }

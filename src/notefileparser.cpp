@@ -1,11 +1,13 @@
 #include "notefileparser.h"
 
 #include <QFile>
+#include <QDebug>
 #include "song.h"
 
 NoteFileParser::NoteFileParser(QString filePath,Song *song)
     :filePath_(filePath),song_(song)
 {
+    parse();
 }
 
 bool NoteFileParser::parse()
@@ -25,7 +27,7 @@ bool NoteFileParser::parse()
 
     while (!inputFile.atEnd())
     {
-        QString line = inputFile.readLine();
+        QString line = inputFile.readLine().trimmed();
 
         if (line.isEmpty())
         {
@@ -135,21 +137,23 @@ bool NoteFileParser::parse()
             {
             }
         }
-
-        if (line.startsWith('#'))
+        else if (line.startsWith('#'))
         {
             if (line == "#START")
             {
                 NoteChart *noteChart = song_->createNoteChart();
+                int elapsed = 0;
 
                 noteChart->setCourse(course);
                 noteChart->setLevel(level);
                 noteChart->setScoreInit(scoreInit);
                 noteChart->setScoreDiff(scoreDiff);
 
+                bool isGGT = false;
+
                 while (!inputFile.atEnd())
                 {
-                    line = inputFile.readLine();
+                    line = inputFile.readLine().trimmed();
 
                     if (line.startsWith('#'))
                     {
@@ -159,12 +163,13 @@ bool NoteFileParser::parse()
                         }
                         else if (line == "#GOGOSTART")
                         {
-
+                            isGGT = true;
                         }
-                        else if (line == "GOGOEND")
+                        else if (line == "#GOGOEND")
                         {
-
+                            isGGT = false;
                         }
+                        continue;
                     }
 
                     QStringList measuresSrc = line.split(',',QString::SkipEmptyParts);
@@ -196,9 +201,16 @@ bool NoteFileParser::parse()
                             else if (measureSrc[j] == '9')
                                 noteTypes.append(Note::Yam);
                         }
-                        noteChart->createMeasure(noteTypes,tempo,0,0);
+
+                        noteChart->createMeasure(noteTypes,ballons,tempo,4,4,isGGT,elapsed);
+
+                        elapsed += 60000 / tempo * 4;
                     }
                 }
+            }
+            else if (line == "#BREAK")
+            {
+                break;
             }
         }
     }

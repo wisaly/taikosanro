@@ -4,7 +4,7 @@
 
 #include <QPainter>
 
-Note::Note(Type noteType, int index, QGraphicsItem *parent)
+Note::Note(QGraphicsItem *parent, Type noteType, int index)
     :QGraphicsItem(parent),index_(index)
 {
     switch (noteType) {
@@ -21,7 +21,6 @@ Note::Note(Type noteType, int index, QGraphicsItem *parent)
         notePixmap_ = PixmapManager::getBigBlueMarker();
         break;
     default:
-        Q_ASSERT(true);
         break;
     }
 
@@ -38,12 +37,19 @@ void Note::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->drawPixmap(notePixmap_.rect(),notePixmap_);
+    QRect dstRect = notePixmap_.rect();
+
+    painter->drawPixmap(dstRect,notePixmap_);
 }
 
 int Note::index()
 {
     return index_;
+}
+
+void Note::setUnitWidth(int unitWidth)
+{
+    unitWidth_ = unitWidth;
 }
 
 void Note::advance(int step)

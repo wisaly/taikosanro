@@ -1,30 +1,62 @@
 #include "measure.h"
+#include "noteballon.h"
+#include "noteyellowbar.h"
 #include <QDebug>
 
 Measure::Measure(QGraphicsItem *parent,
                  NoteTypeList &notes,
+                 QList<int> &ballonHits,
                  qreal tempo,
                  int noteValuePerBeat,
-                 int beatsPerBar)
+                 int beatsPerBar, bool isGGT, int appearElapsed)
     :QGraphicsItem(parent),
       tempo_(tempo),
       noteValuePerBeat_(noteValuePerBeat),
-      beatsPerBar_(beatsPerBar)
+      beatsPerBar_(beatsPerBar),
+      isGGT_(isGGT),
+      appearElapsed_(appearElapsed)
 {
     Q_ASSERT(parent != 0);
+    setVisible(false);
 
     canvasRect_ = parent->boundingRect();
 
-    notePosCount_ = notes.count();
+    noteUnitCount_ = notes.count();
     for(int i = 0;i < notes.count();i++)
     {
-        if(notes[i] == Note::Blank)
+        Note *note = 0;
+        if (notes[i] == Note::Blank)
         {
             continue;
         }
+        else if (notes[i] == Note::YellowBar || notes[i] == Note::BigYellowBar)
+        {
+            for (int j = i;j < notes.count();j++)
+            {
+                if (notes[j] == Note::EndYellowBar)
+                {
+                    note = new NoteYellowBar(this,i,notes[i] == Note::BigYellowBar,j - i + 1);
+                    i = j;
+                    break;
+                }
+            }
+        }
+        else if (notes[i] == Note::Ballon)
+        {
+            if (!ballonHits.empty())
+            {
+                note = new NoteBallon(this,i,ballonHits.takeFirst());
+            }
+        }
+        else
+        {
+            note = new Note(this,notes[i],i);
+        }
 
-        Note *note = new Note(notes[i],i,this);
-        notes_.append(note);
+        if (note != 0)
+        {
+            notes_.append(note);
+        }
     }
 }
 
@@ -40,7 +72,7 @@ void Measure::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
 
 void Measure::calcPos(int currentElapsed)
 {
-    qreal offset = tempo_ * currentElapsed * canvasRect_.width() / (notePosCount_ * 60000);
+    qreal offset = tempo_ * (currentElapsed - appearElapsed_) * canvasRect_.width() / (beatsPerBar_ * 60000);
 
     //qDebug() << offset;
     //prepareGeometryChange();
@@ -56,11 +88,14 @@ int Measure::appearElapsed()
 void Measure::setBoundingRect(QRectF rect)
 {
     canvasRect_ = rect;
-    qreal noteUnit = canvasRect_.width() / notePosCount_;
+    qreal unitWidth = canvasRect_.width() / noteUnitCount_;
+    //setTransformOriginPoint(unitWidth / 2,0);
+
     for(int i = 0;i < notes_.count();i++)
     {
-        notes_[i]->setPos(notes_[i]->index() * noteUnit,0);
+        notes_[i]->setPos(notes_[i]->index() * unitWidth,0);
         notes_[i]->setZValue(notes_.count() - i);
+        notes_[i]->setUnitWidth(unitWidth);
     }
 }
 

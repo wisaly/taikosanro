@@ -20,22 +20,25 @@ public:
         Yam,
     };
 
-    explicit Note(Type noteType_,int index,QGraphicsItem *parent = 0);
+    explicit Note(QGraphicsItem *parent,Type noteType,int index);
 
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+    virtual QRectF boundingRect() const;
+    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 QWidget *widget);
 
     int index();
 
-protected:
-    void advance(int step);
+    virtual void setUnitWidth(int unitWidth);
 
-private:
+protected:
+    virtual void advance(int step);
+
+protected:
     Type noteType_;
     QPixmap notePixmap_;
     DetermineRange determineRange_;
     int index_;
+    int unitWidth_;     // actual width of a note unit
 };
 
 typedef QList<Note::Type> NoteTypeList;

@@ -5,7 +5,6 @@
 #include <QString>
 
 class NoteChart;
-class NoteFileParser;
 class QGraphicsItem;
 
 // Song is the most top container
