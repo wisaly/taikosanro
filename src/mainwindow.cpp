@@ -1,5 +1,6 @@
 #include <QKeyEvent>
 #include <QTime>
+#include <QGLWidget>
 #include "mainwindow.h"
 #include "measure.h"
 #include "note.h"
@@ -68,4 +69,6 @@ void MainWindow::showEvent(QShowEvent *event)
     QRectF rect = ui->graphicsView->rect().adjusted(0,0,-10,-10);
     chart_->setBoundingRect(rect);
     ui->graphicsView->setSceneRect(rect);
+    ui->graphicsView->setCacheMode(QGraphicsView::CacheBackground);
+    ui->graphicsView->setViewport(new QGLWidget);
 }
