@@ -81,7 +81,10 @@ void Measure::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
 
 void Measure::calcPos(int currentElapsed)
 {
-    qreal offset = tempo_ * (currentElapsed - appearElapsed_) * canvasRect_.width() / (beatsPerBar_ * 60000);
+    qreal offset = (currentElapsed - appearElapsed_)
+            * tempo_ * canvasRect_.width() / (beatsPerBar_ * 60000);
+
+    //qDebug() << appearElapsed_ << canvasRect_.width() - pos().x() - offset;
 
     setPos(canvasRect_.width() - offset,0);
 }

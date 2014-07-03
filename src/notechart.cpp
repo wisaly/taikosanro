@@ -80,15 +80,17 @@ void NoteChart::advance(int step)
     }
     if (step)
     {
+        int currentElapsed = playProgress_.elapsed();
+        //qDebug() << currentElapsed << "begin";
         // hide disappear measure
-        if (currentMeasure_ > 0 && playProgress_.elapsed() > measures_[currentMeasure_]->disappearElapsed())
+        if (currentMeasure_ > 0 && currentElapsed > measures_[currentMeasure_]->disappearElapsed())
         {
             measures_[currentMeasure_]->setVisible(false);
         }
 
         // change current measure and show
         if (currentMeasure_ + 1 < measures_.count() &&
-                playProgress_.elapsed() >= measures_[currentMeasure_ + 1]->appearElapsed())
+                currentElapsed >= measures_[currentMeasure_ + 1]->appearElapsed())
         {
             currentMeasure_++;
             measures_[currentMeasure_]->setVisible(true);
@@ -97,18 +99,19 @@ void NoteChart::advance(int step)
         // current measure position
         if (currentMeasure_ >= 0)
         {
-            measures_[currentMeasure_]->calcPos(playProgress_.elapsed());
+            measures_[currentMeasure_]->calcPos(currentElapsed);
         }
         // previous measure position
         if (currentMeasure_ > 0)
         {
-            measures_[currentMeasure_ - 1]->calcPos(playProgress_.elapsed());
+            measures_[currentMeasure_ - 1]->calcPos(currentElapsed);
         }
         // previous previous measure position
         if (currentMeasure_ > 1)
         {
-            measures_[currentMeasure_ - 2]->calcPos(playProgress_.elapsed());
+            measures_[currentMeasure_ - 2]->calcPos(currentElapsed);
         }
+        //qDebug() << currentElapsed << "end" << playProgress_.elapsed() - currentElapsed;
     }
 }
 int NoteChart::scoreDiff() const

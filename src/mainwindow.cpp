@@ -70,5 +70,5 @@ void MainWindow::showEvent(QShowEvent *event)
     chart_->setBoundingRect(rect);
     ui->graphicsView->setSceneRect(rect);
     ui->graphicsView->setCacheMode(QGraphicsView::CacheBackground);
-    ui->graphicsView->setViewport(new QGLWidget);
+    //ui->graphicsView->setViewport(new QGLWidget);
 }
