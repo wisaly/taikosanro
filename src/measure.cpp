@@ -83,9 +83,7 @@ void Measure::calcPos(int currentElapsed)
 {
     qreal offset = tempo_ * (currentElapsed - appearElapsed_) * canvasRect_.width() / (beatsPerBar_ * 60000);
 
-    //setPos(canvasRect_.width() - offset,0);
-
-    scroll(offset,0);
+    setPos(canvasRect_.width() - offset,0);
 }
 
 int Measure::appearElapsed()

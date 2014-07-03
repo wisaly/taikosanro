@@ -28,8 +28,8 @@ void NoteChart::play()
     }
     else
     {
-        currentMeasure_ = -1;
         reset();
+        currentMeasure_ = -1;
         playProgress_.start();
         isPlaying_ = true;
     }
