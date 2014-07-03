@@ -25,6 +25,8 @@ public:
     int appearElapsed();
     void setBoundingRect(QRectF rect);
 
+    int disappearElapsed() const;
+
 protected:
     virtual void advance(int step);
 
@@ -38,5 +40,6 @@ private:
     bool isGGT_;
 
     int appearElapsed_;
+    int disappearElapsed_;
 };
 #endif // MEASURE_H

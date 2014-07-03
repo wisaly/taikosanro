@@ -15,4 +15,7 @@ const int GREAT_RANGE = 50;
 const int GOOD_RANGE = 150;
 const int FAIL_RANGE = 217;
 
+const int NOTE_WIDTH = 100;
+const int NOTE_HEIGHT = 100;
+
 #endif // STABLE_H

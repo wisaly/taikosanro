@@ -15,19 +15,29 @@ QRectF NoteChart::boundingRect() const
 
 void NoteChart::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
     painter->drawRect(rect_);
 }
 
 void NoteChart::play()
 {
-    currentMeasure_ = -1;
-    playProgress_.start();
-    isPlaying_ = true;
+    if (isPlaying_)
+    {
+        isPlaying_ = false;
+    }
+    else
+    {
+        currentMeasure_ = -1;
+        reset();
+        playProgress_.start();
+        isPlaying_ = true;
+    }
 }
 
 void NoteChart::hit(TaikoState state)
 {
-
+    Q_UNUSED(state);
 }
 
 void NoteChart::setBoundingRect(QRectF rect)
@@ -40,9 +50,18 @@ void NoteChart::setBoundingRect(QRectF rect)
     }
 }
 
+void NoteChart::reset()
+{
+    for (int i = 0;i < measures_.count();i++)
+    {
+        measures_[i]->calcPos(measures_[i]->appearElapsed());
+    }
+}
+
 Measure *NoteChart::createMeasure(NoteTypeList &notes, QList<int> &ballonHits, qreal tempo, int noteValuePerBeat, int beatsPerBar, bool isGGT, int appearElapsed)
 {
     Measure *measure = new Measure(this,notes,ballonHits,tempo,noteValuePerBeat,beatsPerBar,isGGT,appearElapsed);
+    measure->setZValue(-1 * measures_.count());
     measures_.append(measure);
 
     return measure;
@@ -61,24 +80,34 @@ void NoteChart::advance(int step)
     }
     if (step)
     {
+        // hide disappear measure
+        if (currentMeasure_ > 0 && playProgress_.elapsed() > measures_[currentMeasure_]->disappearElapsed())
+        {
+            measures_[currentMeasure_]->setVisible(false);
+        }
+
+        // change current measure and show
         if (currentMeasure_ + 1 < measures_.count() &&
                 playProgress_.elapsed() >= measures_[currentMeasure_ + 1]->appearElapsed())
         {
-            if (currentMeasure_ > 0)
-            {
-                measures_[currentMeasure_ - 1]->setVisible(false);
-            }
             currentMeasure_++;
             measures_[currentMeasure_]->setVisible(true);
         }
 
+        // current measure position
+        if (currentMeasure_ >= 0)
+        {
+            measures_[currentMeasure_]->calcPos(playProgress_.elapsed());
+        }
+        // previous measure position
         if (currentMeasure_ > 0)
         {
             measures_[currentMeasure_ - 1]->calcPos(playProgress_.elapsed());
         }
-        if (currentMeasure_ >= 0)
+        // previous previous measure position
+        if (currentMeasure_ > 1)
         {
-            measures_[currentMeasure_]->calcPos(playProgress_.elapsed());
+            measures_[currentMeasure_ - 2]->calcPos(playProgress_.elapsed());
         }
     }
 }

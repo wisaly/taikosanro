@@ -37,9 +37,9 @@ void Note::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    QRect dstRect = notePixmap_.rect();
+    //QRect dstRect = notePixmap_.rect();
 
-    painter->drawPixmap(dstRect,notePixmap_);
+    painter->drawPixmap(0,0,NOTE_WIDTH,NOTE_HEIGHT,notePixmap_);
 }
 
 int Note::index()

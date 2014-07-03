@@ -1,4 +1,5 @@
 #include <QKeyEvent>
+#include <QTime>
 #include "mainwindow.h"
 #include "measure.h"
 #include "note.h"
@@ -21,10 +22,11 @@ MainWindow::MainWindow(QWidget *parent) :
     scene->addItem(canvas);
 
     Song *song = new Song(canvas);
-    NoteFileParser *parser = new NoteFileParser("../res/example.tja",song);
+    new NoteFileParser("../res/example.tja",song);
     chart_ = song->chartAt(0);
 
     startTimer(1000 / 60);
+    fpsTimer_.start();
 }
 
 MainWindow::~MainWindow()
@@ -35,6 +37,13 @@ MainWindow::~MainWindow()
 void MainWindow::timerEvent(QTimerEvent *event)
 {
     Q_UNUSED(event);
+    if (fpsTimer_.elapsed() >= 1000)
+    {
+        setWindowTitle(QString("time-%1 fps-%2").arg(QTime::currentTime().toString("hh:mm:ss")).arg(fpsCount_));
+        fpsCount_ = 0;
+        fpsTimer_.start();
+    }
+    fpsCount_++;
     ui->graphicsView->scene()->advance();
 }
 
@@ -54,7 +63,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 void MainWindow::showEvent(QShowEvent *event)
 {
-    QRectF rect = ui->graphicsView->rect().adjusted(0,0,-100,-10);
+    Q_UNUSED(event);
+
+    QRectF rect = ui->graphicsView->rect().adjusted(0,0,-10,-10);
     chart_->setBoundingRect(rect);
     ui->graphicsView->setSceneRect(rect);
 }

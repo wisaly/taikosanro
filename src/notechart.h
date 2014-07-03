@@ -20,6 +20,8 @@ public:
     void hit(TaikoState state);
     void setBoundingRect(QRectF rect);
 
+    void reset();
+
     Measure* createMeasure(NoteTypeList &notes,
                            QList<int> &ballonHits,
                            qreal tempo,

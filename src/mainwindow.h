@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QElapsedTimer>
 #include <QWidget>
 
 namespace Ui {
@@ -23,6 +24,8 @@ private:
 private:
     Ui::MainWindow *ui;
     NoteChart *chart_;
+    QElapsedTimer fpsTimer_;
+    int fpsCount_;
 };
 
 #endif // MAINWINDOW_H

@@ -1,7 +1,9 @@
 #include "measure.h"
 #include "noteballon.h"
 #include "noteyellowbar.h"
+#include "stable.h"
 #include <QDebug>
+#include <QPainter>
 
 Measure::Measure(QGraphicsItem *parent,
                  NoteTypeList &notes,
@@ -18,6 +20,7 @@ Measure::Measure(QGraphicsItem *parent,
 {
     Q_ASSERT(parent != 0);
     setVisible(false);
+    setCacheMode(ItemCoordinateCache);
 
     canvasRect_ = parent->boundingRect();
 
@@ -53,11 +56,14 @@ Measure::Measure(QGraphicsItem *parent,
             note = new Note(this,notes[i],i);
         }
 
+        note->setZValue(-1 * i);
         if (note != 0)
         {
             notes_.append(note);
         }
     }
+
+    disappearElapsed_ = appearElapsed_ + 60000 / tempo_ * beatsPerBar_ * 2;
 }
 
 QRectF Measure::boundingRect() const
@@ -67,17 +73,19 @@ QRectF Measure::boundingRect() const
 
 void Measure::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
 
+    painter->drawLine(NOTE_WIDTH / 2,0,NOTE_WIDTH / 2, NOTE_HEIGHT);
 }
 
 void Measure::calcPos(int currentElapsed)
 {
     qreal offset = tempo_ * (currentElapsed - appearElapsed_) * canvasRect_.width() / (beatsPerBar_ * 60000);
 
-    //qDebug() << offset;
-    //prepareGeometryChange();
-    //canvasRect_.moveLeft(canvasRect_.width() - offset);
-    setPos(canvasRect_.width() - offset,0);
+    //setPos(canvasRect_.width() - offset,0);
+
+    scroll(offset,0);
 }
 
 int Measure::appearElapsed()
@@ -89,17 +97,20 @@ void Measure::setBoundingRect(QRectF rect)
 {
     canvasRect_ = rect;
     qreal unitWidth = canvasRect_.width() / noteUnitCount_;
-    //setTransformOriginPoint(unitWidth / 2,0);
 
     for(int i = 0;i < notes_.count();i++)
     {
         notes_[i]->setPos(notes_[i]->index() * unitWidth,0);
-        notes_[i]->setZValue(notes_.count() - i);
         notes_[i]->setUnitWidth(unitWidth);
     }
 }
 
 void Measure::advance(int step)
 {
-
+    Q_UNUSED(step);
 }
+int Measure::disappearElapsed() const
+{
+    return disappearElapsed_;
+}
+

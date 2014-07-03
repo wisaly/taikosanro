@@ -1,5 +1,6 @@
 #include "noteyellowbar.h"
 #include "pixmapmanager.h"
+#include "stable.h"
 
 #include <QPainter>
 
@@ -26,9 +27,9 @@ void NoteYellowBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    QRectF headRect = noteHeadPixmap_.rect();
-    QRectF tailRect = noteTailPixmap_.rect();
-    QRectF bodyRect = notePixmap_.rect();
+    QRectF headRect(0,0,NOTE_WIDTH,NOTE_HEIGHT);
+    QRectF tailRect(0,0,NOTE_WIDTH,NOTE_HEIGHT);
+    QRectF bodyRect(0,0,NOTE_WIDTH,NOTE_HEIGHT);
     tailRect.moveLeft(length_ * unitWidth_ - tailRect.width());
     bodyRect.setLeft(headRect.width() / 2);
     bodyRect.setRight(length_ * unitWidth_ - tailRect.width() / 2);
