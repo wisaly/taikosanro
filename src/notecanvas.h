@@ -10,12 +10,12 @@ class NoteCanvas : public QGraphicsItem
 public:
     NoteCanvas(QGraphicsItem *parent = 0);
 
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+    virtual QRectF boundingRect() const;
+    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 QWidget *widget);
 
 protected:
-    void advance(int step);
+    virtual void advance(int step);
 
 private:
     QRectF rect_;

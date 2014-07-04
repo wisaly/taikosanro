@@ -39,12 +39,22 @@ void Note::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 
     //QRect dstRect = notePixmap_.rect();
 
-    painter->drawPixmap(0,0,NOTE_WIDTH,NOTE_HEIGHT,notePixmap_);
+    painter->drawPixmap(0,0,Ts::NOTE_WIDTH,Ts::NOTE_HEIGHT,notePixmap_);
 }
 
 int Note::index()
 {
     return index_;
+}
+
+void Note::setDetermineTime(int elapsed)
+{
+    determineRange_.setRange(elapsed);
+}
+
+Ts::DetermineValue Note::determine(int elapsed)
+{
+    return determineRange_.determine(elapsed);
 }
 
 void Note::setUnitWidth(int unitWidth)

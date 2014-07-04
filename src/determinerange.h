@@ -1,29 +1,27 @@
 #ifndef DETERMINERANGE_H
 #define DETERMINERANGE_H
+#include "stable.h"
 
 class DetermineRange
 {
 public:
-    enum Type{
-        Great,
-        Good,
-        Fail,
-        Miss
-    };
 
-    DetermineRange();
+    DetermineRange(int appearElapsed_ = 0);
 
-    Type determine(int currentElapsed);
+    Ts::DetermineValue determine(int currentElapsed);
 
-    void setRange(int elapsed,int goodRange,int greatRange,int failRange);
+    void setRange(int elapsed,
+                  int goodRange = Ts::GOOD_RANGE,
+                  int greatRange = Ts::GREAT_RANGE,
+                  int failRange = Ts::FAIL_RANGE);
 private:
-    int greatBegin;
-    int greatEnd;
-    int goodBegin;
-    int goodEnd;
-    int failBegin;
-    int failEnd;
-    int exactElapsed;
+    int greatBegin_;
+    int greatEnd_;
+    int goodBegin_;
+    int goodEnd_;
+    int failBegin_;
+    int failEnd_;
+    int appearElapsed_;
 };
 
 #endif // DETERMINERANGE_H

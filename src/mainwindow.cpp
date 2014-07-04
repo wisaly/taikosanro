@@ -8,6 +8,7 @@
 #include "notechart.h"
 #include "notefileparser.h"
 #include "song.h"
+#include "determineresult.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -21,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     NoteCanvas *canvas = new NoteCanvas();
     scene->addItem(canvas);
+
+    determine_ = new DetermineResult(canvas);
 
     Song *song = new Song(canvas);
     new NoteFileParser("../res/example.tja",song);
@@ -50,9 +53,23 @@ void MainWindow::timerEvent(QTimerEvent *event)
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
+    QMap<int,Ts::TaikoState> keys;
+    keys[Qt::Key_F] = Ts::DON_LEFT;
+    keys[Qt::Key_J] = Ts::DON_RIGHT;
+    keys[Qt::Key_D] = Ts::KA_LEFT;
+    keys[Qt::Key_K] = Ts::KA_RIGHT;
+
     if (event->key() == Qt::Key_Space)
     {
         chart_->play();
+
+        event->accept();
+    }
+    else if (keys.contains(event->key()))
+    {
+        Ts::DetermineValue result = chart_->hitTest(keys[event->key()]);
+        determine_->showResult(result);
+
         event->accept();
     }
     else
@@ -70,5 +87,7 @@ void MainWindow::showEvent(QShowEvent *event)
     chart_->setBoundingRect(rect);
     ui->graphicsView->setSceneRect(rect);
     ui->graphicsView->setCacheMode(QGraphicsView::CacheBackground);
+    ui->graphicsView->setRenderHint(QPainter::Antialiasing);
+    ui->graphicsView->setRenderHint(QPainter::TextAntialiasing);
     //ui->graphicsView->setViewport(new QGLWidget);
 }

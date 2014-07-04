@@ -1,37 +1,43 @@
 #include "determinerange.h"
 
-DetermineRange::DetermineRange()
+DetermineRange::DetermineRange(int appearElapsed)
 {
+    setRange(appearElapsed);
 }
 
-DetermineRange::Type DetermineRange::determine(int currentElapsed)
+Ts::DetermineValue DetermineRange::determine(int currentElapsed)
 {
-    if(currentElapsed > greatBegin || currentElapsed < greatEnd)
+    if(currentElapsed > greatBegin_ || currentElapsed < greatEnd_)
     {
-        return Great;
+        return Ts::GREAT;
     }
 
-    if(currentElapsed > goodBegin || currentElapsed < goodEnd)
+    if(currentElapsed > goodBegin_ || currentElapsed < goodEnd_)
     {
-        return Good;
+        return Ts::GOOD;
     }
 
-    if(currentElapsed > failBegin || currentElapsed < failEnd)
+    if(currentElapsed > failBegin_ || currentElapsed < failEnd_)
     {
-        return Fail;
+        return Ts::FAIL;
     }
 
-    return Miss;
+    if (currentElapsed > failEnd_)
+    {
+        return Ts::MISS;
+    }
+
+    return Ts::OUTSIDE;
 }
 
 void DetermineRange::setRange(int elapsed, int goodRange, int greatRange, int failRange)
 {
-    greatBegin = elapsed - greatRange;
-    greatEnd = elapsed + greatRange;
-    goodBegin = elapsed - goodRange;
-    goodEnd = elapsed + goodRange;
-    failBegin = elapsed - failRange;
-    failEnd = elapsed + failRange;
+    greatBegin_ = elapsed - greatRange;
+    greatEnd_ = elapsed + greatRange;
+    goodBegin_ = elapsed - goodRange;
+    goodEnd_ = elapsed + goodRange;
+    failBegin_ = elapsed - failRange;
+    failEnd_ = elapsed + failRange;
 
-    exactElapsed = elapsed;
+    appearElapsed_ = elapsed;
 }

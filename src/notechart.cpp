@@ -30,14 +30,38 @@ void NoteChart::play()
     {
         reset();
         currentMeasure_ = -1;
+        detMeasureRed_ = 0;
+        detMeasureBlue_ = 0;
+        detNoteRed_ = 0;
+        detNoteBlue_ = 0;
         playProgress_.start();
         isPlaying_ = true;
     }
 }
 
-void NoteChart::hit(TaikoState state)
+Ts::DetermineValue NoteChart::hitTest(Ts::TaikoState state)
 {
-    Q_UNUSED(state);
+    if (state & Ts::DON_BOTH)
+    {
+        if (detMeasureRed_ >= measures_.count())
+            return Ts::OUTSIDE;
+
+        if (measures_[detMeasureRed_]->noteAt(detNoteRed_)->determine(playProgress_.elapsed()))
+        {
+
+        }
+    }
+    else if (state & Ts::KA_BOTH)
+    {
+
+    }
+    else
+    {
+
+    }
+
+
+    return Ts::OUTSIDE;
 }
 
 void NoteChart::setBoundingRect(QRectF rect)
@@ -54,11 +78,11 @@ void NoteChart::reset()
 {
     for (int i = 0;i < measures_.count();i++)
     {
-        measures_[i]->calcPos(measures_[i]->appearElapsed());
+        measures_[i]->reset();
     }
 }
 
-Measure *NoteChart::createMeasure(NoteTypeList &notes, QList<int> &ballonHits, qreal tempo, int noteValuePerBeat, int beatsPerBar, bool isGGT, int appearElapsed)
+Measure *NoteChart::createMeasure(NoteTypeList &notes, QQueue<int> &ballonHits, qreal tempo, int noteValuePerBeat, int beatsPerBar, bool isGGT, int appearElapsed)
 {
     Measure *measure = new Measure(this,notes,ballonHits,tempo,noteValuePerBeat,beatsPerBar,isGGT,appearElapsed);
     measure->setZValue(-1 * measures_.count());

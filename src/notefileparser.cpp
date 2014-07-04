@@ -2,6 +2,7 @@
 
 #include <QFile>
 #include <QDebug>
+#include <QQueue>
 #include "song.h"
 
 NoteFileParser::NoteFileParser(QString filePath,Song *song)
@@ -23,7 +24,9 @@ bool NoteFileParser::parse()
     int scoreInit = 0;
     int scoreDiff = 0;
     qreal tempo = 0;
-    QList<int> ballons;
+    QQueue<int> ballons;
+    int beatsPerBar = 4;
+    int noteValuePerBeat = 4;
 
     while (!inputFile.atEnd())
     {
@@ -66,7 +69,7 @@ bool NoteFileParser::parse()
                 ballons.clear();
                 for (int i = 0;i < ballonsSrc.count();i++)
                 {
-                    ballons.append(ballonsSrc[i].toInt());
+                    ballons.enqueue(ballonsSrc[i].toInt());
                 }
             }
             else if (key == "SCOREINIT")
@@ -202,9 +205,9 @@ bool NoteFileParser::parse()
                                 noteTypes.append(Note::Yam);
                         }
 
-                        noteChart->createMeasure(noteTypes,ballons,tempo,4,4,isGGT,elapsed);
+                        noteChart->createMeasure(noteTypes,ballons,tempo,noteValuePerBeat,beatsPerBar,isGGT,elapsed);
 
-                        elapsed += 60000 / tempo * 4;
+                        elapsed += 60000 * beatsPerBar / tempo;
                     }
                 }
             }

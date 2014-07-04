@@ -17,13 +17,14 @@ public:
                 QWidget *widget);
 
     void play();
-    void hit(TaikoState state);
+    Ts::DetermineValue hitTest(Ts::TaikoState state);
+
     void setBoundingRect(QRectF rect);
 
     void reset();
 
     Measure* createMeasure(NoteTypeList &notes,
-                           QList<int> &ballonHits,
+                           QQueue<int> &ballonHits,
                            qreal tempo,
                            int noteValuePerBeat,
                            int beatsPerBar,
@@ -51,12 +52,15 @@ private:
     int level_;
     int scoreInit_;
     int scoreDiff_;
-    QRectF rect_;
+    QRectF rect_;               // bounding rect
     QList<Measure*> measures_;
-    int currentMeasure_;
-    //int playProgress_;
+    int currentMeasure_;        // latest display measure
     QElapsedTimer playProgress_;
     bool isPlaying_;
+    int detMeasureRed_;   // determine measure index for red
+    int detMeasureBlue_;  // determine measure index for blue
+    int detNoteRed_;      // determine note index of red measure
+    int detNoteBlue_;     // determine note index of blue measure
 };
 
 #endif // NOTECHART_H

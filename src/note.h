@@ -1,8 +1,9 @@
 #ifndef NOTE_H
 #define NOTE_H
 
-#include "determinerange.h"
 #include <QGraphicsItem>
+#include "determinerange.h"
+#include "stable.h"
 
 class Note : public QGraphicsItem
 {
@@ -20,13 +21,15 @@ public:
         Yam,
     };
 
-    explicit Note(QGraphicsItem *parent,Type noteType,int index);
+   explicit Note(QGraphicsItem *parent,Type noteType,int index);
 
-    virtual QRectF boundingRect() const;
-    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-                QWidget *widget);
+   virtual QRectF boundingRect() const;
+   virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+               QWidget *widt);
 
     int index();
+    void setDetermineTime(int elapsed);
+    Ts::DetermineValue determine(int elapsed);
 
     virtual void setUnitWidth(int unitWidth);
 

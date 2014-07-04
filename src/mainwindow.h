@@ -9,6 +9,7 @@ class MainWindow;
 }
 
 class NoteChart;
+class DetermineResult;
 class MainWindow : public QWidget
 {
     Q_OBJECT
@@ -24,6 +25,7 @@ private:
 private:
     Ui::MainWindow *ui;
     NoteChart *chart_;
+    DetermineResult *determine_;
     QElapsedTimer fpsTimer_;
     int fpsCount_;
 };

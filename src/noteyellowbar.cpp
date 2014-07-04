@@ -27,9 +27,9 @@ void NoteYellowBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    QRectF headRect(0,0,NOTE_WIDTH,NOTE_HEIGHT);
-    QRectF tailRect(0,0,NOTE_WIDTH,NOTE_HEIGHT);
-    QRectF bodyRect(0,0,NOTE_WIDTH,NOTE_HEIGHT);
+    QRectF headRect(0,0,Ts::NOTE_WIDTH,Ts::NOTE_HEIGHT);
+    QRectF tailRect(0,0,Ts::NOTE_WIDTH,Ts::NOTE_HEIGHT);
+    QRectF bodyRect(0,0,Ts::NOTE_WIDTH,Ts::NOTE_HEIGHT);
     tailRect.moveLeft(length_ * unitWidth_ - tailRect.width());
     bodyRect.setLeft(headRect.width() / 2);
     bodyRect.setRight(length_ * unitWidth_ - tailRect.width() / 2);

@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     notefileparser.cpp \
     song.cpp \
     noteyellowbar.cpp \
-    noteballon.cpp
+    noteballon.cpp \
+    determineresult.cpp
 
 HEADERS  += mainwindow.h \
     note.h \
@@ -36,6 +37,7 @@ HEADERS  += mainwindow.h \
     notefileparser.h \
     song.h \
     noteyellowbar.h \
-    noteballon.h
+    noteballon.h \
+    determineresult.h
 
 FORMS    += mainwindow.ui

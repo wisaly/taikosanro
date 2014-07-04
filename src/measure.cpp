@@ -7,7 +7,7 @@
 
 Measure::Measure(QGraphicsItem *parent,
                  NoteTypeList &notes,
-                 QList<int> &ballonHits,
+                 QQueue<int> &ballonHits,
                  qreal tempo,
                  int noteValuePerBeat,
                  int beatsPerBar, bool isGGT, int appearElapsed)
@@ -25,6 +25,7 @@ Measure::Measure(QGraphicsItem *parent,
     canvasRect_ = parent->boundingRect();
 
     noteUnitCount_ = notes.count();
+
     for(int i = 0;i < notes.count();i++)
     {
         Note *note = 0;
@@ -56,6 +57,7 @@ Measure::Measure(QGraphicsItem *parent,
             note = new Note(this,notes[i],i);
         }
 
+        note->setDetermineTime(appearElapsed_ + 60000.0 / tempo_ * beatsPerBar + i * 60000.0 * beatsPerBar_ / noteUnitCount_ / tempo);
         note->setZValue(-1 * i);
         if (note != 0)
         {
@@ -76,7 +78,12 @@ void Measure::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->drawLine(NOTE_WIDTH / 2,0,NOTE_WIDTH / 2, NOTE_HEIGHT);
+    painter->drawLine(Ts::NOTE_WIDTH / 2,0,Ts::NOTE_WIDTH / 2, Ts::NOTE_HEIGHT);
+}
+
+void Measure::reset()
+{
+    setPos(canvasRect_.width(),0);
 }
 
 void Measure::calcPos(int currentElapsed)
@@ -106,12 +113,22 @@ void Measure::setBoundingRect(QRectF rect)
     }
 }
 
-void Measure::advance(int step)
-{
-    Q_UNUSED(step);
-}
 int Measure::disappearElapsed() const
 {
     return disappearElapsed_;
 }
 
+int Measure::noteCount()
+{
+    return notes_.count();
+}
+
+Note *Measure::noteAt(int index)
+{
+    return notes_[index];
+}
+
+void Measure::advance(int step)
+{
+    Q_UNUSED(step);
+}

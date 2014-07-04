@@ -4,13 +4,14 @@
 #include "note.h"
 
 #include <QGraphicsItem>
+#include <QQueue>
 
 class Measure : public QGraphicsItem
 {
 public:
     Measure(QGraphicsItem *parent,
             NoteTypeList &notes,
-            QList<int> &ballonHits,
+            QQueue<int> &ballonHits,
             qreal tempo,
             int noteValuePerBeat,
             int beatsPerBar,
@@ -21,11 +22,14 @@ public:
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 QWidget *widget);
 
+    void reset();
     void calcPos(int currentElapsed);
     int appearElapsed();
     void setBoundingRect(QRectF rect);
 
     int disappearElapsed() const;
+    int noteCount();
+    Note *noteAt(int index);
 
 protected:
     virtual void advance(int step);
