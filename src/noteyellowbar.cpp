@@ -54,5 +54,10 @@ void NoteYellowBar::setHitCount(int hitCount)
     hitCount_ = hitCount;
 }
 
+bool NoteYellowBar::acceptAct(Ts::TaikoState action)
+{
+    return (action & Ts::DON_BOTH) || (action & Ts::KA_BOTH);
+}
+
 
 

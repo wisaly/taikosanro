@@ -22,20 +22,16 @@ void DetermineResult::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     case Ts::OUTSIDE:
         break;
     case Ts::GREAT:
-        painter->setPen(Qt::yellow);
-        painter->drawText(boundingRect(),Qt::AlignCenter,"良");
+        painter->drawText(boundingRect(),Qt::AlignHCenter,"良");
         break;
     case Ts::GOOD:
-        painter->setPen(Qt::gray);
-        painter->drawText(boundingRect(),Qt::AlignCenter,"可");
+        painter->drawText(boundingRect(),Qt::AlignHCenter,"可");
         break;
     case Ts::FAIL:
-        painter->setPen(Qt::black);
-        painter->drawText(boundingRect(),Qt::AlignCenter,"不可");
+        painter->drawText(boundingRect(),Qt::AlignHCenter,"不可");
         break;
     case Ts::MISS:
-        painter->setPen(Qt::black);
-        painter->drawText(boundingRect(),Qt::AlignCenter,"Miss");
+        painter->drawText(boundingRect(),Qt::AlignHCenter,"Miss");
         break;
     }
 }
@@ -53,10 +49,10 @@ void DetermineResult::advance(int step)
 
 void DetermineResult::showResult(Ts::DetermineValue result)
 {
-    result_ = result;
     if (result_ == Ts::OUTSIDE)
         return;
 
+    result_ = result;
     startShow_.start();
     show();
 }

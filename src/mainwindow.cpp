@@ -1,6 +1,7 @@
 #include <QKeyEvent>
 #include <QTime>
 #include <QGLWidget>
+#include <QPropertyAnimation>
 #include "mainwindow.h"
 #include "measure.h"
 #include "note.h"
@@ -49,6 +50,9 @@ void MainWindow::timerEvent(QTimerEvent *event)
     }
     fpsCount_++;
     ui->graphicsView->scene()->advance();
+
+    Ts::DetermineValue result = chart_->hitTest(Ts::NO_ACT);
+    determine_->showResult(result);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -72,6 +76,16 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
         event->accept();
     }
+    else if (event->key() == Qt::Key_Q)
+    {
+//        Note *note = new Note(chart_,Note::RedMarker,0);
+//        QPropertyAnimation *animation = new QPropertyAnimation(note, "pos");
+//        animation->setDuration(1000);
+//        animation->setStartValue(QPoint(0,0));
+//        animation->setEndValue(QPoint(100,0));
+
+//        animation->start();
+    }
     else
     {
         event->ignore();
@@ -84,8 +98,9 @@ void MainWindow::showEvent(QShowEvent *event)
     Q_UNUSED(event);
 
     QRectF rect = ui->graphicsView->rect().adjusted(0,0,-10,-10);
-    chart_->setBoundingRect(rect);
+    //chart_->setBoundingRect(rect);
     ui->graphicsView->setSceneRect(rect);
+    ui->graphicsView->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
     ui->graphicsView->setCacheMode(QGraphicsView::CacheBackground);
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
     ui->graphicsView->setRenderHint(QPainter::TextAntialiasing);

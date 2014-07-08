@@ -24,7 +24,9 @@ Note::Note(QGraphicsItem *parent, Type noteType, int index)
         break;
     }
 
-    this->noteType_ = noteType;
+    noteType_ = noteType;
+
+    setCacheMode(DeviceCoordinateCache);
 }
 
 QRectF Note::boundingRect() const
@@ -55,6 +57,17 @@ void Note::setDetermineTime(int elapsed)
 Ts::DetermineValue Note::determine(int elapsed)
 {
     return determineRange_.determine(elapsed);
+}
+
+bool Note::acceptAct(Ts::TaikoState action)
+{
+    if ((action & Ts::DON_BOTH &&
+            (noteType_ == RedMarker || noteType_ == BigRedMarker)) ||
+        (action & Ts::KA_BOTH &&
+            (noteType_ == BlueMarker || noteType_ == BigBlueMarker)))
+        return true;
+
+    return false;
 }
 
 void Note::setUnitWidth(int unitWidth)

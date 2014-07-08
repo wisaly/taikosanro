@@ -6,6 +6,11 @@ NoteChart::NoteChart(QGraphicsItem *parent)
     :QGraphicsItem(parent),isPlaying_(false)
 {
     setFlag(QGraphicsItem::ItemClipsChildrenToShape);
+
+    if (parent != 0)
+    {
+        this->setBoundingRect(parent->boundingRect());
+    }
 }
 
 QRectF NoteChart::boundingRect() const
@@ -30,10 +35,10 @@ void NoteChart::play()
     {
         reset();
         currentMeasure_ = -1;
-        detMeasureRed_ = 0;
-        detMeasureBlue_ = 0;
-        detNoteRed_ = 0;
-        detNoteBlue_ = 0;
+        detMeasureDon_ = 0;
+        detMeasureKa_ = 0;
+        detNoteDon_ = 0;
+        detNoteKa_ = 0;
         playProgress_.start();
         isPlaying_ = true;
     }
@@ -41,25 +46,100 @@ void NoteChart::play()
 
 Ts::DetermineValue NoteChart::hitTest(Ts::TaikoState state)
 {
+    // move to next valid measure & note
+    while (detMeasureDon_ < measures_.count())
+    {
+        // move to next measure
+        if (detNoteDon_ >= measures_[detMeasureDon_]->noteCount())
+        {
+            detMeasureDon_++;
+            detNoteDon_ = 0;
+            continue;
+        }
+
+        // move to next acceptable note
+        while (detNoteDon_ < measures_[detMeasureDon_]->noteCount())
+        {
+            if (!measures_[detMeasureDon_]->noteAt(detNoteDon_)->acceptAct(Ts::DON_BOTH))
+                detNoteDon_++;
+            else
+                break;
+        }
+        if (detNoteDon_ < measures_[detMeasureDon_]->noteCount())
+            break;
+    }
+
+    while (detMeasureKa_ < measures_.count())
+    {
+        if (detNoteKa_ >= measures_[detMeasureKa_]->noteCount())
+        {
+            detMeasureKa_++;
+            detNoteKa_ = 0;
+            continue;
+        }
+
+        while (detNoteKa_ < measures_[detMeasureKa_]->noteCount())
+        {
+            if (!measures_[detMeasureKa_]->noteAt(detNoteKa_)->acceptAct(Ts::KA_BOTH))
+                detNoteKa_++;
+            else
+                break;
+        }
+        if (detNoteKa_ < measures_[detMeasureKa_]->noteCount())
+            break;
+    }
+
+    if(state != Ts::NO_ACT)
+        qDebug() << detMeasureDon_ << detNoteDon_ << detMeasureKa_ << detNoteKa_;
+
+    // hit determine
     if (state & Ts::DON_BOTH)
     {
-        if (detMeasureRed_ >= measures_.count())
+        if (detMeasureDon_ >= measures_.count())
             return Ts::OUTSIDE;
 
-        if (measures_[detMeasureRed_]->noteAt(detNoteRed_)->determine(playProgress_.elapsed()))
-        {
+        Ts::DetermineValue result = measures_[detMeasureDon_]->noteAt(detNoteDon_)->determine(playProgress_.elapsed());
+        if (result == Ts::OUTSIDE)
+            return Ts::OUTSIDE;
 
-        }
+        measures_[detMeasureDon_]->noteAt(detNoteDon_)->hide();
+        detNoteDon_++;
+        return result;
     }
     else if (state & Ts::KA_BOTH)
     {
+        if (detMeasureKa_ >= measures_.count())
+            return Ts::OUTSIDE;
 
+        Ts::DetermineValue result = measures_[detMeasureKa_]->noteAt(detNoteKa_)->determine(playProgress_.elapsed());
+        if (result == Ts::OUTSIDE)
+            return Ts::OUTSIDE;
+
+        measures_[detMeasureKa_]->noteAt(detNoteKa_)->hide();
+        detNoteKa_++;
+        return result;
     }
     else
     {
-
+        // miss determine
+        if (detMeasureDon_ > detMeasureKa_ ||
+                (detMeasureDon_ == detMeasureKa_ && detNoteDon_ > detNoteKa_))
+        {
+            if (measures_[detMeasureDon_]->noteAt(detNoteDon_)->determine(playProgress_.elapsed()) == Ts::MISS)
+            {
+                detNoteDon_++;
+                return Ts::MISS;
+            }
+        }
+        else
+        {
+            if (measures_[detMeasureKa_]->noteAt(detNoteKa_)->determine(playProgress_.elapsed()) == Ts::MISS)
+            {
+                detNoteKa_++;
+                return Ts::MISS;
+            }
+        }
     }
-
 
     return Ts::OUTSIDE;
 }

@@ -2,10 +2,11 @@
 #define NOTE_H
 
 #include <QGraphicsItem>
+#include <QObject>
 #include "determinerange.h"
 #include "stable.h"
 
-class Note : public QGraphicsItem
+class Note : public QGraphicsItem//,public QObject
 {
 public:
     enum Type{
@@ -25,11 +26,12 @@ public:
 
    virtual QRectF boundingRect() const;
    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-               QWidget *widt);
+               QWidget *widget);
 
     int index();
     void setDetermineTime(int elapsed);
     Ts::DetermineValue determine(int elapsed);
+    virtual bool acceptAct(Ts::TaikoState action);
 
     virtual void setUnitWidth(int unitWidth);
 

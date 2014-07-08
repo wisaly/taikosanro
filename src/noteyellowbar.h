@@ -16,6 +16,8 @@ public:
     int hitCount() const;
     void setHitCount(int hitCount);
 
+    virtual bool acceptAct(Ts::TaikoState action);
+
     //virtual void setUnitWidth(int unitWidth);
 
 protected:

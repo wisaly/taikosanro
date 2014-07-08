@@ -22,8 +22,6 @@ Measure::Measure(QGraphicsItem *parent,
     setVisible(false);
     setCacheMode(ItemCoordinateCache);
 
-    canvasRect_ = parent->boundingRect();
-
     noteUnitCount_ = notes.count();
 
     for(int i = 0;i < notes.count();i++)
@@ -66,6 +64,9 @@ Measure::Measure(QGraphicsItem *parent,
     }
 
     disappearElapsed_ = appearElapsed_ + 60000 / tempo_ * beatsPerBar_ * 2;
+
+    //canvasRect_ = parent->boundingRect();
+    setBoundingRect(parent->boundingRect());
 }
 
 QRectF Measure::boundingRect() const
@@ -91,8 +92,7 @@ void Measure::calcPos(int currentElapsed)
     qreal offset = (currentElapsed - appearElapsed_)
             * tempo_ * canvasRect_.width() / (beatsPerBar_ * 60000);
 
-    //qDebug() << appearElapsed_ << canvasRect_.width() - pos().x() - offset;
-
+    //qDebug() << canvasRect_.width() - pos().x() - offset << appearElapsed_;
     setPos(canvasRect_.width() - offset,0);
 }
 

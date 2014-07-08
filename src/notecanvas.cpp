@@ -2,7 +2,7 @@
 #include <QPainter>
 
 NoteCanvas::NoteCanvas(QGraphicsItem *parent)
-    :QGraphicsItem(parent),rect_(0,0,1000,100)
+    :QGraphicsItem(parent),rect_(0,0,700,100)
 {
 
 }

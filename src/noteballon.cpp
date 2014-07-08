@@ -23,4 +23,9 @@ void NoteBallon::setCount(int count)
     count_ = count;
 }
 
+bool NoteBallon::acceptAct(Ts::TaikoState action)
+{
+    return action & Ts::DON_BOTH;
+}
+
 

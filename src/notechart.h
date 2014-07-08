@@ -57,10 +57,10 @@ private:
     int currentMeasure_;        // latest display measure
     QElapsedTimer playProgress_;
     bool isPlaying_;
-    int detMeasureRed_;   // determine measure index for red
-    int detMeasureBlue_;  // determine measure index for blue
-    int detNoteRed_;      // determine note index of red measure
-    int detNoteBlue_;     // determine note index of blue measure
+    int detMeasureDon_;     // determine measure index for don
+    int detMeasureKa_;      // determine measure index for ka
+    int detNoteDon_;        // determine note index for don
+    int detNoteKa_;         // determine note index for ka
 };
 
 #endif // NOTECHART_H
