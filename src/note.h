@@ -1,12 +1,11 @@
 #ifndef NOTE_H
 #define NOTE_H
 
-#include <QGraphicsItem>
-#include <QObject>
+#include <QGraphicsObject>
 #include "determinerange.h"
 #include "stable.h"
 
-class Note : public QGraphicsItem//,public QObject
+class Note : public QGraphicsObject
 {
 public:
     enum Type{

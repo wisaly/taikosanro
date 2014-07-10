@@ -57,12 +57,15 @@ void DetermineResult::determined(Ts::DetermineValue value)
     result_ = value;
 
     QPropertyAnimation *aniPos = new QPropertyAnimation(this,"y");
-    aniPos->setStartValue(0);
-    aniPos->setEndValue(-30);
+    aniPos->setKeyValueAt(0,0);
+    aniPos->setKeyValueAt(0.6,-30);
+    aniPos->setKeyValueAt(1,-30);
     aniPos->setDuration(300);
     QPropertyAnimation *aniVisable = new QPropertyAnimation(this,"opacity");
-    aniVisable->setStartValue(1);
-    aniVisable->setEndValue(0);
+    aniVisable->setKeyValueAt(0,0);
+    aniVisable->setKeyValueAt(0.3,1);
+    aniVisable->setKeyValueAt(0.6,1);
+    aniVisable->setKeyValueAt(1,0);
     aniVisable->setDuration(300);
 
     QParallelAnimationGroup *animation = new QParallelAnimationGroup();
