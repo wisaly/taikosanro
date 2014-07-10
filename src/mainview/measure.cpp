@@ -1,7 +1,7 @@
 #include "measure.h"
 #include "noteballon.h"
 #include "noteyellowbar.h"
-#include "stable.h"
+#include "../stable.h"
 #include <QDebug>
 #include <QPainter>
 

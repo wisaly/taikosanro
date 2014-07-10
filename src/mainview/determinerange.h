@@ -1,6 +1,6 @@
 #ifndef DETERMINERANGE_H
 #define DETERMINERANGE_H
-#include "stable.h"
+#include "../stable.h"
 
 class DetermineRange
 {

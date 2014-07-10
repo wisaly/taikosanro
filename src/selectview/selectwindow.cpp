@@ -17,9 +17,12 @@ SelectWindow::SelectWindow(QWidget *parent) :
     canvas_ = new SelectCanvas;
     scene->addItem(canvas_);
 
-    for (int i = 0;i < 1000;i ++)
+    for (int i = 0;i < 100;i ++)
     {
-        canvas_->addItem()->setTitle(QString("item %1").arg(i));
+        SelectItem *item  = canvas_->addItem();
+        item->setTitle(QString("item %1").arg(i));
+        item->setIndex(i+1);
+        item->setTotal(100);
     }
 }
 
@@ -48,6 +51,14 @@ void SelectWindow::keyPressEvent(QKeyEvent *event)
     else if (event->key() == Qt::Key_Left)
     {
         canvas_->move(-1);
+    }
+    else if (event->key() == Qt::Key_Up)
+    {
+        canvas_->move(-10);
+    }
+    else if (event->key() == Qt::Key_Down)
+    {
+        canvas_->move(10);
     }
 }
 

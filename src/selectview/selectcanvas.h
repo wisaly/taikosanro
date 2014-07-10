@@ -18,17 +18,20 @@ public:
     void setRect(const QRectF &rect){rect_ = rect;}
 
     SelectItem *addItem();
-    void calcPos();
+    SelectItem *itemAt(int index);
+
     void move(int step);
+    void expand();
+    void collapse();
 
 signals:
 
 public slots:
-
+    void moveFinished();
 private:
     QRectF rect_;
     QList<SelectItem*> items_;
-    int currentItem_;
+    int current_;
 };
 
 #endif // SELECTCANVAS_H

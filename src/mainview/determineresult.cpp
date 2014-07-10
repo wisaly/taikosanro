@@ -1,4 +1,4 @@
-#include "determineresult.h"
+﻿#include "determineresult.h"
 #include <QPainter>
 #include <QDebug>
 #include <QPropertyAnimation>

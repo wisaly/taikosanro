@@ -1,6 +1,6 @@
 #include "note.h"
-#include "pixmapmanager.h"
-#include "stable.h"
+#include "../pixmapmanager.h"
+#include "../stable.h"
 
 #include <QPainter>
 

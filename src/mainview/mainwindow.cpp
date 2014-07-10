@@ -7,8 +7,8 @@
 #include "note.h"
 #include "notecanvas.h"
 #include "notechart.h"
-#include "notefileparser.h"
-#include "song.h"
+#include "../notefileparser.h"
+#include "../song.h"
 #include "determineresult.h"
 #include "ui_mainwindow.h"
 

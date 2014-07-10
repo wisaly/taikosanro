@@ -3,7 +3,7 @@
 
 #include <QElapsedTimer>
 #include <QWidget>
-#include "stable.h"
+#include "../stable.h"
 
 namespace Ui {
 class MainWindow;

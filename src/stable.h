@@ -29,5 +29,11 @@ const int FAIL_RANGE = 217;
 
 const int NOTE_WIDTH = 100;
 const int NOTE_HEIGHT = 100;
+
+const int BAR_WIDTH = 100;
+const int BAR_EXPAND = 400;
+const int BAR_HEIGHT = 400;
+const int BAR_PAD = 5;
+
 }
 #endif // STABLE_H

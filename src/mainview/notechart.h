@@ -2,7 +2,7 @@
 #define NOTECHART_H
 
 #include "measure.h"
-#include "stable.h"
+#include "../stable.h"
 
 #include <QElapsedTimer>
 #include <QGraphicsObject>

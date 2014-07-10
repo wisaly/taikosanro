@@ -13,10 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-    determinerange.cpp \
     pixmapmanager.cpp \
     notefileparser.cpp \
     song.cpp \
+    mainview/determinerange.cpp \
     mainview/mainwindow.cpp \
     mainview/taikoitem.cpp \
     mainview/determineresult.cpp \
@@ -33,10 +33,10 @@ SOURCES += main.cpp\
     selectview/selectitem.cpp
 
 HEADERS  += stable.h\
-    determinerange.h \
     pixmapmanager.h \
     notefileparser.h \
     song.h \
+    mainview/determinerange.h \
     mainview/mainwindow.h \
     mainview/taikoitem.h \
     mainview/determineresult.h \

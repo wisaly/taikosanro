@@ -3,7 +3,7 @@
 
 #include <QGraphicsObject>
 #include "determinerange.h"
-#include "stable.h"
+#include "../stable.h"
 
 class Note : public QGraphicsObject
 {
