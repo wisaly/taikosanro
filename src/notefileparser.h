@@ -1,7 +1,7 @@
 #ifndef NOTEFILEPARSER_H
 #define NOTEFILEPARSER_H
 
-#include "notechart.h"
+#include "mainview/notechart.h"
 
 class Song;
 class NoteFileParser

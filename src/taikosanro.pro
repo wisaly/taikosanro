@@ -13,21 +13,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    note.cpp \
     determinerange.cpp \
     pixmapmanager.cpp \
-    measure.cpp \
-    notecanvas.cpp \
-    notechart.cpp \
     notefileparser.cpp \
     song.cpp \
-    noteyellowbar.cpp \
-    noteballon.cpp \
-    determineresult.cpp \
-    taikoitem.cpp \
-    scoreboard.cpp \
-    soulgauge.cpp \
+    mainview/mainwindow.cpp \
     mainview/taikoitem.cpp \
     mainview/determineresult.cpp \
     mainview/measure.cpp \
@@ -37,23 +27,15 @@ SOURCES += main.cpp\
     mainview/notechart.cpp \
     mainview/noteyellowbar.cpp \
     mainview/scoreboard.cpp \
-    mainview/soulgauge.cpp
+    mainview/soulgauge.cpp \
+    selectview/selectwindow.cpp
 
-HEADERS  += mainwindow.h \
-    note.h \
+HEADERS  += stable.h\
     determinerange.h \
     pixmapmanager.h \
-    stable.h \
-    measure.h \
-    notecanvas.h \
-    notechart.h \
     notefileparser.h \
     song.h \
-    noteyellowbar.h \
-    noteballon.h \
-    determineresult.h \
-    scoreboard.h \
-    soulgauge.h \
+    mainview/mainwindow.h \
     mainview/taikoitem.h \
     mainview/determineresult.h \
     mainview/measure.h \
@@ -63,6 +45,8 @@ HEADERS  += mainwindow.h \
     mainview/notechart.h \
     mainview/noteyellowbar.h \
     mainview/scoreboard.h \
-    mainview/soulgauge.h
+    mainview/soulgauge.h \
+    selectview/selectwindow.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    selectview/selectwindow.ui
