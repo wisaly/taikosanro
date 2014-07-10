@@ -3,6 +3,7 @@
 
 #include <QElapsedTimer>
 #include <QGraphicsObject>
+#include <QStateMachine>
 
 #include "determinerange.h"
 
@@ -21,8 +22,6 @@ public slots:
     void determined(Ts::DetermineValue value);
 private:
     Ts::DetermineValue result_;
-    bool isShow_;
-    QElapsedTimer startShow_;
 };
 
 #endif // DETERMINERESULT_H

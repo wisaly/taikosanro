@@ -24,7 +24,10 @@ SOURCES += main.cpp\
     song.cpp \
     noteyellowbar.cpp \
     noteballon.cpp \
-    determineresult.cpp
+    determineresult.cpp \
+    taikoitem.cpp \
+    scoreboard.cpp \
+    soulgauge.cpp
 
 HEADERS  += mainwindow.h \
     note.h \
@@ -38,6 +41,9 @@ HEADERS  += mainwindow.h \
     song.h \
     noteyellowbar.h \
     noteballon.h \
-    determineresult.h
+    determineresult.h \
+    taikoitem.h \
+    scoreboard.h \
+    soulgauge.h
 
 FORMS    += mainwindow.ui

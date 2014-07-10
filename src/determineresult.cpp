@@ -1,6 +1,10 @@
 #include "determineresult.h"
 #include <QPainter>
 #include <QDebug>
+#include <QPropertyAnimation>
+#include <QParallelAnimationGroup>
+#include <QStateMachine>
+#include <QSignalTransition>
 
 DetermineResult::DetermineResult(QGraphicsItem *parent)
     :QGraphicsObject(parent)
@@ -23,16 +27,16 @@ void DetermineResult::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     case Ts::OUTSIDE:
         break;
     case Ts::GREAT:
-        painter->drawText(boundingRect(),Qt::AlignHCenter,"良");
+        painter->drawText(boundingRect(),Qt::AlignCenter,"良");
         break;
     case Ts::GOOD:
-        painter->drawText(boundingRect(),Qt::AlignHCenter,"可");
+        painter->drawText(boundingRect(),Qt::AlignCenter,"可");
         break;
     case Ts::FAIL:
-        painter->drawText(boundingRect(),Qt::AlignHCenter,"不可");
+        painter->drawText(boundingRect(),Qt::AlignCenter,"不可");
         break;
     case Ts::MISS:
-        painter->drawText(boundingRect(),Qt::AlignHCenter,"Miss");
+        painter->drawText(boundingRect(),Qt::AlignCenter,"Miss");
         break;
     }
 }
@@ -41,10 +45,7 @@ void DetermineResult::advance(int step)
 {
     if (step)
     {
-        if (this->isVisible() && startShow_.elapsed() > 1000)
-        {
-            hide();
-        }
+
     }
 }
 
@@ -54,7 +55,19 @@ void DetermineResult::determined(Ts::DetermineValue value)
         return;
 
     result_ = value;
-    startShow_.start();
-    show();
+
+    QPropertyAnimation *aniPos = new QPropertyAnimation(this,"y");
+    aniPos->setStartValue(0);
+    aniPos->setEndValue(-30);
+    aniPos->setDuration(300);
+    QPropertyAnimation *aniVisable = new QPropertyAnimation(this,"opacity");
+    aniVisable->setStartValue(1);
+    aniVisable->setEndValue(0);
+    aniVisable->setDuration(300);
+
+    QParallelAnimationGroup *animation = new QParallelAnimationGroup();
+    animation->addAnimation(aniPos);
+    animation->addAnimation(aniVisable);
+    animation->start(QAbstractAnimation::DeleteWhenStopped);
 }
 
