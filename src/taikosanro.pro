@@ -27,7 +27,17 @@ SOURCES += main.cpp\
     determineresult.cpp \
     taikoitem.cpp \
     scoreboard.cpp \
-    soulgauge.cpp
+    soulgauge.cpp \
+    mainview/taikoitem.cpp \
+    mainview/determineresult.cpp \
+    mainview/measure.cpp \
+    mainview/note.cpp \
+    mainview/noteballon.cpp \
+    mainview/notecanvas.cpp \
+    mainview/notechart.cpp \
+    mainview/noteyellowbar.cpp \
+    mainview/scoreboard.cpp \
+    mainview/soulgauge.cpp
 
 HEADERS  += mainwindow.h \
     note.h \
@@ -42,8 +52,17 @@ HEADERS  += mainwindow.h \
     noteyellowbar.h \
     noteballon.h \
     determineresult.h \
-    taikoitem.h \
     scoreboard.h \
-    soulgauge.h
+    soulgauge.h \
+    mainview/taikoitem.h \
+    mainview/determineresult.h \
+    mainview/measure.h \
+    mainview/note.h \
+    mainview/noteballon.h \
+    mainview/notecanvas.h \
+    mainview/notechart.h \
+    mainview/noteyellowbar.h \
+    mainview/scoreboard.h \
+    mainview/soulgauge.h
 
 FORMS    += mainwindow.ui
