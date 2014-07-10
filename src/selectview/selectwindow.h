@@ -1,6 +1,8 @@
 #ifndef SELECTWINDOW_H
 #define SELECTWINDOW_H
 
+#include "selectcanvas.h"
+
 #include <QWidget>
 
 namespace Ui {
@@ -15,8 +17,13 @@ public:
     explicit SelectWindow(QWidget *parent = 0);
     ~SelectWindow();
 
+    void showEvent(QShowEvent * event);
+    void keyPressEvent(QKeyEvent *event);
+    bool eventFilter(QObject *obj, QEvent *event);
+
 private:
     Ui::SelectWindow *ui;
+    SelectCanvas *canvas_;
 };
 
 #endif // SELECTWINDOW_H

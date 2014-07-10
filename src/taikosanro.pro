@@ -28,7 +28,9 @@ SOURCES += main.cpp\
     mainview/noteyellowbar.cpp \
     mainview/scoreboard.cpp \
     mainview/soulgauge.cpp \
-    selectview/selectwindow.cpp
+    selectview/selectwindow.cpp \
+    selectview/selectcanvas.cpp \
+    selectview/selectitem.cpp
 
 HEADERS  += stable.h\
     determinerange.h \
@@ -46,7 +48,9 @@ HEADERS  += stable.h\
     mainview/noteyellowbar.h \
     mainview/scoreboard.h \
     mainview/soulgauge.h \
-    selectview/selectwindow.h
+    selectview/selectwindow.h \
+    selectview/selectcanvas.h \
+    selectview/selectitem.h
 
-FORMS    += mainwindow.ui \
-    selectview/selectwindow.ui
+FORMS    += selectview/selectwindow.ui \
+    mainview/mainwindow.ui
