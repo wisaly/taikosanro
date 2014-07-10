@@ -1,5 +1,6 @@
 #include "selectcanvas.h"
 
+#include <QSequentialAnimationGroup>
 #include <QParallelAnimationGroup>
 #include <QPropertyAnimation>
 #include <QDebug>
@@ -47,7 +48,9 @@ void SelectCanvas::move(int step)
         step = items_.count() - 1 - currentItem_;
     }
 
-    QParallelAnimationGroup *group = new QParallelAnimationGroup(this);
+    //items_[currentItem_]->setBoundingRect(QRect(0,0,50,200));
+
+    QParallelAnimationGroup *groupMove = new QParallelAnimationGroup(this);
     for (int i = 0;i < items_.count();i++)
     {
         int xFrom = (i - currentItem_) * 50 + rect_.width() / 2 - 25;
@@ -58,15 +61,53 @@ void SelectCanvas::move(int step)
             continue;
         }
         QPropertyAnimation *animation = new QPropertyAnimation(items_[i],"x");
-        animation->setStartValue(xFrom);
+        //animation->setStartValue(xFrom);
+        items_[i]->setX(xFrom);
         animation->setEndValue(xTo);
         animation->setDuration(300);
 
-        group->addAnimation(animation);
+        groupMove->addAnimation(animation);
     }
 
-    group->start(QAbstractAnimation::DeleteWhenStopped);
     currentItem_ += step;
+
+//    QParallelAnimationGroup *groupScale = new QParallelAnimationGroup(this);
+//    QPropertyAnimation *aniScale = new QPropertyAnimation(items_[currentItem_],"boundingRect");
+//    aniScale->setDuration(300);
+//    aniScale->setStartValue(QRectF(0,0,50,200));
+//    aniScale->setEndValue(QRectF(-50,0,150,200));
+
+//    for (int i = currentItem_;i >= 0;i--)
+//    {
+//        if (items_[i]->x() + 50 < 0)
+//        {
+//            break;
+//        }
+
+//        QPropertyAnimation *animation = new QPropertyAnimation(items_[i],"x");
+//        animation->setDuration(300);
+//        animation->setEndValue(items_[i]->x() - 100);
+//        groupScale->addAnimation(animation);
+//    }
+//    for (int i = currentItem_;i < items_.count();i++)
+//    {
+//        if (items_[i]->x() - 50 > rect_.width())
+//        {
+//            break;
+//        }
+
+//        QPropertyAnimation *animation = new QPropertyAnimation(items_[i],"x");
+//        animation->setDuration(300);
+//        animation->setEndValue(items_[i]->x() + 100);
+//        groupScale->addAnimation(animation);
+//    }
+
+//    groupScale->addAnimation(aniScale);
+
+//    QSequentialAnimationGroup *group = new QSequentialAnimationGroup(this);
+//    group->addAnimation(groupMove);
+//    group->addAnimation(groupScale);
+    groupMove->start(QAbstractAnimation::DeleteWhenStopped);
 }
 
 

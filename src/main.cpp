@@ -1,6 +1,6 @@
-#include "mainwindow.h"
 #include <QApplication>
-#include <selectview/selectwindow.h>
+#include "mainview/mainwindow.h"
+#include "selectview/selectwindow.h"
 
 int main(int argc, char *argv[])
 {

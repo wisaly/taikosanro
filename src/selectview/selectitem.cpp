@@ -2,14 +2,11 @@
 #include <QPainter>
 
 SelectItem::SelectItem(QGraphicsItem *parent) :
-    QGraphicsObject(parent)
+    QGraphicsObject(parent),rect_(0,0,50,200)
 {
 }
 
-QRectF SelectItem::boundingRect() const
-{
-    return QRectF(0,0,50,200);
-}
+
 
 void SelectItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
