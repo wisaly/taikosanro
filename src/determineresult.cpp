@@ -1,8 +1,9 @@
 #include "determineresult.h"
 #include <QPainter>
+#include <QDebug>
 
 DetermineResult::DetermineResult(QGraphicsItem *parent)
-    :QGraphicsItem(parent)
+    :QGraphicsObject(parent)
 {
 }
 
@@ -40,19 +41,20 @@ void DetermineResult::advance(int step)
 {
     if (step)
     {
-        if (startShow_.elapsed() > 1000)
+        if (this->isVisible() && startShow_.elapsed() > 1000)
         {
             hide();
         }
     }
 }
 
-void DetermineResult::showResult(Ts::DetermineValue result)
+void DetermineResult::determined(Ts::DetermineValue value)
 {
-    if (result_ == Ts::OUTSIDE)
+    if (value == Ts::OUTSIDE)
         return;
 
-    result_ = result;
+    result_ = value;
     startShow_.start();
     show();
 }
+

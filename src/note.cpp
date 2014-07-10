@@ -59,6 +59,11 @@ Ts::DetermineValue Note::determine(int elapsed)
     return determineRange_.determine(elapsed);
 }
 
+void Note::moveOut(Ts::DetermineValue value)
+{
+    hide();
+}
+
 bool Note::acceptAct(Ts::TaikoState action)
 {
     if ((action & Ts::DON_BOTH &&

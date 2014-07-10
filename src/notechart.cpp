@@ -3,7 +3,7 @@
 #include <QPainter>
 
 NoteChart::NoteChart(QGraphicsItem *parent)
-    :QGraphicsItem(parent),isPlaying_(false)
+    :QGraphicsObject(parent),isPlaying_(false)
 {
     setFlag(QGraphicsItem::ItemClipsChildrenToShape);
 
@@ -35,113 +35,59 @@ void NoteChart::play()
     {
         reset();
         currentMeasure_ = -1;
-        detMeasureDon_ = 0;
-        detMeasureKa_ = 0;
-        detNoteDon_ = 0;
-        detNoteKa_ = 0;
+        detMeasure_ = 0;
+        detNote_ = 0;
         playProgress_.start();
         isPlaying_ = true;
     }
 }
 
-Ts::DetermineValue NoteChart::hitTest(Ts::TaikoState state)
+void NoteChart::hit(Ts::TaikoState state)
 {
     // move to next valid measure & note
-    while (detMeasureDon_ < measures_.count())
+    while (detMeasure_ < measures_.count())
     {
         // move to next measure
-        if (detNoteDon_ >= measures_[detMeasureDon_]->noteCount())
+        if (detNote_ >= measures_[detMeasure_]->noteCount())
         {
-            detMeasureDon_++;
-            detNoteDon_ = 0;
+            detMeasure_++;
+            detNote_ = 0;
             continue;
         }
-
-        // move to next acceptable note
-        while (detNoteDon_ < measures_[detMeasureDon_]->noteCount())
+        else
         {
-            if (!measures_[detMeasureDon_]->noteAt(detNoteDon_)->acceptAct(Ts::DON_BOTH))
-                detNoteDon_++;
-            else
-                break;
-        }
-        if (detNoteDon_ < measures_[detMeasureDon_]->noteCount())
             break;
-    }
-
-    while (detMeasureKa_ < measures_.count())
-    {
-        if (detNoteKa_ >= measures_[detMeasureKa_]->noteCount())
-        {
-            detMeasureKa_++;
-            detNoteKa_ = 0;
-            continue;
         }
-
-        while (detNoteKa_ < measures_[detMeasureKa_]->noteCount())
-        {
-            if (!measures_[detMeasureKa_]->noteAt(detNoteKa_)->acceptAct(Ts::KA_BOTH))
-                detNoteKa_++;
-            else
-                break;
-        }
-        if (detNoteKa_ < measures_[detMeasureKa_]->noteCount())
-            break;
     }
-
-    if(state != Ts::NO_ACT)
-        qDebug() << detMeasureDon_ << detNoteDon_ << detMeasureKa_ << detNoteKa_;
 
     // hit determine
-    if (state & Ts::DON_BOTH)
+    if (state & Ts::DON_BOTH || state & Ts::KA_BOTH)
     {
-        if (detMeasureDon_ >= measures_.count())
-            return Ts::OUTSIDE;
+        if (detMeasure_ >= measures_.count())
+        {
+            return;
+        }
 
-        Ts::DetermineValue result = measures_[detMeasureDon_]->noteAt(detNoteDon_)->determine(playProgress_.elapsed());
-        if (result == Ts::OUTSIDE)
-            return Ts::OUTSIDE;
+        if (!measures_[detMeasure_]->noteAt(detNote_)->acceptAct(state))
+            return;
 
-        measures_[detMeasureDon_]->noteAt(detNoteDon_)->hide();
-        detNoteDon_++;
-        return result;
-    }
-    else if (state & Ts::KA_BOTH)
-    {
-        if (detMeasureKa_ >= measures_.count())
-            return Ts::OUTSIDE;
+        Ts::DetermineValue result = measures_[detMeasure_]->noteAt(detNote_)->determine(playProgress_.elapsed());
+        if (result == Ts::OUTSIDE || result == Ts::MISS)
+            return;
 
-        Ts::DetermineValue result = measures_[detMeasureKa_]->noteAt(detNoteKa_)->determine(playProgress_.elapsed());
-        if (result == Ts::OUTSIDE)
-            return Ts::OUTSIDE;
-
-        measures_[detMeasureKa_]->noteAt(detNoteKa_)->hide();
-        detNoteKa_++;
-        return result;
+        measures_[detMeasure_]->noteAt(detNote_)->moveOut(result);
+        detNote_++;
+        emit determined(result);
     }
     else
     {
         // miss determine
-        if (detMeasureDon_ > detMeasureKa_ ||
-                (detMeasureDon_ == detMeasureKa_ && detNoteDon_ > detNoteKa_))
+        if (measures_[detMeasure_]->noteAt(detNote_)->determine(playProgress_.elapsed()) == Ts::MISS)
         {
-            if (measures_[detMeasureDon_]->noteAt(detNoteDon_)->determine(playProgress_.elapsed()) == Ts::MISS)
-            {
-                detNoteDon_++;
-                return Ts::MISS;
-            }
-        }
-        else
-        {
-            if (measures_[detMeasureKa_]->noteAt(detNoteKa_)->determine(playProgress_.elapsed()) == Ts::MISS)
-            {
-                detNoteKa_++;
-                return Ts::MISS;
-            }
+            detNote_++;
+            emit determined(Ts::MISS);
         }
     }
-
-    return Ts::OUTSIDE;
 }
 
 void NoteChart::setBoundingRect(QRectF rect)
@@ -169,11 +115,6 @@ Measure *NoteChart::createMeasure(NoteTypeList &notes, QQueue<int> &ballonHits, 
     measures_.append(measure);
 
     return measure;
-}
-
-int NoteChart::measureCount()
-{
-    return measures_.count();
 }
 
 void NoteChart::advance(int step)
@@ -216,45 +157,7 @@ void NoteChart::advance(int step)
             measures_[currentMeasure_ - 2]->calcPos(currentElapsed);
         }
         //qDebug() << currentElapsed << "end" << playProgress_.elapsed() - currentElapsed;
+
+        hit(Ts::NO_ACT);
     }
 }
-int NoteChart::scoreDiff() const
-{
-    return scoreDiff_;
-}
-
-void NoteChart::setScoreDiff(int scoreDiff)
-{
-    scoreDiff_ = scoreDiff;
-}
-
-int NoteChart::scoreInit() const
-{
-    return scoreInit_;
-}
-
-void NoteChart::setScoreInit(int scoreInit)
-{
-    scoreInit_ = scoreInit;
-}
-
-int NoteChart::course() const
-{
-    return course_;
-}
-
-void NoteChart::setCourse(int course)
-{
-    course_ = course;
-}
-
-int NoteChart::level() const
-{
-    return level_;
-}
-
-void NoteChart::setLevel(int level)
-{
-    level_ = level;
-}
-

@@ -2,21 +2,23 @@
 #define DETERMINERESULT_H
 
 #include <QElapsedTimer>
-#include <QGraphicsItem>
+#include <QGraphicsObject>
 
 #include "determinerange.h"
 
-class DetermineResult : public QGraphicsItem
+class DetermineResult : public QGraphicsObject
 {
+    Q_OBJECT
 public:
-    DetermineResult(QGraphicsItem *parent);
+    DetermineResult(QGraphicsItem *parent = 0);
 
     virtual QRectF boundingRect() const;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 QWidget *widget);
     virtual void advance(int step);
 
-    void showResult(Ts::DetermineValue result);
+public slots:
+    void determined(Ts::DetermineValue value);
 private:
     Ts::DetermineValue result_;
     bool isShow_;

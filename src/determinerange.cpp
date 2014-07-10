@@ -7,17 +7,17 @@ DetermineRange::DetermineRange(int appearElapsed)
 
 Ts::DetermineValue DetermineRange::determine(int currentElapsed)
 {
-    if(currentElapsed > greatBegin_ || currentElapsed < greatEnd_)
+    if(currentElapsed > greatBegin_ && currentElapsed < greatEnd_)
     {
         return Ts::GREAT;
     }
 
-    if(currentElapsed > goodBegin_ || currentElapsed < goodEnd_)
+    if(currentElapsed > goodBegin_ && currentElapsed < goodEnd_)
     {
         return Ts::GOOD;
     }
 
-    if(currentElapsed > failBegin_ || currentElapsed < failEnd_)
+    if(currentElapsed > failBegin_ && currentElapsed < failEnd_)
     {
         return Ts::FAIL;
     }

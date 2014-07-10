@@ -5,10 +5,11 @@
 #include "stable.h"
 
 #include <QElapsedTimer>
-#include <QGraphicsItem>
+#include <QGraphicsObject>
 
-class NoteChart : public QGraphicsItem
+class NoteChart : public QGraphicsObject
 {
+    Q_OBJECT
 public:
     NoteChart(QGraphicsItem *parent = 0);
 
@@ -17,7 +18,6 @@ public:
                 QWidget *widget);
 
     void play();
-    Ts::DetermineValue hitTest(Ts::TaikoState state);
 
     void setBoundingRect(QRectF rect);
 
@@ -30,22 +30,29 @@ public:
                            int beatsPerBar,
                            bool isGGT,
                            int appearElapsed);
-    int measureCount();
 
-    int level() const;
-    void setLevel(int level);
+    int measureCount() {return measures_.count();}
 
-    int course() const;
-    void setCourse(int course);
+    int level() const {return level_;}
+    void setLevel(int level){level_ = level;}
 
-    int scoreInit() const;
-    void setScoreInit(int scoreInit);
+    int course() const {return course_;}
+    void setCourse(int course) {course_ = course;}
 
-    int scoreDiff() const;
-    void setScoreDiff(int scoreDiff);
+    int scoreInit() const {return scoreInit_;}
+    void setScoreInit(int scoreInit) {scoreInit_ = scoreInit;}
+
+    int scoreDiff() const {return scoreDiff_;}
+    void setScoreDiff(int scoreDiff) {scoreDiff_ = scoreDiff;}
 
 protected:
     void advance(int step);
+
+signals:
+    void determined(Ts::DetermineValue value);
+
+public slots:
+    void hit(Ts::TaikoState state);
 
 private:
     int course_;
@@ -57,10 +64,8 @@ private:
     int currentMeasure_;        // latest display measure
     QElapsedTimer playProgress_;
     bool isPlaying_;
-    int detMeasureDon_;     // determine measure index for don
-    int detMeasureKa_;      // determine measure index for ka
-    int detNoteDon_;        // determine note index for don
-    int detNoteKa_;         // determine note index for ka
+    int detMeasure_;     // determine measure index
+    int detNote_;        // determine note index
 };
 
 #endif // NOTECHART_H

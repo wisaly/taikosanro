@@ -3,6 +3,7 @@
 
 #include <QElapsedTimer>
 #include <QWidget>
+#include "stable.h"
 
 namespace Ui {
 class MainWindow;
@@ -22,6 +23,11 @@ private:
     void timerEvent(QTimerEvent *event);
     void keyPressEvent(QKeyEvent *event);
     void showEvent(QShowEvent *event);
+
+signals:
+    void hit(Ts::TaikoState state);
+public slots:
+
 private:
     Ui::MainWindow *ui;
     NoteChart *chart_;

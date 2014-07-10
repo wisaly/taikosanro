@@ -29,6 +29,9 @@ MainWindow::MainWindow(QWidget *parent) :
     Song *song = new Song(canvas);
     new NoteFileParser("../res/example.tja",song);
     chart_ = song->chartAt(0);
+    chart_->connect(this,SIGNAL(hit(Ts::TaikoState)),SLOT(hit(Ts::TaikoState)));
+    determine_->connect(chart_,SIGNAL(determined(Ts::DetermineValue)),SLOT(determined(Ts::DetermineValue)));
+
 
     startTimer(1000 / 60);
     fpsTimer_.start();
@@ -50,9 +53,6 @@ void MainWindow::timerEvent(QTimerEvent *event)
     }
     fpsCount_++;
     ui->graphicsView->scene()->advance();
-
-    Ts::DetermineValue result = chart_->hitTest(Ts::NO_ACT);
-    determine_->showResult(result);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -71,20 +71,13 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     }
     else if (keys.contains(event->key()))
     {
-        Ts::DetermineValue result = chart_->hitTest(keys[event->key()]);
-        determine_->showResult(result);
+        emit hit(keys[event->key()]);
 
         event->accept();
     }
     else if (event->key() == Qt::Key_Q)
     {
-//        Note *note = new Note(chart_,Note::RedMarker,0);
-//        QPropertyAnimation *animation = new QPropertyAnimation(note, "pos");
-//        animation->setDuration(1000);
-//        animation->setStartValue(QPoint(0,0));
-//        animation->setEndValue(QPoint(100,0));
-
-//        animation->start();
+        determine_->determined(Ts::GREAT);
     }
     else
     {
