@@ -6,11 +6,13 @@
 
 SelectWindow::SelectWindow(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::SelectWindow)
+    ui(new Ui::SelectWindow),
+    loader_("c:/")
 {
     ui->setupUi(this);
 
     //ui->graphicsView->installEventFilter(this);
+    loader_.load();
 
     QGraphicsScene *scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);

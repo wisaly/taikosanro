@@ -16,6 +16,7 @@ SOURCES += main.cpp\
     pixmapmanager.cpp \
     notefileparser.cpp \
     song.cpp \
+    catagory.cpp \
     mainview/determinerange.cpp \
     mainview/mainwindow.cpp \
     mainview/taikoitem.cpp \
@@ -30,12 +31,14 @@ SOURCES += main.cpp\
     mainview/soulgauge.cpp \
     selectview/selectwindow.cpp \
     selectview/selectcanvas.cpp \
-    selectview/selectitem.cpp
+    selectview/selectitem.cpp \
+    selectview/dirloader.cpp
 
 HEADERS  += stable.h\
     pixmapmanager.h \
     notefileparser.h \
     song.h \
+    catagory.h \
     mainview/determinerange.h \
     mainview/mainwindow.h \
     mainview/taikoitem.h \
@@ -50,7 +53,8 @@ HEADERS  += stable.h\
     mainview/soulgauge.h \
     selectview/selectwindow.h \
     selectview/selectcanvas.h \
-    selectview/selectitem.h
+    selectview/selectitem.h \
+    selectview/dirloader.h
 
 FORMS    += selectview/selectwindow.ui \
     mainview/mainwindow.ui

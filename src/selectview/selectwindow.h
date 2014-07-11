@@ -1,6 +1,7 @@
 #ifndef SELECTWINDOW_H
 #define SELECTWINDOW_H
 
+#include "dirloader.h"
 #include "selectcanvas.h"
 
 #include <QWidget>
@@ -24,6 +25,7 @@ public:
 private:
     Ui::SelectWindow *ui;
     SelectCanvas *canvas_;
+    DirLoader loader_;
 };
 
 #endif // SELECTWINDOW_H
