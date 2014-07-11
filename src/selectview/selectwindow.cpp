@@ -6,13 +6,11 @@
 
 SelectWindow::SelectWindow(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::SelectWindow),
-    loader_("c:/")
+    ui(new Ui::SelectWindow)
 {
     ui->setupUi(this);
 
     //ui->graphicsView->installEventFilter(this);
-    loader_.load();
 
     QGraphicsScene *scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
@@ -20,14 +18,7 @@ SelectWindow::SelectWindow(QWidget *parent) :
     scene->addItem(canvas_);
     canvas_->grabKeyboard();
 
-    for (int i = 0;i < 100;i ++)
-    {
-        SelectItem *item  = canvas_->addItem();
-        item->setTitle(QString("item %1").arg(i));
-        item->setIndex(i+1);
-        item->setTotal(100);
-        item->setCatagory(QString("catagory %1").arg(i / 10));
-    }
+    canvas_->load();
 }
 
 SelectWindow::~SelectWindow()

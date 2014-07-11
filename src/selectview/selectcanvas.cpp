@@ -10,7 +10,9 @@
 #include "../stable.h"
 
 SelectCanvas::SelectCanvas(QGraphicsItem *parent) :
-    QGraphicsObject(parent),current_(0)
+    QGraphicsObject(parent),
+    current_(0),
+    loader_("d:/taikojiro232")
 {
 }
 
@@ -24,7 +26,38 @@ void SelectCanvas::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->drawText(rect_,Qt::AlignHCenter,items_[current_]->catagory());
+    if (items_.count() > 0)
+    {
+        painter->drawText(rect_,Qt::AlignHCenter,items_[current_]->catagory());
+    }
+    else
+    {
+        painter->drawText(rect_,Qt::AlignCenter,"No tja file found,\ncheck your config");
+    }
+}
+
+void SelectCanvas::load()
+{
+    QList<Catagory> catagories = loader_.load();
+
+    int count = 0;
+    foreach (Catagory catagory, catagories)
+    {
+        foreach (QString noteFile, catagory.files())
+        {
+            SelectItem *item = addItem();
+            item->setCatagory(catagory.title());
+            item->setForeColor(catagory.foreColor());
+            item->setBackColor(catagory.backColor());
+            item->setIndex(++count);
+            item->setNoteFile(noteFile);
+        }
+    }
+
+    foreach (SelectItem *item, items_)
+    {
+        item->setTotal(count);
+    }
 }
 
 SelectItem *SelectCanvas::addItem()
@@ -80,11 +113,12 @@ void SelectCanvas::move(int step)
 
     for (int i = 0;i < items_.count();i++)
     {
+        // calc item position before and after move
         int xFrom = (i - current_) * Ts::BAR_WIDTH + rect_.width() / 2;
         int xTo = xFrom - Ts::BAR_WIDTH * step;
         if (step == 0 || xTo - Ts::BAR_WIDTH > rect_.width() || xTo + Ts::BAR_WIDTH < 0)
         {
-            // out of widget ,do not paint
+            // out of widget ,do not animate
             items_[i]->setX(xTo);
             continue;
         }

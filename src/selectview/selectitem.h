@@ -3,6 +3,7 @@
 
 #include <QGraphicsObject>
 #include <QColor>
+#include "../song.h"
 #include "../stable.h"
 
 class SelectItem : public QGraphicsObject
@@ -11,6 +12,7 @@ class SelectItem : public QGraphicsObject
     Q_PROPERTY(QRectF boundingRect READ boundingRect WRITE setBoundingRect)
 public:
     explicit SelectItem(QGraphicsItem *parent = 0);
+    ~SelectItem();
 
     virtual QRectF boundingRect() const{return rect_;}
     void setBoundingRect(const QRectF &rect){rect_ = rect;update();}
@@ -18,9 +20,6 @@ public:
 
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 QWidget *widget);
-
-    QString title() const{return title_;}
-    void setTitle(const QString &title){title_ = title;titleVert_ = title_.split("").join('\n');}
 
     int index() const{return index_;}
     void setIndex(int index) { index_ = index; }
@@ -34,20 +33,29 @@ public:
     bool isSelect() const { return isSelect_; }
     void setSelect(bool isSelect) { isSelect_ = isSelect; }
 
+    QColor foreColor() const { return foreColor_; }
+    void setForeColor(const QColor &foreColor) { foreColor_ = foreColor; }
+
+    QColor backColor() const { return backColor_; }
+    void setBackColor(const QColor &backColor) { backColor_ = backColor; }
+
+    void setNoteFile(QString noteFile) { noteFile_ = noteFile; }
 signals:
 
 public slots:
 
 private:
     QString title_;
-    QString titleVert_;
     QString subTitle_;
     QRectF rect_;
     int index_;
     int total_;
-    QColor bkground_;
+    QColor foreColor_;
+    QColor backColor_;
     QString catagory_;
     bool isSelect_;
+    QString noteFile_;
+    Song *song_;
 };
 
 #endif // SELECTITEM_H

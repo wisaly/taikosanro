@@ -8,7 +8,6 @@
 NoteFileParser::NoteFileParser(QString filePath,Song *song)
     :filePath_(filePath),song_(song)
 {
-    parse(Ts::INVALID_COURSE);
 }
 
 bool NoteFileParser::parse(Ts::Course loadCourse)
@@ -18,6 +17,7 @@ bool NoteFileParser::parse(Ts::Course loadCourse)
     {
         return false;
     }
+    QTextStream inputStream(&inputFile);
 
     Ts::Course course = Ts::ONI;
     int level = 1;
@@ -28,9 +28,9 @@ bool NoteFileParser::parse(Ts::Course loadCourse)
     int beatsPerBar = 4;
     int noteValuePerBeat = 4;
 
-    while (!inputFile.atEnd())
+    while (!inputStream.atEnd())
     {
-        QString line = inputFile.readLine().trimmed();
+        QString line = inputStream.readLine().trimmed();
 
         if (line.isEmpty())
         {
@@ -155,9 +155,9 @@ bool NoteFileParser::parse(Ts::Course loadCourse)
                 bool isGGT = false;
 
                 // parse notes
-                while (!inputFile.atEnd())
+                while (!inputStream.atEnd())
                 {
-                    line = inputFile.readLine().trimmed();
+                    line = inputStream.readLine().trimmed();
 
                     if (line.startsWith('#'))
                     {

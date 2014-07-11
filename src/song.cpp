@@ -5,6 +5,7 @@
 Song::Song(QString noteFile)
     :parentItem_(0),parser_(noteFile,this)
 {
+    parser_.parse(Ts::INVALID_COURSE);
 }
 
 NoteChart *Song::getChart(Ts::Course course)

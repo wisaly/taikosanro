@@ -3,6 +3,7 @@
 
 #include <QGraphicsObject>
 #include <QList>
+#include "dirloader.h"
 #include "selectitem.h"
 
 class SelectCanvas : public QGraphicsObject
@@ -17,6 +18,7 @@ public:
 
     void setRect(const QRectF &rect){rect_ = rect;}
 
+    void load();
     SelectItem *addItem();
     SelectItem *itemAt(int index);
 
@@ -30,6 +32,7 @@ signals:
 public slots:
     void moveFinished();
 private:
+    DirLoader loader_;
     QRectF rect_;
     QList<SelectItem*> items_;
     int current_;

@@ -3,13 +3,14 @@
 
 #include <QDir>
 #include <QMap>
+#include "../catagory.h"
 
 class DirLoader
 {
 public:
     DirLoader(QString initPath);
 
-    void load();
+    QList<Catagory> load();
 
 private:
     QDir dir_;

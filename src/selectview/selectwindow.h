@@ -25,7 +25,6 @@ public:
 private:
     Ui::SelectWindow *ui;
     SelectCanvas *canvas_;
-    DirLoader loader_;
 };
 
 #endif // SELECTWINDOW_H

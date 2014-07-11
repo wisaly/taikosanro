@@ -3,7 +3,7 @@
 
 #include <QList>
 #include <QColor>
-#include "song.h"
+#include <QStringList>
 
 class Catagory
 {
@@ -19,15 +19,13 @@ public:
     QColor backColor() const { return backColor_; }
     void setBackColor(const QColor &backColor) { backColor_ = backColor; }
 
-    int count() const { return songs_.count(); }
-    Song* songAt(int i) { return songs_[i]; }
-    void append(Song *song) { songs_.append(song); }
+    QStringList &files() { return files_; }
 
 private:
     QString title_;
     QColor foreColor_;
     QColor backColor_;
-    QList<Song*> songs_;
+    QStringList files_;
 };
 
 #endif // CATAGORY_H
