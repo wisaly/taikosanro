@@ -10,12 +10,13 @@ SelectWindow::SelectWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->graphicsView->installEventFilter(this);
+    //ui->graphicsView->installEventFilter(this);
 
     QGraphicsScene *scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
     canvas_ = new SelectCanvas;
     scene->addItem(canvas_);
+    canvas_->grabKeyboard();
 
     for (int i = 0;i < 100;i ++)
     {
@@ -23,6 +24,7 @@ SelectWindow::SelectWindow(QWidget *parent) :
         item->setTitle(QString("item %1").arg(i));
         item->setIndex(i+1);
         item->setTotal(100);
+        item->setCatagory(QString("catagory %1").arg(i / 10));
     }
 }
 
@@ -44,22 +46,6 @@ void SelectWindow::showEvent(QShowEvent *event)
 
 void SelectWindow::keyPressEvent(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_Right)
-    {
-        canvas_->move(1);
-    }
-    else if (event->key() == Qt::Key_Left)
-    {
-        canvas_->move(-1);
-    }
-    else if (event->key() == Qt::Key_Up)
-    {
-        canvas_->move(-10);
-    }
-    else if (event->key() == Qt::Key_Down)
-    {
-        canvas_->move(10);
-    }
 }
 
 bool SelectWindow::eventFilter(QObject *obj, QEvent *event)

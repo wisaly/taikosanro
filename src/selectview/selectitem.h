@@ -28,6 +28,12 @@ public:
     int total() const { return total_; }
     void setTotal(int total) { total_ = total; }
 
+    QString catagory() const { return catagory_; }
+    void setCatagory(QString catagory) { catagory_ = catagory; }
+
+    bool isSelect() const { return isSelect_; }
+    void setSelect(bool isSelect) { isSelect_ = isSelect; }
+
 signals:
 
 public slots:
@@ -40,6 +46,8 @@ private:
     int index_;
     int total_;
     QColor bkground_;
+    QString catagory_;
+    bool isSelect_;
 };
 
 #endif // SELECTITEM_H

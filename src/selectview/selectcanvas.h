@@ -22,7 +22,8 @@ public:
 
     void move(int step);
     void expand();
-    void collapse();
+
+    virtual void keyPressEvent(QKeyEvent *event);
 
 signals:
 
