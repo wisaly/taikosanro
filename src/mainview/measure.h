@@ -17,6 +17,7 @@ public:
             int beatsPerBar,
             bool isGGT,
             int appearElapsed);
+    ~Measure();
 
     virtual QRectF boundingRect() const;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
@@ -30,6 +31,7 @@ public:
     int disappearElapsed() const;
     int noteCount();
     Note *noteAt(int index);
+    void clear();
 
 protected:
     virtual void advance(int step);

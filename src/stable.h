@@ -23,6 +23,16 @@ enum DetermineValue
     MISS
 };
 
+enum Course
+{
+    INVALID_COURSE = -1,
+    KANTAN,
+    FUTSU,
+    MUZUKASHII,
+    ONI,
+    URA
+};
+
 const int GREAT_RANGE = 50;
 const int GOOD_RANGE = 150;
 const int FAIL_RANGE = 217;

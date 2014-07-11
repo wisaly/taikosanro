@@ -61,6 +61,7 @@ Ts::DetermineValue Note::determine(int elapsed)
 
 void Note::moveOut(Ts::DetermineValue value)
 {
+    Q_UNUSED(value)
     hide();
 }
 

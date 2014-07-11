@@ -8,10 +8,10 @@
 NoteFileParser::NoteFileParser(QString filePath,Song *song)
     :filePath_(filePath),song_(song)
 {
-    parse();
+    parse(Ts::INVALID_COURSE);
 }
 
-bool NoteFileParser::parse()
+bool NoteFileParser::parse(Ts::Course loadCourse)
 {
     QFile inputFile(filePath_);
     if (!inputFile.open(QFile::ReadOnly | QFile::Text))
@@ -19,7 +19,7 @@ bool NoteFileParser::parse()
         return false;
     }
 
-    int course = 3;
+    Ts::Course course = Ts::ONI;
     int level = 1;
     int scoreInit = 0;
     int scoreDiff = 0;
@@ -84,27 +84,27 @@ bool NoteFileParser::parse()
             {
                 if (val == "Easy" || val == "0")
                 {
-                    course = 0;
+                    course = Ts::KANTAN;
                 }
                 else if (val == "Normal" || val == "1")
                 {
-                    course = 1;
+                    course = Ts::FUTSU;
                 }
                 else if (val == "Hard" || val == "2")
                 {
-                    course = 2;
+                    course = Ts::MUZUKASHII;
                 }
                 else if (val == "Oni" || val == "3")
                 {
-                    course = 3;
+                    course = Ts::ONI;
                 }
                 else if (val == "Edit" || val == "4")
                 {
-                    course = 4;
+                    course = Ts::URA;
                 }
                 else
                 {
-                    course = 3;
+                    course = Ts::ONI;
                 }
             }
             else if (key == "SONGVOL")
@@ -144,7 +144,7 @@ bool NoteFileParser::parse()
         {
             if (line == "#START")
             {
-                NoteChart *noteChart = song_->createNoteChart();
+                NoteChart *noteChart = song_->getChart(course);
                 int elapsed = 0;
 
                 noteChart->setCourse(course);
@@ -154,27 +154,82 @@ bool NoteFileParser::parse()
 
                 bool isGGT = false;
 
+                // parse notes
                 while (!inputFile.atEnd())
                 {
                     line = inputFile.readLine().trimmed();
 
                     if (line.startsWith('#'))
                     {
-                        if (line == "#END")
+                        QStringList commands = line.split(' ',QString::SkipEmptyParts);
+                        if (commands[0] == "#END")
                         {
                             break;
                         }
-                        else if (line == "#GOGOSTART")
+                        else if (commands[0] == "#GOGOSTART")
                         {
                             isGGT = true;
                         }
-                        else if (line == "#GOGOEND")
+                        else if (commands[0] == "#GOGOEND")
                         {
                             isGGT = false;
                         }
+                        else if (commands[0] == "#MEASURE")
+                        {
+
+                        }
+                        else if (commands[0] == "#BPMCHANGE")
+                        {
+                        }
+                        else if (commands[0] == "#SCROLL")
+                        {
+                        }
+                        else if (commands[0] == "#DELAY")
+                        {
+                        }
+                        else if (commands[0] == "#SECTION")
+                        {
+                        }
+                        else if (commands[0] == "#BRANCHSTART")
+                        {
+                        }
+                        else if (commands[0] == "#BRANCHEND")
+                        {
+                        }
+                        else if (commands[0] == "#N")
+                        {
+                        }
+                        else if (commands[0] == "#E")
+                        {
+                        }
+                        else if (commands[0] == "#M")
+                        {
+                        }
+                        else if (commands[0] == "#LEVELHOLD")
+                        {
+                        }
+                        else if (commands[0] == "#BMSCROLL")
+                        {
+                        }
+                        else if (commands[0] == "#HBSCROLL")
+                        {
+                        }
+                        else if (commands[0] == "#BARLINEOFF")
+                        {
+                        }
+                        else if (commands[0] == "#BARLINEON")
+                        {
+                        }
+
                         continue;
                     }
+                    if (loadCourse != course)
+                    {
+                        break;
+                    }
+                    noteChart->clear();
 
+                    // TODO: a measure could sperated in multi lines.
                     QStringList measuresSrc = line.split(',',QString::SkipEmptyParts);
                     for (int i = 0;i < measuresSrc.count();i++)
                     {

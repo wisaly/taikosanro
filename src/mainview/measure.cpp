@@ -69,6 +69,11 @@ Measure::Measure(QGraphicsItem *parent,
     setBoundingRect(parent->boundingRect());
 }
 
+Measure::~Measure()
+{
+    clear();
+}
+
 QRectF Measure::boundingRect() const
 {
     return canvasRect_;
@@ -126,6 +131,15 @@ int Measure::noteCount()
 Note *Measure::noteAt(int index)
 {
     return notes_[index];
+}
+
+void Measure::clear()
+{
+    for (int i = 0;i < notes_.count();i++)
+    {
+        delete notes_[i];
+    }
+    notes_.clear();
 }
 
 void Measure::advance(int step)

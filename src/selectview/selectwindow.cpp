@@ -46,6 +46,7 @@ void SelectWindow::showEvent(QShowEvent *event)
 
 void SelectWindow::keyPressEvent(QKeyEvent *event)
 {
+    Q_UNUSED(event);
 }
 
 bool SelectWindow::eventFilter(QObject *obj, QEvent *event)

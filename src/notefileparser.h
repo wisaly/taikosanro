@@ -9,7 +9,7 @@ class NoteFileParser
 public:
     NoteFileParser(QString filePath,Song *song);
 
-    bool parse();
+    bool parse(Ts::Course loadCourse);
 
 protected:
     QString filePath_;

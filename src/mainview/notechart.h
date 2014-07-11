@@ -13,13 +13,14 @@ class NoteChart : public QGraphicsObject
 public:
     NoteChart(QGraphicsItem *parent = 0);
 
+    void setBoundingRect(QRectF rect);
     virtual QRectF boundingRect() const;
+
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 QWidget *widget);
 
     void play();
 
-    void setBoundingRect(QRectF rect);
 
     void reset();
 
@@ -31,19 +32,20 @@ public:
                            bool isGGT,
                            int appearElapsed);
 
-    int measureCount() {return measures_.count();}
+    int measureCount() { return measures_.count(); }
+    void clear();
 
-    int level() const {return level_;}
-    void setLevel(int level){level_ = level;}
+    int level() const { return level_; }
+    void setLevel(int level) { level_ = level; }
 
-    int course() const {return course_;}
-    void setCourse(int course) {course_ = course;}
+    int course() const { return course_; }
+    void setCourse(int course) { course_ = course; }
 
-    int scoreInit() const {return scoreInit_;}
-    void setScoreInit(int scoreInit) {scoreInit_ = scoreInit;}
+    int scoreInit() const { return scoreInit_; }
+    void setScoreInit(int scoreInit) { scoreInit_ = scoreInit; }
 
-    int scoreDiff() const {return scoreDiff_;}
-    void setScoreDiff(int scoreDiff) {scoreDiff_ = scoreDiff;}
+    int scoreDiff() const { return scoreDiff_; }
+    void setScoreDiff(int scoreDiff) { scoreDiff_ = scoreDiff; }
 
 protected:
     void advance(int step);

@@ -26,9 +26,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     determine_ = new DetermineResult(canvas);
 
-    Song *song = new Song(canvas);
-    new NoteFileParser("../res/example.tja",song);
-    chart_ = song->chartAt(0);
+    Song *song = new Song("../res/example.tja");
+    song->parser().parse(Ts::ONI);
+    chart_ = song->getChart(Ts::ONI);
     chart_->connect(this,SIGNAL(hit(Ts::TaikoState)),SLOT(hit(Ts::TaikoState)));
     determine_->connect(chart_,SIGNAL(determined(Ts::DetermineValue)),SLOT(determined(Ts::DetermineValue)));
 

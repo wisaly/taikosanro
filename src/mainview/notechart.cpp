@@ -9,7 +9,7 @@ NoteChart::NoteChart(QGraphicsItem *parent)
 
     if (parent != 0)
     {
-        this->setBoundingRect(parent->boundingRect());
+        setBoundingRect(parent->boundingRect());
     }
 }
 
@@ -115,6 +115,15 @@ Measure *NoteChart::createMeasure(NoteTypeList &notes, QQueue<int> &ballonHits, 
     measures_.append(measure);
 
     return measure;
+}
+
+void NoteChart::clear()
+{
+    for (int i = 0;i < measures_.count();i++)
+    {
+        delete measures_[i];
+    }
+    measures_.clear();
 }
 
 void NoteChart::advance(int step)
