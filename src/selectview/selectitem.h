@@ -3,6 +3,9 @@
 
 #include <QGraphicsObject>
 #include <QColor>
+#include <QPixmap>
+#include <QGraphicsItemGroup>
+#include "courseitem.h"
 #include "../song.h"
 #include "../stable.h"
 
@@ -14,11 +17,11 @@ public:
     explicit SelectItem(QGraphicsItem *parent = 0);
     ~SelectItem();
 
-    virtual QRectF boundingRect() const{return rect_;}
+    QRectF boundingRect() const{return rect_;}
     void setBoundingRect(const QRectF &rect){rect_ = rect;update();}
     void resetBoundingRect() {setBoundingRect(QRectF(0 - Ts::BAR_WIDTH / 2,0,Ts::BAR_WIDTH,Ts::BAR_HEIGHT));}
 
-    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 QWidget *widget);
 
     int index() const{return index_;}
@@ -40,6 +43,8 @@ public:
     void setBackColor(const QColor &backColor) { backColor_ = backColor; }
 
     void setNoteFile(QString noteFile) { noteFile_ = noteFile; }
+
+    void loadSong();
 signals:
 
 public slots:
@@ -53,9 +58,13 @@ private:
     QColor foreColor_;
     QColor backColor_;
     QString catagory_;
-    bool isSelect_;
     QString noteFile_;
     Song *song_;
+    bool isSelect_;
+    QPixmap barLeftPixmap_;
+    QPixmap barMidPixmap_;
+    QPixmap barRightPixmap_;
+    QGraphicsItemGroup courses_;
 };
 
 #endif // SELECTITEM_H

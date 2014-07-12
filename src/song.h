@@ -17,6 +17,9 @@ class Song
 public:
     Song(QString noteFile);
 
+    // get chart & create if not exist
+    NoteChart *createChart(Ts::Course course);
+    // get chart & return 0 if not exist
     NoteChart *getChart(Ts::Course course);
 
     QString title() const { return title_; }

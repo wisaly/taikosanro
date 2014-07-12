@@ -23,8 +23,8 @@ public:
 
    explicit Note(QGraphicsItem *parent,Type noteType,int index);
 
-   virtual QRectF boundingRect() const;
-   virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+   QRectF boundingRect() const;
+   void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget);
 
     int index();
@@ -36,7 +36,7 @@ public:
     virtual void setUnitWidth(int unitWidth);
 
 protected:
-    virtual void advance(int step);
+    void advance(int step);
 
 protected:
     Type noteType_;

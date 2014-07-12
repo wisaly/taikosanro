@@ -19,8 +19,8 @@ public:
             int appearElapsed);
     ~Measure();
 
-    virtual QRectF boundingRect() const;
-    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+    QRectF boundingRect() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 QWidget *widget);
 
     void reset();
@@ -34,7 +34,7 @@ public:
     void clear();
 
 protected:
-    virtual void advance(int step);
+    void advance(int step);
 
 private:
     QRectF canvasRect_;

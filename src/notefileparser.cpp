@@ -144,7 +144,7 @@ bool NoteFileParser::parse(Ts::Course loadCourse)
         {
             if (line == "#START")
             {
-                NoteChart *noteChart = song_->getChart(course);
+                NoteChart *noteChart = song_->createChart(course);
                 int elapsed = 0;
 
                 noteChart->setCourse(course);

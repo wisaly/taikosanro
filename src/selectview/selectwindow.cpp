@@ -1,8 +1,8 @@
-
-#include "selectwindow.h"
-#include "ui_selectwindow.h"
 #include <QDebug>
 #include <QKeyEvent>
+#include <QResizeEvent>
+#include "selectwindow.h"
+#include "ui_selectwindow.h"
 
 SelectWindow::SelectWindow(QWidget *parent) :
     QWidget(parent),
@@ -30,16 +30,21 @@ void SelectWindow::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event);
 
-    QRectF rect = ui->graphicsView->rect().adjusted(0,0,-10,-10);
-    //chart_->setBoundingRect(rect);
-    ui->graphicsView->setSceneRect(rect);
-    canvas_->setRect(rect);
-    canvas_->move(0);
 }
 
 void SelectWindow::keyPressEvent(QKeyEvent *event)
 {
     Q_UNUSED(event);
+}
+
+void SelectWindow::resizeEvent(QResizeEvent *event)
+{
+    Q_UNUSED(event);
+
+    QRectF rect = ui->graphicsView->rect().adjusted(0,0,-10,-10);
+    ui->graphicsView->setSceneRect(rect);
+    canvas_->setRect(rect);
+    canvas_->move(0);
 }
 
 bool SelectWindow::eventFilter(QObject *obj, QEvent *event)

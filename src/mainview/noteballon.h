@@ -14,7 +14,7 @@ public:
     int count() const;
     void setCount(int count);
 
-    virtual bool acceptAct(Ts::TaikoState action);
+    bool acceptAct(Ts::TaikoState action);
 
 protected:
     int count_;

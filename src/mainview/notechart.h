@@ -14,10 +14,10 @@ public:
     NoteChart(QGraphicsItem *parent = 0);
 
     void setBoundingRect(QRectF rect);
-    virtual QRectF boundingRect() const;
+    QRectF boundingRect() const;
 
-    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-                QWidget *widget);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+               QWidget *widget);
 
     void play();
 

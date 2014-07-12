@@ -13,10 +13,10 @@ class DetermineResult : public QGraphicsObject
 public:
     DetermineResult(QGraphicsItem *parent = 0);
 
-    virtual QRectF boundingRect() const;
-    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-                QWidget *widget);
-    virtual void advance(int step);
+    QRectF boundingRect() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+        QWidget *widget);
+    void advance(int step);
 
 public slots:
     void determined(Ts::DetermineValue value);

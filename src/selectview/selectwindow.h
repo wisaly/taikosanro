@@ -20,6 +20,7 @@ public:
 
     void showEvent(QShowEvent * event);
     void keyPressEvent(QKeyEvent *event);
+    void resizeEvent(QResizeEvent * event);
     bool eventFilter(QObject *obj, QEvent *event);
 
 private:

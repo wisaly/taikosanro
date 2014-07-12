@@ -12,8 +12,8 @@ class SelectCanvas : public QGraphicsObject
 public:
     explicit SelectCanvas(QGraphicsItem *parent = 0);
 
-    virtual QRectF boundingRect() const;
-    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+    QRectF boundingRect() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 QWidget *widget);
 
     void setRect(const QRectF &rect){rect_ = rect;}
@@ -25,7 +25,7 @@ public:
     void move(int step);
     void expand();
 
-    virtual void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event);
 
 signals:
 

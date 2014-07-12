@@ -10,15 +10,15 @@ NoteYellowBar::NoteYellowBar(QGraphicsItem *parent, int index, bool isBig, int l
 {
     if (isBig)
     {
-        notePixmap_ = PixmapManager::getBigYellowBarBody();
-        noteHeadPixmap_ = PixmapManager::getBigYellowBarHead();
-        noteTailPixmap_ = PixmapManager::getBigYellowBarTail();
+        notePixmap_ = PixmapManager::get(Ts::resBigYellowBarBody);
+        noteHeadPixmap_ = PixmapManager::get(Ts::resBigYellowBarHead);
+        noteTailPixmap_ = PixmapManager::get(Ts::resBigYellowBarTail);
     }
     else
     {
-        notePixmap_ = PixmapManager::getYellowBarBody();
-        noteHeadPixmap_ = PixmapManager::getYellowBarHead();
-        noteTailPixmap_ = PixmapManager::getYellowBarTail();
+        notePixmap_ = PixmapManager::get(Ts::resYellowBarBody);
+        noteHeadPixmap_ = PixmapManager::get(Ts::resYellowBarHead);
+        noteTailPixmap_ = PixmapManager::get(Ts::resYellowBarTail);
     }
 }
 

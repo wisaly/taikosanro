@@ -8,7 +8,7 @@ class NoteYellowBar : public Note
 public:
     NoteYellowBar(QGraphicsItem *parent,int index,bool isBig,int length);
 
-    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 QWidget *widget);
 
     int length() const;
@@ -16,9 +16,9 @@ public:
     int hitCount() const;
     void setHitCount(int hitCount);
 
-    virtual bool acceptAct(Ts::TaikoState action);
+    bool acceptAct(Ts::TaikoState action);
 
-    //virtual void setUnitWidth(int unitWidth);
+    //void setUnitWidth(int unitWidth);
 
 protected:
     int length_;
