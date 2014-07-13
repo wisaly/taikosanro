@@ -33,7 +33,8 @@ SOURCES += main.cpp\
     selectview/selectcanvas.cpp \
     selectview/selectitem.cpp \
     selectview/dirloader.cpp \
-    selectview/courseitem.cpp
+    selectview/courseitem.cpp \
+    selectview/selectarrow.cpp
 
 HEADERS  += stable.h\
     pixmapmanager.h \
@@ -56,7 +57,8 @@ HEADERS  += stable.h\
     selectview/selectcanvas.h \
     selectview/selectitem.h \
     selectview/dirloader.h \
-    selectview/courseitem.h
+    selectview/courseitem.h \
+    selectview/selectarrow.h
 
 FORMS    += selectview/selectwindow.ui \
     mainview/mainwindow.ui

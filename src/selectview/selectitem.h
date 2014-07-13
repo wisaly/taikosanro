@@ -6,6 +6,7 @@
 #include <QPixmap>
 #include <QGraphicsItemGroup>
 #include "courseitem.h"
+#include "selectarrow.h"
 #include "../song.h"
 #include "../stable.h"
 
@@ -33,8 +34,8 @@ public:
     QString catagory() const { return catagory_; }
     void setCatagory(QString catagory) { catagory_ = catagory; }
 
-    bool isSelect() const { return isSelect_; }
-    void setSelect(bool isSelect) { isSelect_ = isSelect; }
+    bool isChoosed() const { return isChoosed_; }
+    void setChoosed(bool isChoosed) { isChoosed_ = isChoosed; selectArrow_.setVisible(isChoosed_); }
 
     QColor foreColor() const { return foreColor_; }
     void setForeColor(const QColor &foreColor) { foreColor_ = foreColor; }
@@ -45,6 +46,9 @@ public:
     void setNoteFile(QString noteFile) { noteFile_ = noteFile; }
 
     void loadSong();
+    void moveSelection(int step) { selectArrow_.moveSelection(step); }
+    Ts::Course selection() { return selectArrow_.selection(); }
+    Song *song() { return song_; }
 signals:
 
 public slots:
@@ -60,11 +64,12 @@ private:
     QString catagory_;
     QString noteFile_;
     Song *song_;
-    bool isSelect_;
+    bool isChoosed_;
     QPixmap barLeftPixmap_;
     QPixmap barMidPixmap_;
     QPixmap barRightPixmap_;
     QGraphicsItemGroup courses_;
+    SelectArrow selectArrow_;
 };
 
 #endif // SELECTITEM_H

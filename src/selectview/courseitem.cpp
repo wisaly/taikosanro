@@ -4,7 +4,7 @@
 
 const int ICON_HEIGHT = 40;
 const int CROWN_HEIGHT = 30;
-const int STAR_Y = 217 + ICON_HEIGHT;
+const int STAR_Y = 217 + ICON_HEIGHT + CROWN_HEIGHT;
 const int STAR_X = 14;
 const qreal STAR_SPACE = 22.6;
 

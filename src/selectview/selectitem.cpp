@@ -13,7 +13,9 @@ const int COURSE_Y = BAR_PAD + HEAD_HEIGHT + BAR_MARGIN + 10;
 SelectItem::SelectItem(QGraphicsItem *parent) :
     QGraphicsObject(parent),
     courses_(this),
-    song_(0)
+    selectArrow_(this),
+    song_(0),
+    isChoosed_(false)
 {
     barLeftPixmap_ = PixmapManager::get(Ts::resSelectBarLeft);
     barMidPixmap_ = PixmapManager::get(Ts::resSelectBarMid);
@@ -22,6 +24,8 @@ SelectItem::SelectItem(QGraphicsItem *parent) :
     resetBoundingRect();
 
     setCacheMode(DeviceCoordinateCache);
+
+    selectArrow_.hide();
 }
 
 SelectItem::~SelectItem()
@@ -54,8 +58,12 @@ void SelectItem::loadSong()
             levelStar->setLevel(chart->level());
             levelStar->setPos(COURSE_X + index++ * (levelStar->boundingRect().width() + BAR_PAD),COURSE_Y);
 
+            selectArrow_.addSelection(
+                        course,
+                        QPointF(levelStar->x(),COURSE_Y + levelStar->boundingRect().height()));
             courses_.addToGroup(levelStar);
         }
+        //courses_.addToGroup(&selectArrow_);
     }
 }
 
@@ -106,6 +114,7 @@ void SelectItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 
         // show courses
         courses_.show();
+
     }
     else
     {

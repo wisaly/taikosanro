@@ -191,10 +191,45 @@ void SelectCanvas::keyPressEvent(QKeyEvent *event)
     moveAct[Qt::Key_L] = 10;
     moveAct[Qt::Key_A] = -100;
     moveAct[Qt::Key_Semicolon] = 100;
+    moveAct[Qt::Key_F] = 0;
+    moveAct[Qt::Key_J] = 0;
+    moveAct[Qt::Key_Return] = 0;
 
     if (moveAct.contains(event->key()))
     {
-        move(moveAct[event->key()]);
+        int step = moveAct[event->key()];
+
+        if (items_[current_]->isChoosed())
+        {
+            if (step == 0)
+            {
+                qDebug() << items_[current_]->song()->title() << items_[current_]->selection();
+            }
+            else
+            {
+                items_[current_]->moveSelection(step);
+            }
+        }
+        else
+        {
+            if (step == 0)
+            {
+                items_[current_]->setChoosed(true);
+            }
+            else
+            {
+                move(step);
+            }
+        }
+    }
+    else if (event->key() == Qt::Key_G ||
+             event->key() == Qt::Key_H ||
+             event->key() == Qt::Key_Escape)
+    {
+        if (items_[current_]->isChoosed())
+        {
+            items_[current_]->setChoosed(false);
+        }
     }
 }
 
