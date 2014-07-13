@@ -12,7 +12,7 @@
 SelectCanvas::SelectCanvas(QGraphicsItem *parent) :
     QGraphicsObject(parent),
     current_(0),
-    loader_("d:/taikojiro32")
+    loader_("d:/taikojiro232")
 {
 }
 
