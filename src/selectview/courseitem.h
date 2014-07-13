@@ -19,9 +19,6 @@ public:
     int level() const { return level_; }
     void setLevel(int level) { level_ = qMin(qMax(level,0),10); }
 
-    bool isSelect() const { return isSelect_; }
-    void setSelect(bool isSelect) { isSelect_ = isSelect; update();}
-
 private:
     QPixmap backPixmap_;
     QPixmap starPixmap_;
@@ -29,7 +26,6 @@ private:
     QPixmap crownPixmap_;
     QPixmap arrowPixmap_;
     int level_;
-    bool isSelect_;
 };
 
 #endif // LEVELSTARS_H

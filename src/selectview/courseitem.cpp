@@ -4,8 +4,7 @@
 
 const int ICON_HEIGHT = 40;
 const int CROWN_HEIGHT = 30;
-const int ARROW_HEIGHT = 50;
-const int STAR_Y = 217 + ICON_HEIGHT + CROWN_HEIGHT;
+const int STAR_Y = 217 + ICON_HEIGHT;
 const int STAR_X = 14;
 const qreal STAR_SPACE = 22.6;
 
@@ -39,14 +38,6 @@ void CourseItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     // draw background
     painter->drawPixmap(0,ICON_HEIGHT + CROWN_HEIGHT,backPixmap_);
 
-    if (isSelect_)
-    {
-        painter->drawPixmap(
-                    0,ICON_HEIGHT + CROWN_HEIGHT + backPixmap_.height(),
-                    arrowPixmap_);
-    }
-
-
     int y = STAR_Y;
     for (int i = 0;i < level_;i ++)
     {
@@ -57,7 +48,7 @@ void CourseItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 QRectF CourseItem::boundingRect() const
 {
     return QRectF(0,0,backPixmap_.width(),
-                  backPixmap_.height() + CROWN_HEIGHT + ICON_HEIGHT + ARROW_HEIGHT);
+                  backPixmap_.height() + CROWN_HEIGHT + ICON_HEIGHT);
 }
 
 void CourseItem::setCourse(Ts::Course course)
