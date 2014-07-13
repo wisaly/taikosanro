@@ -2,15 +2,16 @@
 #include <QTime>
 #include <QGLWidget>
 #include <QPropertyAnimation>
+#include <QDebug>
 #include "mainwindow.h"
 #include "measure.h"
 #include "note.h"
 #include "notecanvas.h"
 #include "notechart.h"
-#include "../notefileparser.h"
-#include "../song.h"
 #include "determineresult.h"
 #include "ui_mainwindow.h"
+#include "../notefileparser.h"
+#include "../song.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
@@ -29,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     Song *song = new Song("../res/example.tja");
     song->parser().parse(Ts::ONI);
     chart_ = song->getChart(Ts::ONI);
+    chart_->setParentItem(canvas);
     chart_->connect(this,SIGNAL(hit(Ts::TaikoState)),SLOT(hit(Ts::TaikoState)));
     determine_->connect(chart_,SIGNAL(determined(Ts::DetermineValue)),SLOT(determined(Ts::DetermineValue)));
 
@@ -65,6 +67,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
     if (event->key() == Qt::Key_Space)
     {
+        qDebug() << "play";
         chart_->play();
 
         event->accept();
@@ -91,7 +94,7 @@ void MainWindow::showEvent(QShowEvent *event)
     Q_UNUSED(event);
 
     QRectF rect = ui->graphicsView->rect().adjusted(0,0,-10,-10);
-    //chart_->setBoundingRect(rect);
+    chart_->setBoundingRect(rect);
     ui->graphicsView->setSceneRect(rect);
     ui->graphicsView->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
     ui->graphicsView->setCacheMode(QGraphicsView::CacheBackground);

@@ -21,19 +21,19 @@ void DetermineResult::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->setFont(QFont("华文行楷",15));
+    painter->setFont(QFont(Ts::GUI_FONT_NAME,15));
     switch (result_)
     {
     case Ts::OUTSIDE:
         break;
     case Ts::GREAT:
-        painter->drawText(boundingRect(),Qt::AlignCenter,"良");
+        painter->drawText(boundingRect(),Qt::AlignCenter,"Great");
         break;
     case Ts::GOOD:
-        painter->drawText(boundingRect(),Qt::AlignCenter,"可");
+        painter->drawText(boundingRect(),Qt::AlignCenter,"Good");
         break;
     case Ts::FAIL:
-        painter->drawText(boundingRect(),Qt::AlignCenter,"不可");
+        painter->drawText(boundingRect(),Qt::AlignCenter,"Fail");
         break;
     case Ts::MISS:
         painter->drawText(boundingRect(),Qt::AlignCenter,"Miss");

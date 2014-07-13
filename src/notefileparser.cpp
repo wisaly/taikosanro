@@ -145,6 +145,7 @@ bool NoteFileParser::parse(Ts::Course loadCourse)
             if (line == "#START")
             {
                 NoteChart *noteChart = song_->createChart(course);
+                noteChart->clear();
                 int elapsed = 0;
 
                 noteChart->setCourse(course);
@@ -227,7 +228,6 @@ bool NoteFileParser::parse(Ts::Course loadCourse)
                     {
                         break;
                     }
-                    noteChart->clear();
 
                     // TODO: a measure could sperated in multi lines.
                     QStringList measuresSrc = line.split(',',QString::SkipEmptyParts);
