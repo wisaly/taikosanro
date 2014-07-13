@@ -12,7 +12,7 @@
 SelectCanvas::SelectCanvas(QGraphicsItem *parent) :
     QGraphicsObject(parent),
     current_(0),
-    loader_("d:/taikojiro232")
+    loader_("d:/taikojiro32")
 {
 }
 
@@ -73,6 +73,11 @@ SelectItem *SelectCanvas::addItem()
 
 void SelectCanvas::move(int step)
 {
+    if (items_.count() == 0)
+    {
+        return;
+    }
+
     if (qAbs(step) == 100)
     {
         // move a catagory
