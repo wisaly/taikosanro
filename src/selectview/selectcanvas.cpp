@@ -26,6 +26,7 @@ void SelectCanvas::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
+    painter->setFont(QFont(Ts::GUI_FONT_NAME));
     if (items_.count() > 0)
     {
         painter->drawText(rect_,Qt::AlignHCenter,items_[current_]->catagory());

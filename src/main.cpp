@@ -12,8 +12,8 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     //QTextCodec::setCodecForLocale(QTextCodec::codecForName("utf-8"));
-    //MainWindow w;
-    SelectWindow w;
+    MainWindow w;
+    //SelectWindow w;
     w.show();
 
     return a.exec();
