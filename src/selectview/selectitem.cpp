@@ -12,10 +12,10 @@ const int COURSE_Y = BAR_PAD + HEAD_HEIGHT + BAR_MARGIN + 10;
 
 SelectItem::SelectItem(QGraphicsItem *parent) :
     QGraphicsObject(parent),
-    courses_(this),
-    selectArrow_(this),
     song_(0),
-    isChoosed_(false)
+    isChoosed_(false),
+    courses_(this),
+    selectArrow_(this)
 {
     barLeftPixmap_ = PixmapManager::get(Ts::resSelectBarLeft);
     barMidPixmap_ = PixmapManager::get(Ts::resSelectBarMid);

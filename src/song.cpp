@@ -3,7 +3,7 @@
 #include "notefileparser.h"
 
 Song::Song(QString noteFile)
-    :parentItem_(0),parser_(noteFile,this)
+    :parser_(noteFile,this),parentItem_(0)
 {
     parser_.parse(Ts::INVALID_COURSE);
 }

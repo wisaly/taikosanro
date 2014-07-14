@@ -51,37 +51,37 @@ const int BAR_WIDTH = 100;
 const int BAR_EXPAND = 400;
 const int BAR_HEIGHT = 464; // 424(image height) + 30 + 5*2
 
-char* const GUI_FONT_NAME = "微软雅黑";
+const char* const GUI_FONT_NAME = "微软雅黑";
 
-char* const resRedMarker = "../res/redmarker.png";
-char* const resBlueMarker = "../res/bluemarker.png";
-char* const resBigRedMarker = "../res/bigredmarker.png";
-char* const resBigBlueMarker = "../res/bigbluemarker.png";
+const char* const resRedMarker = "../res/redmarker.png";
+const char* const resBlueMarker = "../res/bluemarker.png";
+const char* const resBigRedMarker = "../res/bigredmarker.png";
+const char* const resBigBlueMarker = "../res/bigbluemarker.png";
 
-char* const resYellowBarBody = "../res/yellowbarbody.png";
-char* const resYellowBarHead = "../res/yellowbarhead.png";
-char* const resYellowBarTail = "../res/yellowbartail.png";
+const char* const resYellowBarBody = "../res/yellowbarbody.png";
+const char* const resYellowBarHead = "../res/yellowbarhead.png";
+const char* const resYellowBarTail = "../res/yellowbartail.png";
 
-char* const resBigYellowBarBody = "../res/bigyellowbarbody.png";
-char* const resBigYellowBarHead = "../res/bigyellowbarhead.png";
-char* const resBigYellowBarTail = "../res/bigyellowbartail.png";
+const char* const resBigYellowBarBody = "../res/bigyellowbarbody.png";
+const char* const resBigYellowBarHead = "../res/bigyellowbarhead.png";
+const char* const resBigYellowBarTail = "../res/bigyellowbartail.png";
 
-char* const resSelectBarLeft = "../res/selectbarleft.png";
-char* const resSelectBarMid = "../res/selectbarmid.png";
-char* const resSelectBarRight = "../res/selectbarright.png";
+const char* const resSelectBarLeft = "../res/selectbarleft.png";
+const char* const resSelectBarMid = "../res/selectbarmid.png";
+const char* const resSelectBarRight = "../res/selectbarright.png";
 
-char* const resLevelStarBack = "../res/levelstarback.png";
-char* const resLevelStar = "../res/levelstar.png";
+const char* const resLevelStarBack = "../res/levelstarback.png";
+const char* const resLevelStar = "../res/levelstar.png";
 
-char* const resLittleKantan = "../res/littlekantan.png";
-char* const resLittleFutsu = "../res/littlefutsu.png";
-char* const resLittleMuzukashii = "../res/littlemuzukashii.png";
-char* const resLittleOni = "../res/littleoni.png";
+const char* const resLittleKantan = "../res/littlekantan.png";
+const char* const resLittleFutsu = "../res/littlefutsu.png";
+const char* const resLittleMuzukashii = "../res/littlemuzukashii.png";
+const char* const resLittleOni = "../res/littleoni.png";
 
-char* const resCrownSilver = "../res/crownsilver.png";
-char* const resCrownGold = "../res/crowngold.png";
+const char* const resCrownSilver = "../res/crownsilver.png";
+const char* const resCrownGold = "../res/crowngold.png";
 
-char* const resSelectArrow = "../res/selectarrow.png";
+const char* const resSelectArrow = "../res/selectarrow.png";
 
 }
 #endif // STABLE_H

@@ -135,7 +135,14 @@ void NoteChart::advance(int step)
     if (step)
     {
         int currentElapsed = playProgress_.elapsed();
-        //qDebug() << currentElapsed << "begin";
+        static int last = 0;
+        if (last == 0)
+            last = currentElapsed;
+        else
+        {
+            qDebug() << "delta:" << currentElapsed - last;
+            last = currentElapsed;
+        }
         // hide disappear measure
         if (currentMeasure_ > 0 && currentElapsed > measures_[currentMeasure_]->disappearElapsed())
         {

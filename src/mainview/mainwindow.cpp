@@ -34,27 +34,16 @@ MainWindow::MainWindow(QWidget *parent) :
     chart_->connect(this,SIGNAL(hit(Ts::TaikoState)),SLOT(hit(Ts::TaikoState)));
     determine_->connect(chart_,SIGNAL(determined(Ts::DetermineValue)),SLOT(determined(Ts::DetermineValue)));
 
+    connect(&timer_,SIGNAL(timeout()),SLOT(timeout()));
+    timer_.setTimerType(Qt::PreciseTimer);
+    timer_.start(1000 / 60);
 
-    startTimer(1000 / 60);
     fpsTimer_.start();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::timerEvent(QTimerEvent *event)
-{
-    Q_UNUSED(event);
-    if (fpsTimer_.elapsed() >= 1000)
-    {
-        setWindowTitle(QString("time-%1 fps-%2").arg(QTime::currentTime().toString("hh:mm:ss")).arg(fpsCount_));
-        fpsCount_ = 0;
-        fpsTimer_.start();
-    }
-    fpsCount_++;
-    ui->graphicsView->scene()->advance();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -101,4 +90,16 @@ void MainWindow::showEvent(QShowEvent *event)
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
     ui->graphicsView->setRenderHint(QPainter::TextAntialiasing);
     //ui->graphicsView->setViewport(new QGLWidget);
+}
+
+void MainWindow::timeout()
+{
+    if (fpsTimer_.elapsed() >= 1000)
+    {
+        setWindowTitle(QString("time-%1 fps-%2").arg(QTime::currentTime().toString("hh:mm:ss")).arg(fpsCount_));
+        fpsCount_ = 0;
+        fpsTimer_.start();
+    }
+    fpsCount_++;
+    ui->graphicsView->scene()->advance();
 }

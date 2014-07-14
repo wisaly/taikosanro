@@ -3,6 +3,7 @@
 
 #include <QElapsedTimer>
 #include <QWidget>
+#include <QTimer>
 #include "../stable.h"
 
 namespace Ui {
@@ -20,18 +21,19 @@ public:
     ~MainWindow();
 
 private:
-    void timerEvent(QTimerEvent *event);
     void keyPressEvent(QKeyEvent *event);
     void showEvent(QShowEvent *event);
 
 signals:
     void hit(Ts::TaikoState state);
 public slots:
+    void timeout();
 
 private:
     Ui::MainWindow *ui;
     NoteChart *chart_;
     DetermineResult *determine_;
+    QTimer timer_;
     QElapsedTimer fpsTimer_;
     int fpsCount_;
 };
