@@ -47,10 +47,6 @@ const int FAIL_RANGE = 217;
 const int NOTE_WIDTH = 100;
 const int NOTE_HEIGHT = 100;
 
-const int BAR_WIDTH = 100;
-const int BAR_EXPAND = 400;
-const int BAR_HEIGHT = 464; // 424(image height) + 30 + 5*2
-
 const char* const GUI_FONT_NAME = "微软雅黑";
 
 const char* const RES_FILE = "../res/res.ini";
@@ -75,6 +71,11 @@ const char* const BIG_YELLOW_BAR_TAIL = "mainview/bigyellowbartail";
 // resource of select view
 namespace sv
 {
+const char* const BAR_SIZE = "selectview/bar/size";
+const char* const BAR_EXPAND_SIZE = "selectview/bar/expandsize";
+const char* const BAR_CONTENT_POS = "barcontent/pos";
+const char* const BAR_CONTENT_SIZE = "barcontent/size";
+
 const char* const BAR_LEFT = "selectview/barleft";
 const char* const BAR_MID = "selectview/barmid";
 const char* const BAR_RIGHT = "selectview/barright";

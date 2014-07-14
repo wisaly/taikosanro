@@ -2,12 +2,6 @@
 #include "courseitem.h"
 #include "../pixmapmanager.h"
 
-const int ICON_HEIGHT = 40;
-const int CROWN_HEIGHT = 30;
-const int STAR_Y = 217 + ICON_HEIGHT + CROWN_HEIGHT;
-const int STAR_X = 14;
-const qreal STAR_SPACE = 22.6;
-
 CourseItem::CourseItem(QGraphicsItem *parent)
     :QGraphicsItem(parent)
 {
@@ -25,29 +19,25 @@ void CourseItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     // draw crown
     if (!crownPixmap_.isNull())
     {
-        painter->drawPixmap(
-                    0,0,
-                    crownPixmap_);
+        painter->drawPixmap(crownPixmap_.pos(),crownPixmap_);
     }
     // draw course icon
-    painter->drawPixmap(
-                (backPixmap_.width() - coursePixmap_.width()) / 2,
-                CROWN_HEIGHT + ICON_HEIGHT - coursePixmap_.height(),
-                coursePixmap_);
+    painter->drawPixmap(coursePixmap_.pos(),coursePixmap_);
     // draw background
-    painter->drawPixmap(0,ICON_HEIGHT + CROWN_HEIGHT,backPixmap_);
+    painter->drawPixmap(backPixmap_.pos(),backPixmap_);
 
-    int y = STAR_Y;
     for (int i = 0;i < level_;i ++)
     {
-        painter->drawPixmap(STAR_X,y - i * STAR_SPACE,starPixmap_);
+        painter->drawPixmap(
+                    starPixmap_.pos().x(),
+                    starPixmap_.pos().y() - i * starPixmap_.extend().height(),
+                    starPixmap_);
     }
 }
 
 QRectF CourseItem::boundingRect() const
 {
-    return QRectF(0,0,backPixmap_.width(),
-                  backPixmap_.height() + CROWN_HEIGHT + ICON_HEIGHT);
+    return QRectF(QPointF(0,0),backPixmap_.extend());
 }
 
 void CourseItem::setCourse(Ts::Course course)

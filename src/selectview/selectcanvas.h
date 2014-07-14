@@ -19,7 +19,6 @@ public:
     void setRect(const QRectF &rect){rect_ = rect;}
 
     void load();
-    SelectItem *addItem();
     SelectItem *itemAt(int index);
 
     void move(int step);
@@ -36,6 +35,9 @@ private:
     QRectF rect_;
     QList<SelectItem*> items_;
     int current_;
+    QRectF barRect_;
+    QRectF barExpandRect_;
+    QRectF barContentRect_;
 };
 
 #endif // SELECTCANVAS_H

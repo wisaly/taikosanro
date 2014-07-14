@@ -8,6 +8,8 @@ class PixmapManager
     PixmapManager();
 public:
     static PixmapRes get(QString key);
+    static QPointF getPos(QString key);
+    static QSizeF getSize(QString key);
 
     static bool loadAll();
 

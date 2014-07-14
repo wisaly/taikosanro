@@ -7,6 +7,7 @@
 #include <QPainter>
 #include <QDebug>
 #include <QHash>
+#include "../pixmapmanager.h"
 #include "../stable.h"
 
 SelectCanvas::SelectCanvas(QGraphicsItem *parent) :
@@ -14,6 +15,15 @@ SelectCanvas::SelectCanvas(QGraphicsItem *parent) :
     loader_("d:/taikojiro232"),
     current_(0)
 {
+    QSizeF barSize = PixmapManager::getSize(Ts::sv::BAR_SIZE);
+    barRect_ = QRectF(QPointF(0 - barSize.width() / 2,0),barSize);
+
+    QSizeF barExpandSize = PixmapManager::getSize(Ts::sv::BAR_EXPAND_SIZE);
+    barExpandRect_ = QRectF(QPointF(0 - barExpandSize.width() / 2,0),barExpandSize);
+
+    barContentRect_ = QRectF(
+                PixmapManager::getPos(Ts::sv::BAR_CONTENT_POS),
+                PixmapManager::getSize(Ts::sv::BAR_CONTENT_SIZE));
 }
 
 QRectF SelectCanvas::boundingRect() const
@@ -46,12 +56,16 @@ void SelectCanvas::load()
     {
         foreach (QString noteFile, catagory.files())
         {
-            SelectItem *item = addItem();
+            SelectItem *item = new SelectItem(this);
             item->setCatagory(catagory.title());
             item->setForeColor(catagory.foreColor());
             item->setBackColor(catagory.backColor());
             item->setIndex(++count);
             item->setNoteFile(noteFile);
+            item->setBoundingRect(barRect_);
+            item->setContentRect(barContentRect_);
+            item->setY(50);
+            items_.append(item);
         }
     }
 
@@ -61,16 +75,6 @@ void SelectCanvas::load()
     }
 }
 
-SelectItem *SelectCanvas::addItem()
-{
-    SelectItem *item = new SelectItem(this);
-    items_.append(item);
-    item->setY(50);
-    //item->setX(50 * (items_.count() - 1));
-
-    return item;
-}
-
 void SelectCanvas::move(int step)
 {
     if (items_.count() == 0)
@@ -78,6 +82,7 @@ void SelectCanvas::move(int step)
         return;
     }
 
+    // calc current index
     if (qAbs(step) == 100)
     {
         // move a catagory
@@ -113,24 +118,26 @@ void SelectCanvas::move(int step)
         }
     }
 
-    items_[current_]->resetBoundingRect();
+    // calc items position
+    items_[current_]->setBoundingRect(barRect_);
 
     QParallelAnimationGroup *groupMove = new QParallelAnimationGroup(this);
 
     for (int i = 0;i < items_.count();i++)
     {
         // calc item position before and after move
-        int xFrom = (i - current_) * Ts::BAR_WIDTH + rect_.width() / 2;
-        int xTo = xFrom - Ts::BAR_WIDTH * step;
-        if (step == 0 || xTo - Ts::BAR_WIDTH > rect_.width() || xTo + Ts::BAR_WIDTH < 0)
+        int xFrom = (i - current_) * barRect_.width() + rect_.width() / 2;
+        int xTo = xFrom - barRect_.width() * step;
+        if (step == 0 || xTo - barRect_.width() > rect_.width() || xTo + barRect_.width() < 0)
         {
-            // out of widget ,do not animate
+            // out of bounding rect, set pos and do not animate
             items_[i]->setX(xTo);
             continue;
         }
+
+        // animate item
         QPropertyAnimation *animation = new QPropertyAnimation(items_[i],"x");
-        //animation->setStartValue(xFrom);
-        items_[i]->setX(xFrom);
+        animation->setStartValue(xFrom);
         animation->setEndValue(xTo);
         animation->setDuration(300);
 
@@ -145,19 +152,19 @@ void SelectCanvas::move(int step)
 
 void SelectCanvas::moveFinished()
 {
-    // update catagory
+    // update catagory info
     update();
 
     // scale animation
     QParallelAnimationGroup *groupScale = new QParallelAnimationGroup(this);
 
-    // scale current item
+    // expand current item
     QPropertyAnimation *aniScale = new QPropertyAnimation(items_[current_],"boundingRect");
     aniScale->setDuration(300);
-    aniScale->setEndValue(QRectF(0 - Ts::BAR_EXPAND / 2,0,Ts::BAR_EXPAND,Ts::BAR_HEIGHT));
+    aniScale->setEndValue(barExpandRect_);
     groupScale->addAnimation(aniScale);
 
-    // move left
+    // move right items
     for (int i = current_ + 1;i < items_.count();i++)
     {
         if (items_[i]->x() > rect_.width())
@@ -165,19 +172,21 @@ void SelectCanvas::moveFinished()
 
         QPropertyAnimation *animation = new QPropertyAnimation(items_[i],"x");
         animation->setDuration(300);
-        animation->setEndValue(items_[i]->x() + (Ts::BAR_EXPAND - Ts::BAR_WIDTH) / 2);
+        animation->setEndValue(
+                    items_[i]->x() + (barExpandRect_.width() - barRect_.width()) / 2);
         groupScale->addAnimation(animation);
     }
 
-    // move right
+    // move left items
     for (int i = current_ - 1;i >= 0;i--)
     {
-        if (items_[i]->x() + Ts::BAR_WIDTH < 0)
+        if (items_[i]->x() + barRect_.width() < 0)
             break;
 
         QPropertyAnimation *animation = new QPropertyAnimation(items_[i],"x");
         animation->setDuration(300);
-        animation->setEndValue(items_[i]->x() - (Ts::BAR_EXPAND - Ts::BAR_WIDTH) / 2);
+        animation->setEndValue(
+                    items_[i]->x() - (barExpandRect_.width() - barRect_.width()) / 2);
         groupScale->addAnimation(animation);
     }
     groupScale->start(QAbstractAnimation::DeleteWhenStopped);
@@ -207,6 +216,7 @@ void SelectCanvas::keyPressEvent(QKeyEvent *event)
 
         if (items_[current_]->isChoosed())
         {
+            // course select
             if (step == 0)
             {
                 qDebug() << items_[current_]->song()->title() << items_[current_]->selection();
@@ -218,6 +228,7 @@ void SelectCanvas::keyPressEvent(QKeyEvent *event)
         }
         else
         {
+            // song select
             if (step == 0)
             {
                 items_[current_]->setChoosed(true);
@@ -232,6 +243,7 @@ void SelectCanvas::keyPressEvent(QKeyEvent *event)
              event->key() == Qt::Key_H ||
              event->key() == Qt::Key_Escape)
     {
+        // cancel select
         if (items_[current_]->isChoosed())
         {
             items_[current_]->setChoosed(false);

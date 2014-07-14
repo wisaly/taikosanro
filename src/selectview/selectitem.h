@@ -19,7 +19,8 @@ public:
 
     QRectF boundingRect() const{return rect_;}
     void setBoundingRect(const QRectF &rect){rect_ = rect;update();}
-    void resetBoundingRect() {setBoundingRect(QRectF(0 - Ts::BAR_WIDTH / 2,0,Ts::BAR_WIDTH,Ts::BAR_HEIGHT));}
+
+    void setContentRect(const QRectF &contentRect) { contentRect_ = contentRect; }
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 QWidget *widget);
@@ -45,9 +46,11 @@ public:
     void setNoteFile(QString noteFile) { noteFile_ = noteFile; }
 
     void loadSong();
+    Song *song() { return song_; }
+
     void moveSelection(int step) { selectArrow_.moveSelection(step); }
     Ts::Course selection() { return selectArrow_.selection(); }
-    Song *song() { return song_; }
+
 signals:
 
 public slots:
@@ -55,20 +58,21 @@ public slots:
 private:
     QString title_;
     QString subTitle_;
-    QRectF rect_;
-    int index_;
-    int total_;
-    QColor foreColor_;
-    QColor backColor_;
     QString catagory_;
     QString noteFile_;
-    Song *song_;
-    bool isChoosed_;
+    QColor foreColor_;
+    QColor backColor_;
+    QRectF rect_;
+    QRectF contentRect_;
     PixmapRes barLeftPixmap_;
     PixmapRes barMidPixmap_;
     PixmapRes barRightPixmap_;
     QGraphicsItemGroup courses_;
     SelectArrow selectArrow_;
+    Song *song_;
+    int index_;
+    int total_;
+    bool isChoosed_;
 };
 
 #endif // SELECTITEM_H
