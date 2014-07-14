@@ -22,7 +22,7 @@ public:
 
 private:
     void keyPressEvent(QKeyEvent *event);
-    void showEvent(QShowEvent *event);
+    void resizeEvent(QResizeEvent * event);
 
 signals:
     void hit(Ts::TaikoState state);

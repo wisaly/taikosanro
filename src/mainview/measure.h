@@ -34,7 +34,7 @@ public:
     void clear();
 
 protected:
-    void advance(int step);
+    void advance(int phase);
 
 private:
     QRectF canvasRect_;

@@ -15,6 +15,8 @@ SelectCanvas::SelectCanvas(QGraphicsItem *parent) :
     loader_("d:/taikojiro232"),
     current_(0)
 {
+    setCacheMode(DeviceCoordinateCache);
+
     QSizeF barSize = PixmapManager::getSize(Ts::sv::BAR_SIZE);
     barRect_ = QRectF(QPointF(0 - barSize.width() / 2,0),barSize);
 
@@ -24,6 +26,8 @@ SelectCanvas::SelectCanvas(QGraphicsItem *parent) :
     barContentRect_ = QRectF(
                 PixmapManager::getPos(Ts::sv::BAR_CONTENT_POS),
                 PixmapManager::getSize(Ts::sv::BAR_CONTENT_SIZE));
+
+    barHeadMarginSize_ = PixmapManager::getSize(Ts::sv::BAR_HEAD_MARGIN_SIZE);
 }
 
 QRectF SelectCanvas::boundingRect() const
@@ -64,6 +68,8 @@ void SelectCanvas::load()
             item->setNoteFile(noteFile);
             item->setBoundingRect(barRect_);
             item->setContentRect(barContentRect_);
+            item->setExpandWidth(barExpandRect_.width());
+            item->setHeadMarginSize(barHeadMarginSize_);
             item->setY(50);
             items_.append(item);
         }
@@ -120,6 +126,7 @@ void SelectCanvas::move(int step)
 
     // calc items position
     items_[current_]->setBoundingRect(barRect_);
+    update();
 
     QParallelAnimationGroup *groupMove = new QParallelAnimationGroup(this);
 

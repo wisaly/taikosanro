@@ -81,7 +81,7 @@ void Note::setUnitWidth(int unitWidth)
     unitWidth_ = unitWidth;
 }
 
-void Note::advance(int step)
+void Note::advance(int phase)
 {
-    Q_UNUSED(step);
+    Q_UNUSED(phase);
 }

@@ -48,7 +48,7 @@ public:
     void setScoreDiff(int scoreDiff) { scoreDiff_ = scoreDiff; }
 
 protected:
-    void advance(int step);
+    void advance(int phase);
 
 signals:
     void determined(Ts::DetermineValue value);

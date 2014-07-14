@@ -4,12 +4,13 @@
 #include <QPropertyAnimation>
 #include <QDebug>
 #include "mainwindow.h"
+#include "ui_mainwindow.h"
 #include "measure.h"
 #include "note.h"
 #include "notecanvas.h"
 #include "notechart.h"
 #include "determineresult.h"
-#include "ui_mainwindow.h"
+#include "taikoitem.h"
 #include "../notefileparser.h"
 #include "../song.h"
 
@@ -21,17 +22,30 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QGraphicsScene *scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
+    ui->graphicsView->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
+    ui->graphicsView->setCacheMode(QGraphicsView::CacheBackground);
+    ui->graphicsView->setRenderHint(QPainter::Antialiasing);
+    ui->graphicsView->setRenderHint(QPainter::TextAntialiasing);
+    //ui->graphicsView->setViewport(new QGLWidget);
 
     NoteCanvas *canvas = new NoteCanvas();
     scene->addItem(canvas);
+    canvas->setPos(200,50);
 
-    determine_ = new DetermineResult(canvas);
+    TaikoItem *taikoItem = new TaikoItem;
+    scene->addItem(taikoItem);
+    taikoItem->setPos(0,42);
+    taikoItem->connect(this,SIGNAL(hit(Ts::TaikoState)),SLOT(hit(Ts::TaikoState)));
+
 
     Song *song = new Song("../res/example.tja");
     song->parser().parse(Ts::ONI);
     chart_ = song->getChart(Ts::ONI);
     chart_->setParentItem(canvas);
+    chart_->setBoundingRect(canvas->boundingRect());
     chart_->connect(this,SIGNAL(hit(Ts::TaikoState)),SLOT(hit(Ts::TaikoState)));
+
+    determine_ = new DetermineResult(canvas);
     determine_->connect(chart_,SIGNAL(determined(Ts::DetermineValue)),SLOT(determined(Ts::DetermineValue)));
 
     connect(&timer_,SIGNAL(timeout()),SLOT(timeout()));
@@ -78,18 +92,13 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     }
 }
 
-void MainWindow::showEvent(QShowEvent *event)
+void MainWindow::resizeEvent(QResizeEvent *event)
 {
     Q_UNUSED(event);
 
     QRectF rect = ui->graphicsView->rect().adjusted(0,0,-10,-10);
-    chart_->setBoundingRect(rect);
+    //chart_->setBoundingRect(rect);
     ui->graphicsView->setSceneRect(rect);
-    ui->graphicsView->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
-    ui->graphicsView->setCacheMode(QGraphicsView::CacheBackground);
-    ui->graphicsView->setRenderHint(QPainter::Antialiasing);
-    ui->graphicsView->setRenderHint(QPainter::TextAntialiasing);
-    //ui->graphicsView->setViewport(new QGLWidget);
 }
 
 void MainWindow::timeout()

@@ -19,8 +19,10 @@ public:
 
     QRectF boundingRect() const{return rect_;}
     void setBoundingRect(const QRectF &rect){rect_ = rect;update();}
-
     void setContentRect(const QRectF &contentRect) { contentRect_ = contentRect; }
+    void setHeadMarginSize(const QSizeF &marginSize) { marginSize_ = marginSize; }
+
+    void setExpandWidth(const qreal &expandWidth) { expandWidth_ = expandWidth; }
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 QWidget *widget);
@@ -64,6 +66,7 @@ private:
     QColor backColor_;
     QRectF rect_;
     QRectF contentRect_;
+    QSizeF marginSize_;
     PixmapRes barLeftPixmap_;
     PixmapRes barMidPixmap_;
     PixmapRes barRightPixmap_;
@@ -72,7 +75,9 @@ private:
     Song *song_;
     int index_;
     int total_;
+    qreal expandWidth_;
     bool isChoosed_;
+    bool isExpand_;
 };
 
 #endif // SELECTITEM_H

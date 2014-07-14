@@ -40,9 +40,9 @@ enum Crown
     GoldCrown
 };
 
-const int GREAT_RANGE = 50;
-const int GOOD_RANGE = 150;
-const int FAIL_RANGE = 217;
+const int GREAT_RANGE = 25; // 3 frame
+const int GOOD_RANGE = 75;  // 9 frame
+const int FAIL_RANGE = 108; // 13 frame
 
 const int NOTE_WIDTH = 100;
 const int NOTE_HEIGHT = 100;
@@ -66,6 +66,12 @@ const char* const YELLOW_BAR_TAIL = "mainview/yellowbartail";
 const char* const BIG_YELLOW_BAR_BODY = "mainview/bigyellowbarbody";
 const char* const BIG_YELLOW_BAR_HEAD = "mainview/bigyellowbarhead";
 const char* const BIG_YELLOW_BAR_TAIL = "mainview/bigyellowbartail";
+
+const char* const STATE_BACK = "mainview/stateback";
+const char* const STATE_DON_L = "mainview/statedonl";
+const char* const STATE_DON_R = "mainview/statedonr";
+const char* const STATE_KA_L = "mainview/statekal";
+const char* const STATE_KA_R = "mainview/statekar";
 }
 
 // resource of select view
@@ -73,8 +79,9 @@ namespace sv
 {
 const char* const BAR_SIZE = "selectview/bar/size";
 const char* const BAR_EXPAND_SIZE = "selectview/bar/expandsize";
-const char* const BAR_CONTENT_POS = "barcontent/pos";
-const char* const BAR_CONTENT_SIZE = "barcontent/size";
+const char* const BAR_CONTENT_POS = "selectview/barcontent/pos";
+const char* const BAR_CONTENT_SIZE = "selectview/barcontent/size";
+const char* const BAR_HEAD_MARGIN_SIZE = "selectview/barhead/marginsize";
 
 const char* const BAR_LEFT = "selectview/barleft";
 const char* const BAR_MID = "selectview/barmid";
@@ -83,10 +90,10 @@ const char* const BAR_RIGHT = "selectview/barright";
 const char* const STAR_BACK = "selectview/starback";
 const char* const STAR = "selectview/star";
 
-const char* const KANTAN = "selectview/littlekantan";
-const char* const FUTSU = "selectview/littlefutsu";
-const char* const MUZUKASHII = "selectview/littlemuzukashii";
-const char* const ONI = "selectview/littleoni";
+const char* const KANTAN = "selectview/kantan";
+const char* const FUTSU = "selectview/futsu";
+const char* const MUZUKASHII = "selectview/muzukashii";
+const char* const ONI = "selectview/oni";
 
 const char* const CROWN_SILVER = "selectview/crownsilver";
 const char* const CROWN_GOLD = "selectview/crowngold";

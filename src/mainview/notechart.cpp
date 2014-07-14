@@ -39,11 +39,17 @@ void NoteChart::play()
         detNote_ = 0;
         playProgress_.start();
         isPlaying_ = true;
+        hit(Ts::NO_ACT);
     }
 }
 
 void NoteChart::hit(Ts::TaikoState state)
 {
+    if (!isPlaying_)
+    {
+        return;
+    }
+
     // move to next valid measure & note
     while (detMeasure_ < measures_.count())
     {
@@ -58,6 +64,11 @@ void NoteChart::hit(Ts::TaikoState state)
         {
             break;
         }
+    }
+
+    if (detMeasure_ >= measures_.count())
+    {
+        return;
     }
 
     // hit determine
@@ -126,13 +137,13 @@ void NoteChart::clear()
     measures_.clear();
 }
 
-void NoteChart::advance(int step)
+void NoteChart::advance(int phase)
 {
     if (!isPlaying_)
     {
         return ;
     }
-    if (step)
+    if (phase)
     {
         int currentElapsed = playProgress_.elapsed();
 

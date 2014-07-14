@@ -8,6 +8,7 @@ SelectItem::SelectItem(QGraphicsItem *parent) :
     courses_(this),
     selectArrow_(this),
     song_(0),
+    expandWidth_(0),
     isChoosed_(false)
 {
     barLeftPixmap_ = PixmapManager::get(Ts::sv::BAR_LEFT);
@@ -38,31 +39,26 @@ void SelectItem::loadSong()
         courses_.hide();
 
         int index = 0;
-        for (Ts::Course course = Ts::KANTAN;
-             course <= Ts::URA;
-             course = (Ts::Course)(course + 1))
+        for (int course = Ts::KANTAN;course <= Ts::URA;course++)
         {
-            NoteChart *chart = song_->getChart(course);
+            NoteChart *chart = song_->getChart((Ts::Course)course);
             if (chart == 0)
                 continue;
 
             CourseItem *courseItem = new CourseItem(this);
-            courseItem->setCourse(course);
+            courseItem->setCourse((Ts::Course)course);
             courseItem->setLevel(chart->level());
             courseItem->setPos(
                         contentRect_.left() + index++ * courseItem->boundingRect().width(),
                         contentRect_.top());
 
-            selectArrow_.addSelection(
-                        course,
-                        QPointF(courseItem->boundingRect().bottomLeft()));
+            selectArrow_.addSelection((Ts::Course)course,
+                        QPointF(courseItem->pos().x(),
+                                courseItem->pos().y() + courseItem->boundingRect().height()));
             courses_.addToGroup(courseItem);
         }
     }
 }
-
-
-
 
 void SelectItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
@@ -73,33 +69,36 @@ void SelectItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     loadSong();
 
     // draw header
-    QRectF rectHead = rect_;
-    rectHead.setBottom(barMidPixmap_.pos().y());
+    QRectF headRect(
+                rect_.left() + marginSize_.width(),
+                rect_.top(),
+                rect_.width() - marginSize_.width() * 2,
+                marginSize_.height());
 
-    painter->fillRect(rectHead,backColor_);
+    painter->fillRect(headRect,backColor_);
 
     // draw body
-    QRectF rectBody = rect_;
-    rectBody.setTop(barMidPixmap_.pos().y());
+    QRectF bodyRect = rect_;
+    bodyRect.setTop(marginSize_.height());
 
     painter->drawPixmap(
-                rectBody.left(),rectBody.top(),
-                barLeftPixmap_.width(),rectBody.height(),
+                bodyRect.left(),bodyRect.top(),
+                barLeftPixmap_.width(),bodyRect.height(),
                 barLeftPixmap_);
     painter->drawPixmap(
-                rectBody.right() - barRightPixmap_.width(),rectBody.top(),
-                barRightPixmap_.width(),rectBody.height(),
+                bodyRect.right() - barRightPixmap_.width(),bodyRect.top(),
+                barRightPixmap_.width(),bodyRect.height(),
                 barRightPixmap_);
     painter->drawPixmap(
-                rectBody.left() + barLeftPixmap_.width(),rectBody.top(),
-                rectBody.width() - barLeftPixmap_.width() - barRightPixmap_.width(),rectBody.height(),
+                bodyRect.left() + barLeftPixmap_.width(),bodyRect.top(),
+                bodyRect.width() - barLeftPixmap_.width() - barRightPixmap_.width(),bodyRect.height(),
                 barMidPixmap_);
 
     painter->setFont(QFont(Ts::GUI_FONT_NAME,15));
-    if (rect_.width() == barMidPixmap_.extend().height())
+    if (qFuzzyCompare(rect_.width(),expandWidth_))
     {
         painter->setPen(foreColor_);
-        painter->drawText(rectHead,Qt::AlignCenter,QString("%1/%2").arg(index_).arg(total_));
+        painter->drawText(headRect,Qt::AlignCenter,QString("%1/%2").arg(index_).arg(total_));
 
         painter->setPen(Qt::black);
         painter->drawText(
@@ -116,10 +115,10 @@ void SelectItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     else
     {
         painter->setPen(foreColor_);
-        painter->drawText(rectHead,Qt::AlignCenter,QString::number(index_));
+        painter->drawText(headRect,Qt::AlignCenter,QString::number(index_));
 
         painter->setPen(Qt::black);
-        painter->drawText(contentRect_,Qt::AlignCenter,title_);
+        painter->drawText(bodyRect,Qt::AlignCenter,title_);
 
         courses_.hide();
     }

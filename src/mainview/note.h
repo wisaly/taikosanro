@@ -2,8 +2,8 @@
 #define NOTE_H
 
 #include <QGraphicsObject>
-#include <pixmapres.h>
 #include "determinerange.h"
+#include "../pixmapres.h"
 #include "../stable.h"
 
 class Note : public QGraphicsObject
@@ -37,7 +37,7 @@ public:
     virtual void setUnitWidth(int unitWidth);
 
 protected:
-    void advance(int step);
+    void advance(int phase);
 
 protected:
     Type noteType_;

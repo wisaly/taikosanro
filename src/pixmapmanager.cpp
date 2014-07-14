@@ -44,7 +44,7 @@ QPointF PixmapManager::getPos(QString key)
 {
     if (resSetting->contains(key))
     {
-        QStringList val = resSetting->value(key).toString().split(',');
+        QStringList val = resSetting->value(key).toStringList();
         if (val.count() == 2)
         {
             return QPointF(val[0].toDouble(),val[1].toDouble());
@@ -58,7 +58,7 @@ QSizeF PixmapManager::getSize(QString key)
 {
     if (resSetting->contains(key))
     {
-        QStringList val = resSetting->value(key).toString().split(',');
+        QStringList val = resSetting->value(key).toStringList();
         if (val.count() == 2)
         {
             return QSizeF(val[0].toDouble(),val[1].toDouble());

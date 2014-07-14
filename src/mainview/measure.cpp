@@ -142,7 +142,7 @@ void Measure::clear()
     notes_.clear();
 }
 
-void Measure::advance(int step)
+void Measure::advance(int phase)
 {
-    Q_UNUSED(step);
+    Q_UNUSED(phase);
 }

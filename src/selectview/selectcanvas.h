@@ -38,6 +38,7 @@ private:
     QRectF barRect_;
     QRectF barExpandRect_;
     QRectF barContentRect_;
+    QSizeF barHeadMarginSize_;
 };
 
 #endif // SELECTCANVAS_H
