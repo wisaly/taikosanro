@@ -2,9 +2,9 @@
 #define SELECTARROW_H
 
 #include <QGraphicsObject>
-#include <QPixmap>
 #include <QMap>
 #include "../stable.h"
+#include "../pixmapres.h"
 
 class SelectArrow : public QGraphicsObject
 {
@@ -23,7 +23,7 @@ signals:
 public slots:
 
 private:
-    QPixmap arrowPixmap_;
+    PixmapRes arrowPixmap_;
     QList<QPair<Ts::Course,QPointF> > selections_;
     int current_;
 };

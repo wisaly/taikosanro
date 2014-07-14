@@ -2,7 +2,7 @@
 #define LEVELSTARS_H
 
 #include <QGraphicsItem>
-#include <QPixmap>
+#include "../pixmapres.h"
 #include "../stable.h"
 
 class CourseItem : public QGraphicsItem
@@ -20,11 +20,10 @@ public:
     void setLevel(int level) { level_ = qMin(qMax(level,0),10); }
 
 private:
-    QPixmap backPixmap_;
-    QPixmap starPixmap_;
-    QPixmap coursePixmap_;
-    QPixmap crownPixmap_;
-    QPixmap arrowPixmap_;
+    PixmapRes backPixmap_;
+    PixmapRes starPixmap_;
+    PixmapRes coursePixmap_;
+    PixmapRes crownPixmap_;
     int level_;
 };
 

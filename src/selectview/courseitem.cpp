@@ -13,9 +13,8 @@ CourseItem::CourseItem(QGraphicsItem *parent)
 {
     setCacheMode(DeviceCoordinateCache);
 
-    backPixmap_ = PixmapManager::get(Ts::resLevelStarBack);
-    starPixmap_ = PixmapManager::get(Ts::resLevelStar);
-    arrowPixmap_ = PixmapManager::get(Ts::resSelectArrow);
+    backPixmap_ = PixmapManager::get(Ts::sv::STAR_BACK);
+    starPixmap_ = PixmapManager::get(Ts::sv::STAR);
 }
 
 void CourseItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -56,17 +55,19 @@ void CourseItem::setCourse(Ts::Course course)
     switch (course)
     {
     case Ts::KANTAN:
-        coursePixmap_ = PixmapManager::get(Ts::resLittleKantan);
+        coursePixmap_ = PixmapManager::get(Ts::sv::KANTAN);
         break;
     case Ts::FUTSU:
-        coursePixmap_ = PixmapManager::get(Ts::resLittleFutsu);
+        coursePixmap_ = PixmapManager::get(Ts::sv::FUTSU);
         break;
     case Ts::MUZUKASHII:
-        coursePixmap_ = PixmapManager::get(Ts::resLittleMuzukashii);
+        coursePixmap_ = PixmapManager::get(Ts::sv::MUZUKASHII);
         break;
     case Ts::ONI:
     case Ts::URA:
-        coursePixmap_ = PixmapManager::get(Ts::resLittleOni);
+        coursePixmap_ = PixmapManager::get(Ts::sv::ONI);
+        break;
+    case Ts::INVALID_COURSE:
         break;
     }
 }
@@ -75,10 +76,12 @@ void CourseItem::setCrown(Ts::Crown crown)
 {
     switch (crown) {
     case Ts::SilverCrown:
-        crownPixmap_ = PixmapManager::get(Ts::resCrownSilver);
+        crownPixmap_ = PixmapManager::get(Ts::sv::CROWN_SILVER);
         break;
     case Ts::GoldCrown:
-        crownPixmap_ = PixmapManager::get(Ts::resCrownGold);
+        crownPixmap_ = PixmapManager::get(Ts::sv::CROWN_GOLD);
+        break;
+    case Ts::NoCrown:
         break;
     }
 }

@@ -3,7 +3,6 @@
 
 #include <QGraphicsObject>
 #include <QColor>
-#include <QPixmap>
 #include <QGraphicsItemGroup>
 #include "courseitem.h"
 #include "selectarrow.h"
@@ -65,9 +64,9 @@ private:
     QString noteFile_;
     Song *song_;
     bool isChoosed_;
-    QPixmap barLeftPixmap_;
-    QPixmap barMidPixmap_;
-    QPixmap barRightPixmap_;
+    PixmapRes barLeftPixmap_;
+    PixmapRes barMidPixmap_;
+    PixmapRes barRightPixmap_;
     QGraphicsItemGroup courses_;
     SelectArrow selectArrow_;
 };

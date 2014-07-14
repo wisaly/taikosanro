@@ -8,7 +8,7 @@ SelectArrow::SelectArrow(QGraphicsItem *parent)
 {
     setCacheMode(DeviceCoordinateCache);
 
-    arrowPixmap_ = PixmapManager::get(Ts::resSelectArrow);
+    arrowPixmap_ = PixmapManager::get(Ts::sv::SELECT_ARROW);
 }
 
 QRectF SelectArrow::boundingRect() const

@@ -13,8 +13,12 @@ public:
     QPointF pos() const { return pos_; }
     void setPos(const QPointF &pos) { pos_ = pos; }
 
+    QSizeF strenth() const { return strenth_; }
+    void setStrenth(const QSizeF &strenth) { strenth_ = strenth; }
+
 private:
     QPointF pos_;
+    QSizeF strenth_;
 };
 
 #endif // PIXMAPRES_H

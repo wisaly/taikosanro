@@ -17,9 +17,9 @@ SelectItem::SelectItem(QGraphicsItem *parent) :
     courses_(this),
     selectArrow_(this)
 {
-    barLeftPixmap_ = PixmapManager::get(Ts::resSelectBarLeft);
-    barMidPixmap_ = PixmapManager::get(Ts::resSelectBarMid);
-    barRightPixmap_ = PixmapManager::get(Ts::resSelectBarRight);
+    barLeftPixmap_ = PixmapManager::get(Ts::sv::BAR_LEFT);
+    barMidPixmap_ = PixmapManager::get(Ts::sv::BAR_MID);
+    barRightPixmap_ = PixmapManager::get(Ts::sv::BAR_RIGHT);
 
     resetBoundingRect();
 

@@ -2,6 +2,7 @@
 #define NOTE_H
 
 #include <QGraphicsObject>
+#include <pixmapres.h>
 #include "determinerange.h"
 #include "../stable.h"
 
@@ -40,7 +41,7 @@ protected:
 
 protected:
     Type noteType_;
-    QPixmap notePixmap_;
+    PixmapRes notePixmap_;
     DetermineRange determineRange_;
     int index_;
     int unitWidth_;     // actual width of a note unit

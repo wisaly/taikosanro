@@ -53,35 +53,50 @@ const int BAR_HEIGHT = 464; // 424(image height) + 30 + 5*2
 
 const char* const GUI_FONT_NAME = "微软雅黑";
 
-const char* const resRedMarker = "../res/redmarker.png";
-const char* const resBlueMarker = "../res/bluemarker.png";
-const char* const resBigRedMarker = "../res/bigredmarker.png";
-const char* const resBigBlueMarker = "../res/bigbluemarker.png";
+const char* const RES_FILE = "../res/res.ini";
 
-const char* const resYellowBarBody = "../res/yellowbarbody.png";
-const char* const resYellowBarHead = "../res/yellowbarhead.png";
-const char* const resYellowBarTail = "../res/yellowbartail.png";
+// resource of main view
+namespace mv
+{
+const char* const RED_MARKER = "mainview/redmarker";
+const char* const BLUE_MARKER = "mainview/bluemarker";
+const char* const BIG_RED_MARKER = "mainview/bigredmarker";
+const char* const BIG_BLUE_MARKER = "mainview/bigbluemarker";
 
-const char* const resBigYellowBarBody = "../res/bigyellowbarbody.png";
-const char* const resBigYellowBarHead = "../res/bigyellowbarhead.png";
-const char* const resBigYellowBarTail = "../res/bigyellowbartail.png";
+const char* const YELLOW_BAR_BODY = "mainview/yellowbarbody";
+const char* const YELLOW_BAR_HEAD = "mainview/yellowbarhead";
+const char* const YELLOW_BAR_TAIL = "mainview/yellowbartail";
 
-const char* const resSelectBarLeft = "../res/selectbarleft.png";
-const char* const resSelectBarMid = "../res/selectbarmid.png";
-const char* const resSelectBarRight = "../res/selectbarright.png";
+const char* const BIG_YELLOW_BAR_BODY = "mainview/bigyellowbarbody";
+const char* const BIG_YELLOW_BAR_HEAD = "mainview/bigyellowbarhead";
+const char* const BIG_YELLOW_BAR_TAIL = "mainview/bigyellowbartail";
+}
 
-const char* const resLevelStarBack = "../res/levelstarback.png";
-const char* const resLevelStar = "../res/levelstar.png";
+// resource of select view
+namespace sv
+{
+const char* const BAR_LEFT = "selectview/barleft";
+const char* const BAR_MID = "selectview/barmid";
+const char* const BAR_RIGHT = "selectview/barright";
 
-const char* const resLittleKantan = "../res/littlekantan.png";
-const char* const resLittleFutsu = "../res/littlefutsu.png";
-const char* const resLittleMuzukashii = "../res/littlemuzukashii.png";
-const char* const resLittleOni = "../res/littleoni.png";
+const char* const STAR_BACK = "selectview/starback";
+const char* const STAR = "selectview/star";
 
-const char* const resCrownSilver = "../res/crownsilver.png";
-const char* const resCrownGold = "../res/crowngold.png";
+const char* const KANTAN = "selectview/littlekantan";
+const char* const FUTSU = "selectview/littlefutsu";
+const char* const MUZUKASHII = "selectview/littlemuzukashii";
+const char* const ONI = "selectview/littleoni";
 
-const char* const resSelectArrow = "../res/selectarrow.png";
+const char* const CROWN_SILVER = "selectview/crownsilver";
+const char* const CROWN_GOLD = "selectview/crowngold";
+
+const char* const SELECT_ARROW = "selectview/selectarrow";
+}
+
+// resource of result view
+namespace rv
+{
+}
 
 }
 #endif // STABLE_H

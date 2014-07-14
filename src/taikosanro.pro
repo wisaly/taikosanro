@@ -64,3 +64,6 @@ HEADERS  += stable.h\
 
 FORMS    += selectview/selectwindow.ui \
     mainview/mainwindow.ui
+
+OTHER_FILES += \
+    ../res/res.ini

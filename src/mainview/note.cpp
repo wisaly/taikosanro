@@ -9,16 +9,16 @@ Note::Note(QGraphicsItem *parent, Type noteType, int index)
 {
     switch (noteType) {
     case RedMarker:
-        notePixmap_ = PixmapManager::get(Ts::resRedMarker);
+        notePixmap_ = PixmapManager::get(Ts::mv::RED_MARKER);
         break;
     case BlueMarker:
-        notePixmap_ = PixmapManager::get(Ts::resBlueMarker);
+        notePixmap_ = PixmapManager::get(Ts::mv::BLUE_MARKER);
         break;
     case BigRedMarker:
-        notePixmap_ = PixmapManager::get(Ts::resBigRedMarker);
+        notePixmap_ = PixmapManager::get(Ts::mv::BIG_RED_MARKER);
         break;
     case BigBlueMarker:
-        notePixmap_ = PixmapManager::get(Ts::resBigBlueMarker);
+        notePixmap_ = PixmapManager::get(Ts::mv::BIG_BLUE_MARKER);
         break;
     default:
         break;

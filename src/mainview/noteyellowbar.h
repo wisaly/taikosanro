@@ -23,8 +23,8 @@ public:
 protected:
     int length_;
     int hitCount_;
-    QPixmap noteHeadPixmap_;
-    QPixmap noteTailPixmap_;
+    PixmapRes noteHeadPixmap_;
+    PixmapRes noteTailPixmap_;
 };
 
 #endif // NOTEYELLOWBAR_H

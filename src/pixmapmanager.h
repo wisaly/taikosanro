@@ -1,15 +1,16 @@
 #ifndef PIXMAPMANAGER_H
 #define PIXMAPMANAGER_H
 
-#include <QPixmap>
+#include "pixmapres.h"
 
 class PixmapManager
 {
     PixmapManager();
 public:
-    static QPixmap get(QString path);
+    static PixmapRes get(QString key);
 
     static bool loadAll();
+
 };
 
 #endif // PIXMAPMANAGER_H
