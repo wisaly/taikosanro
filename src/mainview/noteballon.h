@@ -6,19 +6,23 @@
 class NoteBallon : public Note
 {
 public:
-    NoteBallon(QGraphicsItem *parent,int index,int count);
+    NoteBallon(QGraphicsItem *parent,int index);
 
-    int hitCount() const;
-    void setHitCount(int hitCount);
+    int length() const { return length_; }
+    void setLength(int length) { length_ = length; }
 
-    int count() const;
-    void setCount(int count);
+    int hitCount() const { return hitCount_; }
+    void setHitCount(int hitCount) { hitCount_ = hitCount; }
+
+    int count() const { return count_; }
+    void setCount(int count) { count_ = count; }
 
     bool acceptAct(Ts::TaikoState action);
 
 protected:
     int count_;
     int hitCount_;
+    int length_;
 };
 
 #endif // NOTEBALLON_H

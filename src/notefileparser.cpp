@@ -30,7 +30,7 @@ bool NoteFileParser::parse(Ts::Course loadCourse)
 
     while (!inputStream.atEnd())
     {
-        QString line = inputStream.readLine().trimmed();
+        QString line = getLine(inputStream);
 
         if (line.isEmpty())
         {
@@ -140,138 +140,211 @@ bool NoteFileParser::parse(Ts::Course loadCourse)
             {
             }
         }
-        else if (line.startsWith('#'))
+        else if (line == "#START")
         {
-            if (line == "#START")
+            NoteChart *noteChart = song_->createChart(course);
+            noteChart->clear();
+            int elapsed = 0;
+
+            noteChart->setCourse(course);
+            noteChart->setLevel(level);
+            noteChart->setScoreInit(scoreInit);
+            noteChart->setScoreDiff(scoreDiff);
+
+            bool isGGT = false;
+
+            // parse notes
+            line = getLine(inputStream);
+            while (!inputStream.atEnd())
             {
-                NoteChart *noteChart = song_->createChart(course);
-                noteChart->clear();
-                int elapsed = 0;
-
-                noteChart->setCourse(course);
-                noteChart->setLevel(level);
-                noteChart->setScoreInit(scoreInit);
-                noteChart->setScoreDiff(scoreDiff);
-
-                bool isGGT = false;
-
-                // parse notes
-                while (!inputStream.atEnd())
+                if (line.startsWith('#'))
                 {
-                    line = inputStream.readLine().trimmed();
-
-                    if (line.startsWith('#'))
-                    {
-                        QStringList commands = line.split(' ',QString::SkipEmptyParts);
-                        if (commands[0] == "#END")
-                        {
-                            break;
-                        }
-                        else if (commands[0] == "#GOGOSTART")
-                        {
-                            isGGT = true;
-                        }
-                        else if (commands[0] == "#GOGOEND")
-                        {
-                            isGGT = false;
-                        }
-                        else if (commands[0] == "#MEASURE")
-                        {
-
-                        }
-                        else if (commands[0] == "#BPMCHANGE")
-                        {
-                        }
-                        else if (commands[0] == "#SCROLL")
-                        {
-                        }
-                        else if (commands[0] == "#DELAY")
-                        {
-                        }
-                        else if (commands[0] == "#SECTION")
-                        {
-                        }
-                        else if (commands[0] == "#BRANCHSTART")
-                        {
-                        }
-                        else if (commands[0] == "#BRANCHEND")
-                        {
-                        }
-                        else if (commands[0] == "#N")
-                        {
-                        }
-                        else if (commands[0] == "#E")
-                        {
-                        }
-                        else if (commands[0] == "#M")
-                        {
-                        }
-                        else if (commands[0] == "#LEVELHOLD")
-                        {
-                        }
-                        else if (commands[0] == "#BMSCROLL")
-                        {
-                        }
-                        else if (commands[0] == "#HBSCROLL")
-                        {
-                        }
-                        else if (commands[0] == "#BARLINEOFF")
-                        {
-                        }
-                        else if (commands[0] == "#BARLINEON")
-                        {
-                        }
-
-                        continue;
-                    }
-                    if (loadCourse != course)
+                    QStringList commands = line.split(' ',QString::SkipEmptyParts);
+                    if (commands[0] == "#END")
                     {
                         break;
                     }
-
-                    // TODO: a measure could sperated in multi lines.
-                    QStringList measuresSrc = line.split(',',QString::SkipEmptyParts);
-                    for (int i = 0;i < measuresSrc.count();i++)
+                    else if (commands[0] == "#GOGOSTART")
                     {
-                        QString measureSrc = measuresSrc[i];
+                        isGGT = true;
+                    }
+                    else if (commands[0] == "#GOGOEND")
+                    {
+                        isGGT = false;
+                    }
+                    else if (commands[0] == "#MEASURE")
+                    {
 
-                        NoteTypeList noteTypes;
-                        for (int j = 0;j < measureSrc.count();j++)
+                    }
+                    else if (commands[0] == "#BPMCHANGE")
+                    {
+                    }
+                    else if (commands[0] == "#SCROLL")
+                    {
+                    }
+                    else if (commands[0] == "#DELAY")
+                    {
+                    }
+                    else if (commands[0] == "#SECTION")
+                    {
+                    }
+                    else if (commands[0] == "#BRANCHSTART")
+                    {
+                    }
+                    else if (commands[0] == "#BRANCHEND")
+                    {
+                    }
+                    else if (commands[0] == "#N")
+                    {
+                    }
+                    else if (commands[0] == "#E")
+                    {
+                    }
+                    else if (commands[0] == "#M")
+                    {
+                    }
+                    else if (commands[0] == "#LEVELHOLD")
+                    {
+                    }
+                    else if (commands[0] == "#BMSCROLL")
+                    {
+                    }
+                    else if (commands[0] == "#HBSCROLL")
+                    {
+                    }
+                    else if (commands[0] == "#BARLINEOFF")
+                    {
+                    }
+                    else if (commands[0] == "#BARLINEON")
+                    {
+                    }
+
+                    line = getLine(inputStream);
+                    continue;
+                }
+                if (loadCourse != course)
+                {
+                    break;
+                }
+
+                QString lineCombine;
+                while (!inputStream.atEnd() && !line.startsWith('#'))
+                {
+                    lineCombine += line;
+                    line = getLine(inputStream);
+                }
+                QStringList measures = lineCombine.split(',',QString::SkipEmptyParts);
+                QQueue<int> yellowbarLen;
+                // reformat yellowbar
+                for (int i = 0;i < measures.count();i++)
+                {
+                    QString &mealine = measures[i];
+                    for (int j = 0;j < mealine.count();j++)
+                    {
+                        // yellow bar start
+                        if (mealine[j] == '5' || mealine[j] == '6')
                         {
-                            if (measureSrc[j] == '0')
-                                noteTypes.append(Note::Blank);
-                            else if (measureSrc[j] == '1')
-                                noteTypes.append(Note::RedMarker);
-                            else if (measureSrc[j] == '2')
-                                noteTypes.append(Note::BlueMarker);
-                            else if (measureSrc[j] == '3')
-                                noteTypes.append(Note::BigRedMarker);
-                            else if (measureSrc[j] == '4')
-                                noteTypes.append(Note::BigBlueMarker);
-                            else if (measureSrc[j] == '5')
-                                noteTypes.append(Note::YellowBar);
-                            else if (measureSrc[j] == '6')
-                                noteTypes.append(Note::BigYellowBar);
-                            else if (measureSrc[j] == '7')
-                                noteTypes.append(Note::Ballon);
-                            else if (measureSrc[j] == '8')
-                                noteTypes.append(Note::EndYellowBar);
-                            else if (measureSrc[j] == '9')
-                                noteTypes.append(Note::Yam);
+                            int count = 1;
+                            j++;
+
+                            // get whole yellow bar
+                            while (i < measures.count())
+                            {
+                                // move to next measure
+                                if (j == mealine.count())
+                                {
+                                    mealine = measures[i++];
+                                    j = 0;
+                                }
+
+                                // end of yellow bar
+                                if (mealine[j] == '8')
+                                {
+                                    mealine[j++] = '0';
+                                    yellowbarLen.append(++count);
+                                    break;
+                                }
+                                mealine[j++] = '0';
+                                count++;
+                            }
                         }
-
-                        noteChart->createMeasure(noteTypes,ballons,tempo,noteValuePerBeat,beatsPerBar,isGGT,elapsed);
-
-                        elapsed += 60000 * beatsPerBar / tempo;
                     }
                 }
+
+                QQueue<int> ballonLen;
+                // create measure
+                for (int i = 0;i < measures.count();i++)
+                {
+                    QString mealine = measures[i];
+
+                    NoteTypeList noteTypes;
+                    for (int j = 0;j < mealine.count();j++)
+                    {
+                        switch (mealine[j].toLatin1())
+                        {
+                        case '0':
+                            noteTypes.append(Note::Blank);
+                            break;
+                        case '1':
+                            noteTypes.append(Note::RedMarker);
+                            break;
+                        case '2':
+                            noteTypes.append(Note::BlueMarker);
+                            break;
+                        case '3':
+                            noteTypes.append(Note::BigRedMarker);
+                            break;
+                        case '4':
+                            noteTypes.append(Note::BigBlueMarker);
+                            break;
+                        case '5':
+                            noteTypes.append(Note::YellowBar);
+                            break;
+                        case '6':
+                            noteTypes.append(Note::BigYellowBar);
+                            break;
+                        case '7':
+                            noteTypes.append(Note::Ballon);
+                            break;
+                        case '8':
+                            // never reach here
+                            noteTypes.append(Note::EndYellowBar);
+                            break;
+                        case '9':
+                            noteTypes.append(Note::Yam);
+                            break;
+                        }
+                    }
+
+                    Measure *measure = noteChart->createMeasure();
+                    measure->setTempo(tempo);
+                    measure->setNoteValuePerBeat(noteValuePerBeat);
+                    measure->setBeatsPerBar(beatsPerBar);
+                    measure->setAppearElapsed(elapsed);
+                    measure->setGGT(isGGT);
+                    measure->setNotes(noteTypes,ballons,ballonLen,yellowbarLen);
+
+                    elapsed += 60000 * beatsPerBar / tempo;
+                }
             }
-            else if (line == "#BREAK")
-            {
-                break;
-            }
+        }
+        else if (line == "#BREAK")
+        {
+            break;
         }
     }
 
     return true;
+}
+
+QString NoteFileParser::getLine(QTextStream &input)
+{
+    QString line = input.readLine().trimmed();
+    int commentIndex = line.indexOf("//");
+    if (commentIndex >= 0)
+    {
+        line = line.left(commentIndex);
+    }
+
+    return line;
 }

@@ -119,9 +119,9 @@ void NoteChart::reset()
     }
 }
 
-Measure *NoteChart::createMeasure(NoteTypeList &notes, QQueue<int> &ballonHits, qreal tempo, int noteValuePerBeat, int beatsPerBar, bool isGGT, int appearElapsed)
+Measure *NoteChart::createMeasure()
 {
-    Measure *measure = new Measure(this,notes,ballonHits,tempo,noteValuePerBeat,beatsPerBar,isGGT,appearElapsed);
+    Measure *measure = new Measure(this);
     measure->setZValue(-1 * measures_.count());
     measures_.append(measure);
 

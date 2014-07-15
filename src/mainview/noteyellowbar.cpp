@@ -4,9 +4,10 @@
 
 #include <QPainter>
 
-NoteYellowBar::NoteYellowBar(QGraphicsItem *parent, int index, bool isBig, int length)
+NoteYellowBar::NoteYellowBar(QGraphicsItem *parent, int index, bool isBig)
     :Note(parent,isBig ? Note::BigYellowBar : Note::YellowBar,index),
-      length_(length),hitCount_(0)
+      length_(1),
+      hitCount_(0)
 {
     if (isBig)
     {
@@ -37,21 +38,6 @@ void NoteYellowBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     painter->drawPixmap(headRect,noteHeadPixmap_,noteHeadPixmap_.rect());
     painter->drawPixmap(tailRect,noteTailPixmap_,noteTailPixmap_.rect());
     painter->drawPixmap(bodyRect,notePixmap_,notePixmap_.rect());
-}
-
-int NoteYellowBar::length() const
-{
-    return length_;
-}
-
-int NoteYellowBar::hitCount() const
-{
-    return hitCount_;
-}
-
-void NoteYellowBar::setHitCount(int hitCount)
-{
-    hitCount_ = hitCount;
 }
 
 bool NoteYellowBar::acceptAct(Ts::TaikoState action)

@@ -6,21 +6,22 @@
 class NoteYellowBar : public Note
 {
 public:
-    NoteYellowBar(QGraphicsItem *parent,int index,bool isBig,int length);
+    NoteYellowBar(QGraphicsItem *parent,int index,bool isBig);
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 QWidget *widget);
 
-    int length() const;
+    int length() const { return length_; }
+    void setLength(int length) { length_ = length; }
 
-    int hitCount() const;
-    void setHitCount(int hitCount);
+    int hitCount() const { return hitCount_; }
+    void setHitCount(int hitCount) { hitCount_ = hitCount; }
 
     bool acceptAct(Ts::TaikoState action);
 
     //void setUnitWidth(int unitWidth);
 
-protected:
+private:
     int length_;
     int hitCount_;
     PixmapRes noteHeadPixmap_;

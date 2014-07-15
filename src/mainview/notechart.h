@@ -23,13 +23,7 @@ public:
 
     void reset();
 
-    Measure* createMeasure(NoteTypeList &notes,
-                           QQueue<int> &ballonHits,
-                           qreal tempo,
-                           int noteValuePerBeat,
-                           int beatsPerBar,
-                           bool isGGT,
-                           int appearElapsed);
+    Measure* createMeasure();
 
     int measureCount() { return measures_.count(); }
     void clear();

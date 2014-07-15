@@ -30,9 +30,9 @@ public:
 
     int index();
     void setDetermineTime(int elapsed);
-    Ts::DetermineValue determine(int elapsed);
     void moveOut(Ts::DetermineValue value);
 
+    virtual Ts::DetermineValue determine(int elapsed);
     virtual bool acceptAct(Ts::TaikoState action);
     virtual void setUnitWidth(int unitWidth);
 

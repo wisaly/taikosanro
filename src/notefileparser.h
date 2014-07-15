@@ -4,6 +4,8 @@
 #include "mainview/notechart.h"
 
 class Song;
+class QTextStream;
+
 class NoteFileParser
 {
 public:
@@ -11,7 +13,8 @@ public:
 
     bool parse(Ts::Course loadCourse);
 
-protected:
+private:
+    QString getLine(QTextStream& input);
     QString filePath_;
     Song *song_;
 };

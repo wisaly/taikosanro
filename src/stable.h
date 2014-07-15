@@ -20,7 +20,9 @@ enum DetermineValue
     GREAT,
     GOOD,
     FAIL,
-    MISS
+    MISS,
+    CONSECUTIVE_HIT,
+    PASS
 };
 
 enum Course

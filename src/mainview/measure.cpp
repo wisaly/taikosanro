@@ -5,78 +5,23 @@
 #include <QDebug>
 #include <QPainter>
 
-Measure::Measure(QGraphicsItem *parent,
-                 NoteTypeList &notes,
-                 QQueue<int> &ballonHits,
-                 qreal tempo,
-                 int noteValuePerBeat,
-                 int beatsPerBar, bool isGGT, int appearElapsed)
+Measure::Measure(QGraphicsItem *parent)
     :QGraphicsItem(parent),
-      tempo_(tempo),
-      noteValuePerBeat_(noteValuePerBeat),
-      beatsPerBar_(beatsPerBar),
-      isGGT_(isGGT),
-      appearElapsed_(appearElapsed)
+      tempo_(0),
+      noteValuePerBeat_(0),
+      beatsPerBar_(0),
+      isGGT_(false),
+      appearElapsed_(0)
 {
-    Q_ASSERT(parent != 0);
     setVisible(false);
     setCacheMode(ItemCoordinateCache);
 
-    noteUnitCount_ = notes.count();
-
-    for(int i = 0;i < notes.count();i++)
-    {
-        Note *note = 0;
-        if (notes[i] == Note::Blank)
-        {
-            continue;
-        }
-        else if (notes[i] == Note::YellowBar || notes[i] == Note::BigYellowBar)
-        {
-            for (int j = i;j < notes.count();j++)
-            {
-                if (notes[j] == Note::EndYellowBar)
-                {
-                    note = new NoteYellowBar(this,i,notes[i] == Note::BigYellowBar,j - i + 1);
-                    i = j;
-                    break;
-                }
-            }
-        }
-        else if (notes[i] == Note::Ballon)
-        {
-            if (!ballonHits.empty())
-            {
-                note = new NoteBallon(this,i,ballonHits.takeFirst());
-            }
-        }
-        else
-        {
-            note = new Note(this,notes[i],i);
-        }
-
-        note->setDetermineTime(appearElapsed_ + 60000.0 / tempo_ * beatsPerBar + i * 60000.0 * beatsPerBar_ / noteUnitCount_ / tempo);
-        note->setZValue(-1 * i);
-        if (note != 0)
-        {
-            notes_.append(note);
-        }
-    }
-
-    disappearElapsed_ = appearElapsed_ + 60000 / tempo_ * beatsPerBar_ * 2;
-
-    //canvasRect_ = parent->boundingRect();
-    setBoundingRect(parent->boundingRect());
+    //setBoundingRect(parent->boundingRect());
 }
 
 Measure::~Measure()
 {
     clear();
-}
-
-QRectF Measure::boundingRect() const
-{
-    return canvasRect_;
 }
 
 void Measure::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -101,10 +46,7 @@ void Measure::calcPos(int currentElapsed)
     setPos(canvasRect_.width() - offset,0);
 }
 
-int Measure::appearElapsed()
-{
-    return appearElapsed_;
-}
+
 
 void Measure::setBoundingRect(QRectF rect)
 {
@@ -118,21 +60,6 @@ void Measure::setBoundingRect(QRectF rect)
     }
 }
 
-int Measure::disappearElapsed() const
-{
-    return disappearElapsed_;
-}
-
-int Measure::noteCount()
-{
-    return notes_.count();
-}
-
-Note *Measure::noteAt(int index)
-{
-    return notes_[index];
-}
-
 void Measure::clear()
 {
     for (int i = 0;i < notes_.count();i++)
@@ -140,6 +67,63 @@ void Measure::clear()
         delete notes_[i];
     }
     notes_.clear();
+}
+
+void Measure::setNotes(NoteTypeList notes, QQueue<int> &ballonHits,QQueue<int> &ballonLen, QQueue<int> &yellowbarLen)
+{
+    notes_.clear();
+
+    noteUnitCount_ = notes.count();
+
+    for(int i = 0;i < notes.count();i++)
+    {
+        Note *note = 0;
+        if (notes[i] == Note::Blank)
+        {
+            continue;
+        }
+        else if (notes[i] == Note::YellowBar || notes[i] == Note::BigYellowBar)
+        {
+            if (yellowbarLen.empty())
+                continue;
+
+            note = new NoteYellowBar(
+                        this,
+                        i,
+                        notes[i] == Note::BigYellowBar);
+            static_cast<NoteYellowBar*>(note)->setLength(
+                        yellowbarLen.dequeue());
+        }
+        else if (notes[i] == Note::Ballon)
+        {
+            if (ballonHits.empty() || ballonLen.empty())
+                continue;
+
+            note = new NoteBallon(this,i);
+            static_cast<NoteBallon*>(note)->setCount(
+                        ballonHits.dequeue());
+            static_cast<NoteBallon*>(note)->setLength(
+                        ballonLen.dequeue());
+        }
+        else
+        {
+            note = new Note(this,notes[i],i);
+        }
+
+        note->setDetermineTime(
+                    appearElapsed_ +
+                    60000.0 / tempo_ * beatsPerBar_ +
+                    i * 60000.0 * beatsPerBar_ / noteUnitCount_ / tempo_);
+
+        note->setZValue(-1 * i);
+        if (note != 0)
+        {
+            notes_.append(note);
+        }
+    }
+
+    // roughly set beats per bar + 1
+    disappearElapsed_ = appearElapsed_ + 60000 / tempo_ * (beatsPerBar_ + 1);
 }
 
 void Measure::advance(int phase)
