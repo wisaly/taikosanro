@@ -21,7 +21,6 @@ public:
 
     void play();
 
-
     void reset();
 
     Measure* createMeasure(NoteTypeList &notes,

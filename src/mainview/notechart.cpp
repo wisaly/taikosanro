@@ -34,7 +34,7 @@ void NoteChart::play()
     else
     {
         reset();
-        currentMeasure_ = -1;
+        currentMeasure_ = 0;
         detMeasure_ = 0;
         detNote_ = 0;
         playProgress_.start();
@@ -148,33 +148,29 @@ void NoteChart::advance(int phase)
         int currentElapsed = playProgress_.elapsed();
 
         // hide disappear measure
-        if (currentMeasure_ > 0 && currentElapsed > measures_[currentMeasure_]->disappearElapsed())
+        while (currentMeasure_ >= 0 && currentMeasure_ < measures_.count() &&
+               currentElapsed > measures_[currentMeasure_]->disappearElapsed())
         {
-            measures_[currentMeasure_]->setVisible(false);
-        }
-
-        // change current measure and show
-        if (currentMeasure_ + 1 < measures_.count() &&
-                currentElapsed >= measures_[currentMeasure_ + 1]->appearElapsed())
-        {
+            measures_[currentMeasure_]->hide();
             currentMeasure_++;
-            measures_[currentMeasure_]->setVisible(true);
         }
 
-        // current measure position
-        if (currentMeasure_ >= 0)
+        if (currentMeasure_ >= measures_.count())
         {
-            measures_[currentMeasure_]->calcPos(currentElapsed);
+            return;
         }
-        // previous measure position
-        if (currentMeasure_ > 0)
+
+        for (int i = currentMeasure_;i < measures_.count();i++)
         {
-            measures_[currentMeasure_ - 1]->calcPos(currentElapsed);
-        }
-        // previous previous measure position
-        if (currentMeasure_ > 1)
-        {
-            measures_[currentMeasure_ - 2]->calcPos(currentElapsed);
+            if (currentElapsed >= measures_[i]->appearElapsed())
+            {
+                measures_[i]->show();
+                measures_[i]->calcPos(currentElapsed);
+            }
+            else
+            {
+                break;
+            }
         }
         //qDebug() << currentElapsed << "end" << playProgress_.elapsed() - currentElapsed;
 
