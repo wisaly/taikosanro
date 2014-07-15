@@ -235,14 +235,22 @@ bool NoteFileParser::parse(Ts::Course loadCourse)
                 }
                 QStringList measures = lineCombine.split(',',QString::SkipEmptyParts);
                 QQueue<int> yellowbarLen;
+                QQueue<int> ballonLen;
                 // reformat yellowbar
                 for (int i = 0;i < measures.count();i++)
                 {
                     QString &mealine = measures[i];
                     for (int j = 0;j < mealine.count();j++)
                     {
+                        bool ballonStart = false;
+                        bool yellowbarStart = false;
+                        if (mealine[j] == '7')
+                            ballonStart = true;
+                        else if (mealine[j] == '5' || mealine[j] == '6')
+                            yellowbarStart = true;
+
                         // yellow bar start
-                        if (mealine[j] == '5' || mealine[j] == '6')
+                        if (ballonStart || yellowbarStart)
                         {
                             int count = 1;
                             j++;
@@ -261,7 +269,10 @@ bool NoteFileParser::parse(Ts::Course loadCourse)
                                 if (mealine[j] == '8')
                                 {
                                     mealine[j++] = '0';
-                                    yellowbarLen.append(++count);
+                                    if (yellowbarStart)
+                                        yellowbarLen.append(++count);
+                                    else
+                                        ballonLen.append(++count);
                                     break;
                                 }
                                 mealine[j++] = '0';
@@ -271,7 +282,6 @@ bool NoteFileParser::parse(Ts::Course loadCourse)
                     }
                 }
 
-                QQueue<int> ballonLen;
                 // create measure
                 for (int i = 0;i < measures.count();i++)
                 {

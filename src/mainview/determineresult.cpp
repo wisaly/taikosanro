@@ -1,19 +1,22 @@
-﻿#include "determineresult.h"
-#include <QPainter>
+﻿#include <QPainter>
 #include <QDebug>
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
 #include <QStateMachine>
 #include <QSignalTransition>
+#include "determineresult.h"
+#include "../pixmapmanager.h"
 
 DetermineResult::DetermineResult(QGraphicsItem *parent)
     :QGraphicsObject(parent)
 {
-}
+    rect_ = QRectF(QPointF(0,0),PixmapManager::getSize(Ts::mv::DETRESULT_SIZE));
+    pos1_ = PixmapManager::getPos(Ts::mv::DETRESULT_POS1);
+    pos2_ = PixmapManager::getPos(Ts::mv::DETRESULT_POS2);
 
-QRectF DetermineResult::boundingRect() const
-{
-    return QRectF(0,0,100,100);
+    greatPixmap_ = PixmapManager::get(Ts::mv::DETGREAT);
+    goodPixmap_ = PixmapManager::get(Ts::mv::DETGOOD);
+    failPixmap_ = PixmapManager::get(Ts::mv::DETFAIL);
 }
 
 void DetermineResult::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -24,19 +27,16 @@ void DetermineResult::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     painter->setFont(QFont(Ts::GUI_FONT_NAME,15));
     switch (result_)
     {
-    case Ts::OUTSIDE:
-        break;
     case Ts::GREAT:
-        painter->drawText(boundingRect(),Qt::AlignCenter,"Great");
+        painter->drawPixmap(greatPixmap_.pos(),greatPixmap_);
         break;
     case Ts::GOOD:
-        painter->drawText(boundingRect(),Qt::AlignCenter,"Good");
+        painter->drawPixmap(goodPixmap_.pos(),goodPixmap_);
         break;
     case Ts::FAIL:
-        painter->drawText(boundingRect(),Qt::AlignCenter,"Fail");
+        painter->drawPixmap(failPixmap_.pos(),failPixmap_);
         break;
-    case Ts::MISS:
-        painter->drawText(boundingRect(),Qt::AlignCenter,"Miss");
+    default:
         break;
     }
 }
@@ -56,10 +56,10 @@ void DetermineResult::determined(Ts::DetermineValue value)
 
     result_ = value;
 
-    QPropertyAnimation *aniPos = new QPropertyAnimation(this,"y");
-    aniPos->setKeyValueAt(0,0);
-    aniPos->setKeyValueAt(0.6,-30);
-    aniPos->setKeyValueAt(1,-30);
+    QPropertyAnimation *aniPos = new QPropertyAnimation(this,"pos");
+    aniPos->setKeyValueAt(0,pos1_);
+    aniPos->setKeyValueAt(0.6,pos2_);
+    aniPos->setKeyValueAt(1,pos2_);
     aniPos->setDuration(300);
     QPropertyAnimation *aniVisable = new QPropertyAnimation(this,"opacity");
     aniVisable->setKeyValueAt(0,0);

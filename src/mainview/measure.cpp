@@ -123,7 +123,7 @@ void Measure::setNotes(NoteTypeList notes, QQueue<int> &ballonHits,QQueue<int> &
     }
 
     // roughly set beats per bar + 1
-    disappearElapsed_ = appearElapsed_ + 60000 / tempo_ * (beatsPerBar_ + 1);
+    disappearElapsed_ = appearElapsed_ + 60000 / tempo_ * (beatsPerBar_ * 2 + 1);
 }
 
 void Measure::advance(int phase)

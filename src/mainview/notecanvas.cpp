@@ -1,10 +1,15 @@
-#include "notecanvas.h"
 #include <QPainter>
+#include <QDebug>
+#include "notecanvas.h"
+#include "../pixmapmanager.h"
 
 NoteCanvas::NoteCanvas(QGraphicsItem *parent)
     :QGraphicsItem(parent),rect_(0,0,821,114) // ratio=7.2
 {
+    backPixmap_ = PixmapManager::get(Ts::mv::CANVAS_BACK);
+    circlePixmap_ = PixmapManager::get(Ts::mv::DETERMINE_CIRCLE);
 
+    rect_ = QRectF(backPixmap_.pos(),backPixmap_.extend());
 }
 
 QRectF NoteCanvas::boundingRect() const
@@ -17,8 +22,8 @@ void NoteCanvas::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->drawEllipse(QPointF(Ts::NOTE_WIDTH / 2,Ts::NOTE_HEIGHT / 2),Ts::NOTE_WIDTH / 3,Ts::NOTE_HEIGHT / 3);
-    painter->drawEllipse(QPointF(Ts::NOTE_WIDTH / 2,Ts::NOTE_HEIGHT / 2),Ts::NOTE_WIDTH / 5,Ts::NOTE_HEIGHT / 5);
+    painter->drawPixmap(rect_,backPixmap_,backPixmap_.rect());
+    painter->drawPixmap(circlePixmap_.pos(),circlePixmap_);
 }
 
 void NoteCanvas::advance(int step)

@@ -19,13 +19,13 @@ public:
 
     bool acceptAct(Ts::TaikoState action);
 
-    //void setUnitWidth(int unitWidth);
+    void setUnitWidth(int unitWidth);
 
 private:
     int length_;
     int hitCount_;
-    PixmapRes noteHeadPixmap_;
-    PixmapRes noteTailPixmap_;
+    PixmapRes headPixmap_;
+    PixmapRes tailPixmap_;
 };
 
 #endif // NOTEYELLOWBAR_H

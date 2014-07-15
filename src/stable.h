@@ -56,6 +56,16 @@ const char* const RES_FILE = "../res/res.ini";
 // resource of main view
 namespace mv
 {
+const char* const CANVAS_BACK = "mainview/canvasback";
+const char* const DETERMINE_CIRCLE = "mainview/determinecircle";
+
+const char* const DETRESULT_SIZE = "mainview/detresult/size";
+const char* const DETRESULT_POS1 = "mainview/detresult/pos1";
+const char* const DETRESULT_POS2 = "mainview/detresult/pos2";
+const char* const DETGREAT = "mainview/detgreat";
+const char* const DETGOOD = "mainview/detgood";
+const char* const DETFAIL = "mainview/detfail";
+
 const char* const RED_MARKER = "mainview/redmarker";
 const char* const BLUE_MARKER = "mainview/bluemarker";
 const char* const BIG_RED_MARKER = "mainview/bigredmarker";

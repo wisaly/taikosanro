@@ -8,6 +8,8 @@ class NoteBallon : public Note
 public:
     NoteBallon(QGraphicsItem *parent,int index);
 
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
     int length() const { return length_; }
     void setLength(int length) { length_ = length; }
 

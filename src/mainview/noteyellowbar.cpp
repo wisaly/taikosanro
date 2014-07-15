@@ -12,14 +12,14 @@ NoteYellowBar::NoteYellowBar(QGraphicsItem *parent, int index, bool isBig)
     if (isBig)
     {
         notePixmap_ = PixmapManager::get(Ts::mv::BIG_YELLOW_BAR_BODY);
-        noteHeadPixmap_ = PixmapManager::get(Ts::mv::BIG_YELLOW_BAR_HEAD);
-        noteTailPixmap_ = PixmapManager::get(Ts::mv::BIG_YELLOW_BAR_TAIL);
+        headPixmap_ = PixmapManager::get(Ts::mv::BIG_YELLOW_BAR_HEAD);
+        tailPixmap_ = PixmapManager::get(Ts::mv::BIG_YELLOW_BAR_TAIL);
     }
     else
     {
         notePixmap_ = PixmapManager::get(Ts::mv::YELLOW_BAR_BODY);
-        noteHeadPixmap_ = PixmapManager::get(Ts::mv::YELLOW_BAR_HEAD);
-        noteTailPixmap_ = PixmapManager::get(Ts::mv::YELLOW_BAR_TAIL);
+        headPixmap_ = PixmapManager::get(Ts::mv::YELLOW_BAR_HEAD);
+        tailPixmap_ = PixmapManager::get(Ts::mv::YELLOW_BAR_TAIL);
     }
 }
 
@@ -28,21 +28,28 @@ void NoteYellowBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    QRectF headRect(0,0,Ts::NOTE_WIDTH,Ts::NOTE_HEIGHT);
-    QRectF tailRect(0,0,Ts::NOTE_WIDTH,Ts::NOTE_HEIGHT);
-    QRectF bodyRect(0,0,Ts::NOTE_WIDTH,Ts::NOTE_HEIGHT);
-    tailRect.moveLeft(length_ * unitWidth_ - tailRect.width());
-    bodyRect.setLeft(headRect.width() / 2);
-    bodyRect.setRight(length_ * unitWidth_ - tailRect.width() / 2);
+    QRectF headRect(headPixmap_.pos(),headPixmap_.size());
+    QRectF tailRect(headPixmap_.pos(),tailPixmap_.size());
+    QRectF bodyRect(headPixmap_.pos(),notePixmap_.size());
+    tailRect.moveLeft(length_ * unitWidth_ - tailRect.width() - headRect.left());
+    bodyRect.setLeft(headRect.width());
+    bodyRect.setRight(tailRect.left());
 
-    painter->drawPixmap(headRect,noteHeadPixmap_,noteHeadPixmap_.rect());
-    painter->drawPixmap(tailRect,noteTailPixmap_,noteTailPixmap_.rect());
+    painter->drawPixmap(tailRect,tailPixmap_,tailPixmap_.rect());
     painter->drawPixmap(bodyRect,notePixmap_,notePixmap_.rect());
+    painter->drawPixmap(headRect,headPixmap_,headPixmap_.rect());
 }
 
 bool NoteYellowBar::acceptAct(Ts::TaikoState action)
 {
     return (action & Ts::DON_BOTH) || (action & Ts::KA_BOTH);
+}
+
+void NoteYellowBar::setUnitWidth(int unitWidth)
+{
+    Note::setUnitWidth(unitWidth);
+
+    rect_ = QRectF(0,0,length_ * unitWidth_,Ts::NOTE_HEIGHT);
 }
 
 

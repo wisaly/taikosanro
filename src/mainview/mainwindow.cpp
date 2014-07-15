@@ -45,7 +45,8 @@ MainWindow::MainWindow(QWidget *parent) :
     chart_->setBoundingRect(canvas->boundingRect());
     chart_->connect(this,SIGNAL(hit(Ts::TaikoState)),SLOT(hit(Ts::TaikoState)));
 
-    determine_ = new DetermineResult(canvas);
+    determine_ = new DetermineResult();
+    scene->addItem(determine_);
     determine_->connect(chart_,SIGNAL(determined(Ts::DetermineValue)),SLOT(determined(Ts::DetermineValue)));
 
     connect(&timer_,SIGNAL(timeout()),SLOT(timeout()));

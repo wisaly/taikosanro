@@ -20,6 +20,8 @@ protected:
 private:
     QRectF rect_;
     QList<Measure*> measures_;
+    PixmapRes backPixmap_;
+    PixmapRes circlePixmap_;
 };
 
 #endif // NOTECANVAS_H

@@ -45,6 +45,7 @@ protected:
     DetermineRange determineRange_;
     int index_;
     int unitWidth_;     // actual width of a note unit
+    QRectF rect_;
 };
 
 typedef QList<Note::Type> NoteTypeList;

@@ -27,11 +27,15 @@ Note::Note(QGraphicsItem *parent, Type noteType, int index)
     noteType_ = noteType;
 
     setCacheMode(DeviceCoordinateCache);
+
+    rect_ = QRectF(0,0,
+                   notePixmap_.width() + notePixmap_.pos().x(),
+                   notePixmap_.height() + notePixmap_.pos().y());
 }
 
 QRectF Note::boundingRect() const
 {
-    return notePixmap_.rect();
+    return rect_;
 }
 
 void Note::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -41,7 +45,7 @@ void Note::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 
     //QRect dstRect = notePixmap_.rect();
 
-    painter->drawPixmap(0,0,Ts::NOTE_WIDTH,Ts::NOTE_HEIGHT,notePixmap_);
+    painter->drawPixmap(notePixmap_.pos(),notePixmap_);
 }
 
 int Note::index()
