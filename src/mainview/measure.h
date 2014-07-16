@@ -27,7 +27,7 @@ public:
     int noteCount() { return notes_.count(); }
     Note *noteAt(int index) { return notes_[index]; }
 
-    int getTimeOffset(int noteCount);
+    int getTimeLength(int noteCount);
 
     void clear();
 

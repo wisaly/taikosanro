@@ -104,6 +104,6 @@ void MainWindow::timeout()
         fpsTimer_.start();
     }
     fpsCount_++;
-    ui->graphicsView->scene()->advance();
     keyController_.advance();
+    ui->graphicsView->scene()->advance();
 }

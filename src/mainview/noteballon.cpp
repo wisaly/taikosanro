@@ -1,4 +1,5 @@
 #include <QPainter>
+#include <QDebug>
 #include "noteballon.h"
 
 NoteBallon::NoteBallon(QGraphicsItem *parent, int index)
@@ -13,7 +14,7 @@ void NoteBallon::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->drawRect(0,0,length_ * unitWidth_,Ts::NOTE_HEIGHT);
+    painter->fillRect(0,0,length_ * unitWidth_,Ts::NOTE_HEIGHT,Qt::white);
 }
 
 bool NoteBallon::acceptAct(Ts::TaikoState action)
