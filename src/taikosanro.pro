@@ -38,7 +38,8 @@ SOURCES += main.cpp\
     pixmapres.cpp \
     mainview/score.cpp \
     controller.cpp \
-    keycontroller.cpp
+    keycontroller.cpp \
+    pixmapnumber.cpp
 
 HEADERS  += stable.h\
     pixmapmanager.h \
@@ -66,7 +67,8 @@ HEADERS  += stable.h\
     pixmapres.h \
     mainview/score.h \
     controller.h \
-    keycontroller.h
+    keycontroller.h \
+    pixmapnumber.h
 
 FORMS    += selectview/selectwindow.ui \
     mainview/mainwindow.ui

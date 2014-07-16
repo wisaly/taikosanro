@@ -13,6 +13,7 @@
 #include "taikoitem.h"
 #include "../notefileparser.h"
 #include "../song.h"
+#include "../pixmapnumber.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),

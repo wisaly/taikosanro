@@ -13,6 +13,8 @@ class MainWindow;
 
 class NoteChart;
 class DetermineResult;
+class PixmapNumber;
+
 class MainWindow : public QWidget
 {
     Q_OBJECT

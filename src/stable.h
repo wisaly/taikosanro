@@ -88,6 +88,8 @@ const char* const STATE_DON_L = "mainview/statedonl";
 const char* const STATE_DON_R = "mainview/statedonr";
 const char* const STATE_KA_L = "mainview/statekal";
 const char* const STATE_KA_R = "mainview/statekar";
+
+const char* const COMBO_DIGIT = "mainview/combodigit";
 }
 
 // resource of select view

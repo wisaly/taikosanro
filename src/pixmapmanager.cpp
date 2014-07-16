@@ -1,6 +1,7 @@
 #include <QHash>
 #include <QSettings>
 #include <QDir>
+#include <QDebug>
 #include "pixmapmanager.h"
 #include "stable.h"
 
@@ -14,6 +15,7 @@ PixmapRes PixmapManager::get(QString key)
 {
     if (!resSetting->contains(key))
     {
+        qDebug() << "PixmapManager::get invalid key :" << key;
         return PixmapRes();
     }
 
