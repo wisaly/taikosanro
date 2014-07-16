@@ -4,6 +4,7 @@
 #include <QElapsedTimer>
 #include <QWidget>
 #include <QTimer>
+#include "keycontroller.h"
 #include "../stable.h"
 
 namespace Ui {
@@ -36,6 +37,7 @@ private:
     QTimer timer_;
     QElapsedTimer fpsTimer_;
     int fpsCount_;
+    KeyController keyController_;
 };
 
 #endif // MAINWINDOW_H

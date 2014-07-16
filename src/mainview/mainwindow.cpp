@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
     TaikoItem *taikoItem = new TaikoItem;
     scene->addItem(taikoItem);
     taikoItem->setPos(0,42);
-    taikoItem->connect(this,SIGNAL(hit(Ts::TaikoState)),SLOT(hit(Ts::TaikoState)));
+    taikoItem->connect(&keyController_,SIGNAL(hit(Ts::TaikoState)),SLOT(hit(Ts::TaikoState)));
 
 
     Song *song = new Song("../res/example.tja");
@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     chart_ = song->getChart(Ts::ONI);
     chart_->setParentItem(canvas);
     chart_->setBoundingRect(canvas->boundingRect());
-    chart_->connect(this,SIGNAL(hit(Ts::TaikoState)),SLOT(hit(Ts::TaikoState)));
+    chart_->connect(&keyController_,SIGNAL(hit(Ts::TaikoState)),SLOT(hit(Ts::TaikoState)));
 
     determine_ = new DetermineResult();
     scene->addItem(determine_);
@@ -63,34 +63,27 @@ MainWindow::~MainWindow()
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    QMap<int,Ts::TaikoState> keys;
-    keys[Qt::Key_F] = Ts::DON_LEFT;
-    keys[Qt::Key_J] = Ts::DON_RIGHT;
-    keys[Qt::Key_D] = Ts::KA_LEFT;
-    keys[Qt::Key_K] = Ts::KA_RIGHT;
+    if (!event->isAutoRepeat())
+    {
+        if (event->key() == Qt::Key_Space)
+        {
+            qDebug() << "play";
+            chart_->play();
+            return;
+        }
+        else if (keyController_.keyPressed(event->key()))
+        {
+            return;
+        }
+        else if (event->key() == Qt::Key_Q)
+        {
+            determine_->determined(Ts::GREAT);
+            return;
+        }
+    }
 
-    if (event->key() == Qt::Key_Space)
-    {
-        qDebug() << "play";
-        chart_->play();
-
-        event->accept();
-    }
-    else if (keys.contains(event->key()))
-    {
-        emit hit(keys[event->key()]);
-
-        event->accept();
-    }
-    else if (event->key() == Qt::Key_Q)
-    {
-        determine_->determined(Ts::GREAT);
-    }
-    else
-    {
-        event->ignore();
-        QWidget::keyPressEvent(event);
-    }
+    event->ignore();
+    QWidget::keyPressEvent(event);
 }
 
 void MainWindow::resizeEvent(QResizeEvent *event)
@@ -112,4 +105,5 @@ void MainWindow::timeout()
     }
     fpsCount_++;
     ui->graphicsView->scene()->advance();
+    keyController_.advance();
 }
