@@ -21,4 +21,16 @@ bool NoteBallon::acceptAct(Ts::TaikoState action)
     return action & Ts::DON_BOTH;
 }
 
+Ts::DetermineValue NoteBallon::determine(int elapsed)
+{
+    if (elapsed < determineRange_.appearElapsed())
+    {
+        return Ts::OUTSIDE;
+    }
+    if (elapsed > (determineRange_.appearElapsed() + timeLength_))
+    {
+        return Ts::PASS;
+    }
 
+    return Ts::CONSECUTIVE_HIT;
+}

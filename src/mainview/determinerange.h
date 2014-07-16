@@ -14,6 +14,9 @@ public:
                   int goodRange = Ts::GOOD_RANGE,
                   int greatRange = Ts::GREAT_RANGE,
                   int failRange = Ts::FAIL_RANGE);
+
+    int appearElapsed() const { return appearElapsed_; }
+
 private:
     int greatBegin_;
     int greatEnd_;

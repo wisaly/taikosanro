@@ -29,11 +29,11 @@ public:
                QWidget *widget);
 
     int index();
-    void setDetermineTime(int elapsed);
-    void moveOut(Ts::DetermineValue value);
+    void setDetermineTime(int elapsed) { determineRange_.setRange(elapsed); }
+    virtual Ts::DetermineValue determine(int elapsed) { return determineRange_.determine(elapsed); }
 
-    virtual Ts::DetermineValue determine(int elapsed);
     virtual bool acceptAct(Ts::TaikoState action);
+    virtual bool isBigNote();
     virtual void setUnitWidth(int unitWidth);
 
 protected:

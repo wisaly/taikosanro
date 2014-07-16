@@ -23,18 +23,12 @@ public:
     void calcPos(int currentElapsed);
     void setBoundingRect(QRectF rect);
 
-    int disappearElapsed() const
-    {
-        return disappearElapsed_;
-    }
-    int noteCount()
-    {
-        return notes_.count();
-    }
-    Note *noteAt(int index)
-    {
-        return notes_[index];
-    }
+    int disappearElapsed() const { return disappearElapsed_; }
+    int noteCount() { return notes_.count(); }
+    Note *noteAt(int index) { return notes_[index]; }
+
+    int getTimeOffset(int noteCount);
+
     void clear();
 
     int appearElapsed() const { return appearElapsed_; }

@@ -11,7 +11,7 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     int length() const { return length_; }
-    void setLength(int length) { length_ = length; }
+    void setLength(int length,int timeLength) { length_ = length; timeLength_ = timeLength; }
 
     int hitCount() const { return hitCount_; }
     void setHitCount(int hitCount) { hitCount_ = hitCount; }
@@ -21,10 +21,12 @@ public:
 
     bool acceptAct(Ts::TaikoState action);
 
+    Ts::DetermineValue determine(int elapsed);
 protected:
     int count_;
     int hitCount_;
     int length_;
+    int timeLength_;
 };
 
 #endif // NOTEBALLON_H

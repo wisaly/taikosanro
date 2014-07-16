@@ -40,6 +40,20 @@ void NoteYellowBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     painter->drawPixmap(headRect,headPixmap_,headPixmap_.rect());
 }
 
+Ts::DetermineValue NoteYellowBar::determine(int elapsed)
+{
+    if (elapsed < determineRange_.appearElapsed())
+    {
+        return Ts::OUTSIDE;
+    }
+    if (elapsed > (determineRange_.appearElapsed() + timeLength_))
+    {
+        return Ts::PASS;
+    }
+
+    return Ts::CONSECUTIVE_HIT;
+}
+
 bool NoteYellowBar::acceptAct(Ts::TaikoState action)
 {
     return (action & Ts::DON_BOTH) || (action & Ts::KA_BOTH);

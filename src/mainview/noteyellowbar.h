@@ -12,10 +12,12 @@ public:
                 QWidget *widget);
 
     int length() const { return length_; }
-    void setLength(int length) { length_ = length; }
+    void setLength(int length,int timeLength) { length_ = length; timeLength_ = timeLength; }
 
     int hitCount() const { return hitCount_; }
     void setHitCount(int hitCount) { hitCount_ = hitCount; }
+
+    Ts::DetermineValue determine(int elapsed);
 
     bool acceptAct(Ts::TaikoState action);
 
@@ -23,6 +25,7 @@ public:
 
 private:
     int length_;
+    int timeLength_;
     int hitCount_;
     PixmapRes headPixmap_;
     PixmapRes tailPixmap_;

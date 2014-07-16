@@ -53,22 +53,6 @@ int Note::index()
     return index_;
 }
 
-void Note::setDetermineTime(int elapsed)
-{
-    determineRange_.setRange(elapsed);
-}
-
-Ts::DetermineValue Note::determine(int elapsed)
-{
-    return determineRange_.determine(elapsed);
-}
-
-void Note::moveOut(Ts::DetermineValue value)
-{
-    Q_UNUSED(value)
-    hide();
-}
-
 bool Note::acceptAct(Ts::TaikoState action)
 {
     if ((action & Ts::DON_BOTH &&
@@ -78,6 +62,12 @@ bool Note::acceptAct(Ts::TaikoState action)
         return true;
 
     return false;
+}
+
+bool Note::isBigNote()
+{
+    return noteType_ == BigRedMarker || noteType_ == BigBlueMarker ||
+            noteType_ == BigYellowBar;
 }
 
 void Note::setUnitWidth(int unitWidth)

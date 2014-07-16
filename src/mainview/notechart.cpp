@@ -3,7 +3,8 @@
 #include <QPainter>
 
 NoteChart::NoteChart(QGraphicsItem *parent)
-    :QGraphicsObject(parent),isPlaying_(false)
+    :QGraphicsObject(parent),
+      isPlaying_(false)
 {
     setFlag(QGraphicsItem::ItemClipsChildrenToShape);
 
@@ -37,8 +38,11 @@ void NoteChart::play()
         currentMeasure_ = 0;
         detMeasure_ = 0;
         detNote_ = 0;
+        score_.init(scoreInit_,scoreDiff_);
         playProgress_.start();
         isPlaying_ = true;
+
+        // move determine pointer to valid note
         hit(Ts::NO_ACT);
     }
 }
@@ -71,34 +75,59 @@ void NoteChart::hit(Ts::TaikoState state)
         return;
     }
 
+    Note *note = measures_[detMeasure_]->noteAt(detNote_);
+    Ts::DetermineValue result = note->determine(playProgress_.elapsed());
+
+    bool isBigNote = false;
+
     // hit determine
     if (state & Ts::DON_BOTH || state & Ts::KA_BOTH)
     {
-        if (detMeasure_ >= measures_.count())
+        if (!note->acceptAct(state))
+            return;
+
+        if (result == Ts::GREAT || result == Ts::GOOD || result == Ts::FAIL)
         {
-            return;
+            detNote_++;
+            emit determined(result);
+
+            // note is big note & hit both side
+            if (note->isBigNote() &&
+                    ((state & Ts::DON_BOTH) == Ts::DON_BOTH ||
+                    (state & Ts::KA_BOTH) == Ts::KA_BOTH))
+            {
+                isBigNote = true;
+            }
+
+            // hide
+            note->hide();
         }
-
-        if (!measures_[detMeasure_]->noteAt(detNote_)->acceptAct(state))
-            return;
-
-        Ts::DetermineValue result = measures_[detMeasure_]->noteAt(detNote_)->determine(playProgress_.elapsed());
-        if (result == Ts::OUTSIDE || result == Ts::MISS)
-            return;
-
-        measures_[detMeasure_]->noteAt(detNote_)->moveOut(result);
-        detNote_++;
-        emit determined(result);
+        else if (result == Ts::CONSECUTIVE_HIT)
+        {
+            // note is big note
+            isBigNote = note->isBigNote();
+        }
+        else if (result == Ts::CONSECUTIVE_OVER)
+        {
+            note->hide();
+            detNote_++;
+        }
     }
     else
     {
         // miss determine
-        if (measures_[detMeasure_]->noteAt(detNote_)->determine(playProgress_.elapsed()) == Ts::MISS)
+        if (result == Ts::MISS)
         {
             detNote_++;
             emit determined(Ts::MISS);
         }
+        else if (result == Ts::PASS)
+        {
+            detNote_++;
+        }
     }
+
+    score_.add(result,isBigNote,measures_[detMeasure_]->isGGT());
 }
 
 void NoteChart::setBoundingRect(QRectF rect)

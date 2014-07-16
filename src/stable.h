@@ -22,6 +22,7 @@ enum DetermineValue
     FAIL,
     MISS,
     CONSECUTIVE_HIT,
+    CONSECUTIVE_OVER,
     PASS
 };
 

@@ -1,11 +1,12 @@
 #ifndef NOTECHART_H
 #define NOTECHART_H
 
-#include "measure.h"
-#include "../stable.h"
-
 #include <QElapsedTimer>
 #include <QGraphicsObject>
+#include "measure.h"
+#include "score.h"
+#include "../stable.h"
+
 
 class NoteChart : public QGraphicsObject
 {
@@ -61,6 +62,7 @@ private:
     bool isPlaying_;
     int detMeasure_;     // determine measure index
     int detNote_;        // determine note index
+    Score score_;
 };
 
 #endif // NOTECHART_H

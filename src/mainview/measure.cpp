@@ -60,6 +60,13 @@ void Measure::setBoundingRect(QRectF rect)
     }
 }
 
+int Measure::getTimeOffset(int noteCount)
+{
+    return appearElapsed_ +
+        60000.0 / tempo_ * beatsPerBar_ +
+        noteCount * 60000.0 * beatsPerBar_ / noteUnitCount_ / tempo_;
+}
+
 void Measure::clear()
 {
     for (int i = 0;i < notes_.count();i++)
@@ -91,8 +98,10 @@ void Measure::setNotes(NoteTypeList notes, QQueue<int> &ballonHits,QQueue<int> &
                         this,
                         i,
                         notes[i] == Note::BigYellowBar);
+
+            int length = yellowbarLen.dequeue();
             static_cast<NoteYellowBar*>(note)->setLength(
-                        yellowbarLen.dequeue());
+                        length,getTimeOffset(length));
         }
         else if (notes[i] == Note::Ballon)
         {
@@ -102,18 +111,17 @@ void Measure::setNotes(NoteTypeList notes, QQueue<int> &ballonHits,QQueue<int> &
             note = new NoteBallon(this,i);
             static_cast<NoteBallon*>(note)->setCount(
                         ballonHits.dequeue());
+
+            int length = ballonLen.dequeue();
             static_cast<NoteBallon*>(note)->setLength(
-                        ballonLen.dequeue());
+                        length,getTimeOffset(length));
         }
         else
         {
             note = new Note(this,notes[i],i);
         }
 
-        note->setDetermineTime(
-                    appearElapsed_ +
-                    60000.0 / tempo_ * beatsPerBar_ +
-                    i * 60000.0 * beatsPerBar_ / noteUnitCount_ / tempo_);
+        note->setDetermineTime(getTimeOffset(i));
 
         note->setZValue(-1 * i);
         if (note != 0)
