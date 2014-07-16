@@ -29,7 +29,10 @@ void Measure::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->drawLine(Ts::NOTE_WIDTH / 2,0,Ts::NOTE_WIDTH / 2, Ts::NOTE_HEIGHT);
+    painter->setPen(Qt::white);
+    painter->drawLine(
+                noteRect_.width() / 2 + noteRect_.left(),noteRect_.top(),
+                noteRect_.width() / 2 + noteRect_.left(), noteRect_.bottom());
 }
 
 void Measure::reset()

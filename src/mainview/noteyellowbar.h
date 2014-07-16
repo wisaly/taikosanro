@@ -13,7 +13,7 @@ public:
                 QWidget *widget);
 
     int length() const { return length_; }
-    void setLength(int length,int timeLength) { length_ = length; timeLength_ = timeLength; qDebug() << timeLength; }
+    void setLength(int length,int timeLength) { length_ = length; timeLength_ = timeLength; }
 
     int hitCount() const { return hitCount_; }
     void setHitCount(int hitCount) { hitCount_ = hitCount; }

@@ -13,7 +13,8 @@ bool KeyController::keyPressed(int key)
     if (!acceptKeys_.contains(key))
         return false;
 
-    state_ |= acceptKeys_[key];
+    Ts::TaikoState state = acceptKeys_[key];
+    state_ |= state;
 
     return true;
 }

@@ -67,6 +67,9 @@ const char* const DETGREAT = "mainview/detgreat";
 const char* const DETGOOD = "mainview/detgood";
 const char* const DETFAIL = "mainview/detfail";
 
+const char* const NOTE_POS = "mainview/note/pos";
+const char* const NOTE_SIZE = "mainview/note/size";
+
 const char* const RED_MARKER = "mainview/redmarker";
 const char* const BLUE_MARKER = "mainview/bluemarker";
 const char* const BIG_RED_MARKER = "mainview/bigredmarker";

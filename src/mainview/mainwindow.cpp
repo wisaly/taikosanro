@@ -37,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
     taikoItem->setPos(0,42);
     taikoItem->connect(&keyController_,SIGNAL(hit(Ts::TaikoState)),SLOT(hit(Ts::TaikoState)));
 
+    this->connect(&keyController_,SIGNAL(hit(Ts::TaikoState)),SLOT(testhit(Ts::TaikoState)));
 
     Song *song = new Song("../res/example.tja");
     song->parser().parse(Ts::ONI);
@@ -106,4 +107,17 @@ void MainWindow::timeout()
     fpsCount_++;
     keyController_.advance();
     ui->graphicsView->scene()->advance();
+}
+
+void MainWindow::testhit(Ts::TaikoState state)
+{
+    if ((state & Ts::DON_BOTH) == Ts::DON_BOTH ||
+            (state & Ts::KA_BOTH) == Ts::KA_BOTH)
+    {
+        determine_->determined(Ts::GREAT);
+    }
+    else if ((state & Ts::DON_BOTH) || (state & Ts::KA_BOTH))
+    {
+        determine_->determined(Ts::GOOD);
+    }
 }

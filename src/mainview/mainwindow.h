@@ -26,9 +26,9 @@ private:
     void resizeEvent(QResizeEvent * event);
 
 signals:
-    void hit(Ts::TaikoState state);
 public slots:
     void timeout();
+    void testhit(Ts::TaikoState state);
 
 private:
     Ui::MainWindow *ui;

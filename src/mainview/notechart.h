@@ -63,6 +63,7 @@ private:
     int detMeasure_;     // determine measure index
     int detNote_;        // determine note index
     Score score_;
+    QRectF noteRect_;
 };
 
 #endif // NOTECHART_H

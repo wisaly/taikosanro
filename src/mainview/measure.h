@@ -12,23 +12,24 @@ public:
     Measure(QGraphicsItem *parent);
     ~Measure();
 
-    QRectF boundingRect() const
-    {
-        return canvasRect_;
-    }
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 QWidget *widget);
 
     void reset();
+
     void calcPos(int currentElapsed);
+
+    // create notes
+    void setNotes(NoteTypeList notes,QQueue<int> &ballonHits,QQueue<int> &ballonLen,QQueue<int> &yellowbarLen);
+
+    // property
     void setBoundingRect(QRectF rect);
+    QRectF boundingRect() const { return canvasRect_; }
 
     int disappearElapsed() const { return disappearElapsed_; }
+
     int noteCount() { return notes_.count(); }
     Note *noteAt(int index) { return notes_[index]; }
-
-    int getTimeLength(int noteCount);
-
     void clear();
 
     int appearElapsed() const { return appearElapsed_; }
@@ -46,8 +47,9 @@ public:
     qreal tempo() const { return tempo_; }
     void setTempo(const qreal &tempo) { tempo_ = tempo; }
 
-    void setNotes(NoteTypeList notes,QQueue<int> &ballonHits,QQueue<int> &ballonLen,QQueue<int> &yellowbarLen);
-
+    void setNoteRect(const QRectF &noteRect) { noteRect_ = noteRect; }
+private:
+    int getTimeLength(int noteCount);
 protected:
     void advance(int phase);
 
@@ -59,8 +61,8 @@ private:
     int beatsPerBar_;
     int noteUnitCount_;
     bool isGGT_;
-
     int appearElapsed_;
     int disappearElapsed_;
+    QRectF noteRect_;
 };
 #endif // MEASURE_H

@@ -1,6 +1,7 @@
-#include "notechart.h"
 #include <QDebug>
 #include <QPainter>
+#include "notechart.h"
+#include "../pixmapmanager.h"
 
 NoteChart::NoteChart(QGraphicsItem *parent)
     :QGraphicsObject(parent),
@@ -8,10 +9,9 @@ NoteChart::NoteChart(QGraphicsItem *parent)
 {
     setFlag(QGraphicsItem::ItemClipsChildrenToShape);
 
-    if (parent != 0)
-    {
-        setBoundingRect(parent->boundingRect());
-    }
+    noteRect_ = QRectF(
+                PixmapManager::getPos(Ts::mv::NOTE_POS),
+                PixmapManager::getSize(Ts::mv::NOTE_SIZE));
 }
 
 QRectF NoteChart::boundingRect() const
@@ -152,6 +152,7 @@ Measure *NoteChart::createMeasure()
 {
     Measure *measure = new Measure(this);
     measure->setZValue(-1 * measures_.count());
+    measure->setNoteRect(noteRect_);
     measures_.append(measure);
 
     return measure;
