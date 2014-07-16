@@ -11,8 +11,10 @@
 #include "notechart.h"
 #include "determineresult.h"
 #include "taikoitem.h"
+#include "hitlight.h"
 #include "../notefileparser.h"
 #include "../song.h"
+#include "../pixmapmanager.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
@@ -37,7 +39,11 @@ MainWindow::MainWindow(QWidget *parent) :
     taikoItem->setPos(0,42);
     taikoItem->connect(&keyController_,SIGNAL(hit(Ts::TaikoState)),SLOT(hit(Ts::TaikoState)));
 
-    this->connect(&keyController_,SIGNAL(hit(Ts::TaikoState)),SLOT(testhit(Ts::TaikoState)));
+    hitLight_ = new HitLight();
+    hitLight_->setPos(PixmapManager::getPos(Ts::mv::HITLIGHT_POS));
+    hitLight_->setCourse(Ts::MUZUKASHII);
+    scene->addItem(hitLight_);
+    //this->connect(&keyController_,SIGNAL(hit(Ts::TaikoState)),SLOT(testhit(Ts::TaikoState)));
 
     Song *song = new Song("../res/example.tja");
     song->parser().parse(Ts::ONI);
@@ -49,6 +55,7 @@ MainWindow::MainWindow(QWidget *parent) :
     determine_ = new DetermineResult();
     scene->addItem(determine_);
     determine_->connect(chart_,SIGNAL(determined(Ts::DetermineValue)),SLOT(determined(Ts::DetermineValue)));
+    hitLight_->connect(chart_,SIGNAL(determined(Ts::DetermineValue)),SLOT(determined(Ts::DetermineValue)));
 
     connect(&timer_,SIGNAL(timeout()),SLOT(timeout()));
     timer_.setTimerType(Qt::PreciseTimer);
@@ -80,6 +87,10 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         {
             determine_->determined(Ts::GREAT);
             return;
+        }
+        else if (event->key() == Qt::Key_E)
+        {
+            hitLight_->determined(Ts::GREAT);
         }
     }
 
