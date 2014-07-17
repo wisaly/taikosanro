@@ -9,4 +9,4 @@ Still in develop progress, a lot of work rest. If you are interested in this, pl
 
 The source code follows [GPL](http://www.gnu.org/licenses/gpl.html), but not include resource files.
 Current using resource files are disassemble from namco game file, I will replace these files after I finish develop.
-If by any chance namco find this project, please contract with me and I will remove all illegal files.
+If by any chance namco find this project, please contact with me and I will remove all illegal files.
