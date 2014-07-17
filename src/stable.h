@@ -90,6 +90,13 @@ const char* const STATE_KA_L = "mainview/statekal";
 const char* const STATE_KA_R = "mainview/statekar";
 
 const char* const COMBO_DIGIT = "mainview/combodigit";
+
+const char* const HITLIGHT_POS = "mainview/hitlight/pos";
+const char* const HITLIGHT_SIZE = "mainview/hitlight/size";
+const char* const LIGHT_KANTAN = "mainview/lightkantan";
+const char* const LIGHT_FUTSU = "mainview/lightfutsu";
+const char* const LIGHT_MUZUKASHII = "mainview/lightmuzukashii";
+const char* const LIGHT_ONI = "mainview/lightoni";
 }
 
 // resource of select view

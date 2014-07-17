@@ -29,6 +29,8 @@ SOURCES += main.cpp\
     mainview/noteyellowbar.cpp \
     mainview/scoreboard.cpp \
     mainview/soulgauge.cpp \
+    mainview/score.cpp \
+    mainview/hitlight.cpp
     selectview/selectwindow.cpp \
     selectview/selectcanvas.cpp \
     selectview/selectitem.cpp \
@@ -36,7 +38,6 @@ SOURCES += main.cpp\
     selectview/courseitem.cpp \
     selectview/selectarrow.cpp \
     pixmapres.cpp \
-    mainview/score.cpp \
     controller.cpp \
     keycontroller.cpp \
     pixmapnumber.cpp
@@ -58,6 +59,8 @@ HEADERS  += stable.h\
     mainview/noteyellowbar.h \
     mainview/scoreboard.h \
     mainview/soulgauge.h \
+    mainview/score.h \
+    mainview/hitlight.h
     selectview/selectwindow.h \
     selectview/selectcanvas.h \
     selectview/selectitem.h \
@@ -65,7 +68,6 @@ HEADERS  += stable.h\
     selectview/courseitem.h \
     selectview/selectarrow.h \
     pixmapres.h \
-    mainview/score.h \
     controller.h \
     keycontroller.h \
     pixmapnumber.h

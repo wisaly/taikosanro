@@ -4,7 +4,7 @@
 #include <QElapsedTimer>
 #include <QWidget>
 #include <QTimer>
-#include "keycontroller.h"
+#include "../keycontroller.h"
 #include "../stable.h"
 
 namespace Ui {
@@ -14,6 +14,7 @@ class MainWindow;
 class NoteChart;
 class DetermineResult;
 class PixmapNumber;
+class HitLight;
 
 class MainWindow : public QWidget
 {
@@ -40,6 +41,7 @@ private:
     QElapsedTimer fpsTimer_;
     int fpsCount_;
     KeyController keyController_;
+    HitLight *hitLight_;
 };
 
 #endif // MAINWINDOW_H
