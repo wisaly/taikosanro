@@ -89,7 +89,7 @@ const char* const STATE_DON_R = "mainview/statedonr";
 const char* const STATE_KA_L = "mainview/statekal";
 const char* const STATE_KA_R = "mainview/statekar";
 
-const char* const COMBO_DIGIT = "mainview/combodigit";
+const char* const COMBO_DIGIT = "mainview/combo";
 
 const char* const HITLIGHT_POS = "mainview/hitlight/pos";
 const char* const HITLIGHT_SIZE = "mainview/hitlight/size";
