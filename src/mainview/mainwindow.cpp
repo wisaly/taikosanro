@@ -13,6 +13,7 @@
 #include "taikoitem.h"
 #include "hitlight.h"
 #include "comboitem.h"
+#include "combobubble.h"
 #include "../notefileparser.h"
 #include "../song.h"
 #include "../pixmapnumber.h"
@@ -52,13 +53,16 @@ MainWindow::MainWindow(QWidget *parent) :
     scene->addItem(taikoItem);
     taikoItem->setPos(PixmapManager::getPos(Ts::mv::TAIKO_POS));
     taikoItem->connect(&keyController_,SIGNAL(hit(Ts::TaikoState)),SLOT(hit(Ts::TaikoState)));
-    taikoItem->setZValue(1);
 
     ComboItem *comboNumber = new ComboItem;
     scene->addItem(comboNumber);
     comboNumber->setPos(PixmapManager::getPos(Ts::mv::COMBO_POS));
     comboNumber->connect(chart_->score(),SIGNAL(comboChanged(int)),SLOT(comboChanged(int)));
-    comboNumber->setZValue(2);
+
+    ComboBubble *comboBubble = new ComboBubble;
+    scene->addItem(comboBubble);
+    comboBubble->setPos(PixmapManager::getPos(Ts::mv::BUBBLE_POS));
+    comboBubble->connect(chart_->score(),SIGNAL(comboChanged(int)),SLOT(comboChanged(int)));
 
     determine_ = new DetermineResult();
     scene->addItem(determine_);

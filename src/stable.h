@@ -47,9 +47,6 @@ const int GREAT_RANGE = 25; // 3 frame
 const int GOOD_RANGE = 75;  // 9 frame
 const int FAIL_RANGE = 108; // 13 frame
 
-const int NOTE_WIDTH = 100;
-const int NOTE_HEIGHT = 100;
-
 const char* const GUI_FONT_NAME = "微软雅黑";
 
 const char* const RES_FILE = "../res/res.ini";
@@ -96,8 +93,15 @@ const char* const COMBO_SIZE = "mainview/combo/size";
 const char* const COMBONUMBER_OFFSET = "mainview/combonumber/offset";
 const char* const COMBONUMBER_SIZE = "mainview/combonumber/size";
 
+const char* const BUBBLE_POS = "mainview/bubble/pos";
+const char* const COMBO_BUBBLE = "mainview/combobubble";
+const char* const COMBO_BREAK = "mainview/combobreak";
+const char* const COMBOBUBNUM_OFFSET = "mainview/combobubnum/offset";
+const char* const COMBOBUBNUM_SIZE = "mainview/combobubnum/size";
+
 const char* const COMBO = "mainview/combo";
 const char* const COMBO_RED = "mainview/combored";
+const char* const HIT = "mainview/hit";
 
 const char* const HITLIGHT_POS = "mainview/hitlight/pos";
 const char* const HITLIGHT_SIZE = "mainview/hitlight/size";

@@ -41,7 +41,8 @@ SOURCES += main.cpp\
     selectview/dirloader.cpp \
     selectview/courseitem.cpp \
     selectview/selectarrow.cpp \
-    mainview/comboitem.cpp
+    mainview/comboitem.cpp \
+    mainview/combobubble.cpp
 
 HEADERS  += stable.h\
     pixmapmanager.h \
@@ -72,7 +73,8 @@ HEADERS  += stable.h\
     selectview/dirloader.h \
     selectview/courseitem.h \
     selectview/selectarrow.h \
-    mainview/comboitem.h
+    mainview/comboitem.h \
+    mainview/combobubble.h
 
 FORMS    += selectview/selectwindow.ui \
     mainview/mainwindow.ui

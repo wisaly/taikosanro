@@ -14,7 +14,7 @@ void NoteBallon::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->fillRect(0,0,length_ * unitWidth_,Ts::NOTE_HEIGHT,Qt::white);
+    painter->fillRect(0,0,length_ * unitWidth_,100,Qt::white);
 }
 
 bool NoteBallon::acceptAct(Ts::TaikoState action)

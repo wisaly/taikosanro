@@ -63,7 +63,8 @@ void NoteYellowBar::setUnitWidth(int unitWidth)
 {
     Note::setUnitWidth(unitWidth);
 
-    rect_ = QRectF(0,0,length_ * unitWidth_,Ts::NOTE_HEIGHT);
+    // TODO : height
+    rect_ = QRectF(0,0,length_ * unitWidth_,rect_.height());
 }
 
 
