@@ -5,8 +5,8 @@
 #include <QQueue>
 #include "song.h"
 
-NoteFileParser::NoteFileParser(QString filePath,Song *song)
-    :filePath_(filePath),song_(song)
+NoteFileParser::NoteFileParser(QString filePath,Song *song) :
+    filePath_(filePath),song_(song)
 {
 }
 

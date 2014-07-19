@@ -18,7 +18,7 @@ public:
     ~SelectItem();
 
     QRectF boundingRect() const{return rect_;}
-    void setBoundingRect(const QRectF &rect){rect_ = rect;update();}
+    void setBoundingRect(const QRectF &rect){ prepareGeometryChange(); rect_ = rect;update();}
     void setContentRect(const QRectF &contentRect) { contentRect_ = contentRect; }
     void setHeadMarginSize(const QSizeF &marginSize) { marginSize_ = marginSize; }
 

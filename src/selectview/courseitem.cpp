@@ -2,8 +2,8 @@
 #include "courseitem.h"
 #include "../pixmapmanager.h"
 
-CourseItem::CourseItem(QGraphicsItem *parent)
-    :QGraphicsItem(parent)
+CourseItem::CourseItem(QGraphicsItem *parent) :
+    QGraphicsItem(parent)
 {
     setCacheMode(DeviceCoordinateCache);
 

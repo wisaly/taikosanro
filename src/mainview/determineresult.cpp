@@ -7,8 +7,8 @@
 #include "determineresult.h"
 #include "../pixmapmanager.h"
 
-DetermineResult::DetermineResult(QGraphicsItem *parent)
-    :QGraphicsObject(parent)
+DetermineResult::DetermineResult(QGraphicsItem *parent) :
+    QGraphicsObject(parent)
 {
     rect_ = QRectF(QPointF(0,0),PixmapManager::getSize(Ts::mv::DETRESULT_SIZE));
     pos1_ = PixmapManager::getPos(Ts::mv::DETRESULT_POS1);

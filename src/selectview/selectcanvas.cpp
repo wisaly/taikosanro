@@ -18,10 +18,10 @@ SelectCanvas::SelectCanvas(QGraphicsItem *parent) :
     setCacheMode(DeviceCoordinateCache);
 
     QSizeF barSize = PixmapManager::getSize(Ts::sv::BAR_SIZE);
-    barRect_ = QRectF(QPointF(0 - barSize.width() / 2,0),barSize);
+    barRect_ = QRectF(QPointF(-barSize.width() / 2,0),barSize);
 
     QSizeF barExpandSize = PixmapManager::getSize(Ts::sv::BAR_EXPAND_SIZE);
-    barExpandRect_ = QRectF(QPointF(0 - barExpandSize.width() / 2,0),barExpandSize);
+    barExpandRect_ = QRectF(QPointF(-barExpandSize.width() / 2,0),barExpandSize);
 
     barContentRect_ = QRectF(
                 PixmapManager::getPos(Ts::sv::BAR_CONTENT_POS),

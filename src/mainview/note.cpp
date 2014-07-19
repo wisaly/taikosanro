@@ -4,8 +4,8 @@
 
 #include <QPainter>
 
-Note::Note(QGraphicsItem *parent, Type noteType, int index)
-    :QGraphicsObject(parent),index_(index)
+Note::Note(QGraphicsItem *parent, Type noteType, int index) :
+    QGraphicsObject(parent),index_(index)
 {
     switch (noteType) {
     case RedMarker:

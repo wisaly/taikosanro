@@ -3,8 +3,8 @@
 #include "notecanvas.h"
 #include "../pixmapmanager.h"
 
-NoteCanvas::NoteCanvas(QGraphicsItem *parent)
-    :QGraphicsItem(parent),rect_(0,0,821,114) // ratio=7.2
+NoteCanvas::NoteCanvas(QGraphicsItem *parent) :
+    QGraphicsItem(parent),rect_(0,0,821,114) // ratio=7.2
 {
     backPixmap_ = PixmapManager::get(Ts::mv::CANVAS_BACK);
     circlePixmap_ = PixmapManager::get(Ts::mv::DETERMINE_CIRCLE);

@@ -3,8 +3,8 @@
 #include "../pixmapmanager.h"
 #include "../stable.h"
 
-TaikoItem::TaikoItem(QGraphicsItem *parent)
-    :QGraphicsObject(parent),
+TaikoItem::TaikoItem(QGraphicsItem *parent) :
+    QGraphicsObject(parent),
     delayState_(Ts::NO_ACT)
 {
     backPixmap_ = PixmapManager::get(Ts::mv::STATE_BACK);

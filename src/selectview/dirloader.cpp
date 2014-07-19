@@ -3,8 +3,8 @@
 #include <QSettings>
 #include <QTextCodec>
 
-DirLoader::DirLoader(QString initPath)
-    :dir_(initPath)
+DirLoader::DirLoader(QString initPath) :
+    dir_(initPath)
 {
 }
 

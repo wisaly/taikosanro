@@ -3,8 +3,8 @@
 #include "notechart.h"
 #include "../pixmapmanager.h"
 
-NoteChart::NoteChart(QGraphicsItem *parent)
-    :QGraphicsObject(parent),
+NoteChart::NoteChart(QGraphicsItem *parent) :
+    QGraphicsObject(parent),
       isPlaying_(false)
 {
     setFlag(QGraphicsItem::ItemClipsChildrenToShape);
@@ -155,7 +155,7 @@ void NoteChart::reset()
 Measure *NoteChart::createMeasure()
 {
     Measure *measure = new Measure(this);
-    measure->setZValue(-1 * measures_.count());
+    measure->setZValue(-measures_.count());
     measure->setNoteRect(noteRect_);
     measures_.append(measure);
 

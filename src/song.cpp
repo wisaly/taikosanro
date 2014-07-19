@@ -2,8 +2,8 @@
 
 #include "notefileparser.h"
 
-Song::Song(QString noteFile)
-    :parser_(noteFile,this),parentItem_(0)
+Song::Song(QString noteFile) :
+    parser_(noteFile,this),parentItem_(0)
 {
     parser_.parse(Ts::INVALID_COURSE);
 }

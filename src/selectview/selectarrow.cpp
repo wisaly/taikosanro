@@ -3,8 +3,8 @@
 #include "selectarrow.h"
 #include "../pixmapmanager.h"
 
-SelectArrow::SelectArrow(QGraphicsItem *parent)
-    :QGraphicsObject(parent),current_(0)
+SelectArrow::SelectArrow(QGraphicsItem *parent) :
+    QGraphicsObject(parent),current_(0)
 {
     setCacheMode(DeviceCoordinateCache);
 

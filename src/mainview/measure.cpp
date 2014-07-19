@@ -5,8 +5,8 @@
 #include <QDebug>
 #include <QPainter>
 
-Measure::Measure(QGraphicsItem *parent)
-    :QGraphicsItem(parent),
+Measure::Measure(QGraphicsItem *parent) :
+    QGraphicsItem(parent),
       tempo_(0),
       noteValuePerBeat_(0),
       beatsPerBar_(0),
@@ -126,7 +126,7 @@ void Measure::setNotes(NoteTypeList notes, QQueue<int> &ballonHits,QQueue<int> &
                     60000.0 / tempo_ * beatsPerBar_ +
                     getTimeLength(i));
 
-        note->setZValue(-1 * i);
+        note->setZValue(-i);
         if (note != 0)
         {
             notes_.append(note);

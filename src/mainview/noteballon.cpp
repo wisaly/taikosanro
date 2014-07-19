@@ -2,8 +2,8 @@
 #include <QDebug>
 #include "noteballon.h"
 
-NoteBallon::NoteBallon(QGraphicsItem *parent, int index)
-    :Note(parent,Note::Ballon,index),
+NoteBallon::NoteBallon(QGraphicsItem *parent, int index) :
+    Note(parent,Note::Ballon,index),
       count_(0),
       hitCount_(0)
 {

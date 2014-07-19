@@ -4,8 +4,8 @@
 
 #include <QPainter>
 
-NoteYellowBar::NoteYellowBar(QGraphicsItem *parent, int index, bool isBig)
-    :Note(parent,isBig ? Note::BigYellowBar : Note::YellowBar,index),
+NoteYellowBar::NoteYellowBar(QGraphicsItem *parent, int index, bool isBig) :
+    Note(parent,isBig ? Note::BigYellowBar : Note::YellowBar,index),
       length_(1),
       hitCount_(0)
 {
