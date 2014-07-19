@@ -1,3 +1,4 @@
+#include <QDebug>
 #include "score.h"
 
 Score::Score(QObject *parent) :
@@ -19,7 +20,11 @@ void Score::add(Ts::DetermineValue detValue, bool isBigNote, bool isGGT)
 {
     int addValue = 0;
 
-    if (detValue == Ts::GREAT || detValue == Ts::GOOD)
+    if (detValue == Ts::OUTSIDE)
+    {
+        return;
+    }
+    else if (detValue == Ts::GREAT || detValue == Ts::GOOD)
     {
         combo_++;
         emit comboChanged(combo_);
@@ -32,7 +37,7 @@ void Score::add(Ts::DetermineValue detValue, bool isBigNote, bool isGGT)
         if (detValue == Ts::GOOD)
             addValue /= 2;
     }
-    else if (detValue == Ts::FAIL)
+    else if (detValue == Ts::FAIL || detValue == Ts::MISS)
     {
         if (combo_ != 0)
         {

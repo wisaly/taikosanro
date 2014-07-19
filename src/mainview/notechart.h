@@ -41,6 +41,8 @@ public:
     int scoreDiff() const { return scoreDiff_; }
     void setScoreDiff(int scoreDiff) { scoreDiff_ = scoreDiff; }
 
+    Score *score() { return &score_; }
+
 protected:
     void advance(int phase);
 

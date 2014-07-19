@@ -3,16 +3,12 @@
 #include "pixmapnumber.h"
 #include "pixmapmanager.h"
 
-PixmapNumber::PixmapNumber(const char *resKey, QGraphicsItem *parent) :
+PixmapNumber::PixmapNumber(QGraphicsItem *parent) :
     QGraphicsObject(parent),
     align_(Qt::AlignCenter),
-    digitLength_(0)
+    digitLength_(0),
+    group_(0)
 {
-    QString key(resKey);
-    for (char c = '0';c <= '9';c++)
-    {
-        pixmaps_.append(PixmapManager::get(key + c));
-    }
 }
 
 void PixmapNumber::setNumber(int number)
@@ -24,10 +20,23 @@ void PixmapNumber::setNumber(int number)
         int digit = number % 10;
         digits_.append(digit);
         number /= 10;
-        digitLength_ += pixmaps_[digit].width() + pixmaps_[digit].pos().x();
+        digitLength_ += pixmaps_[group_][digit].width() + pixmaps_[group_][digit].pos().x();
     }while (number > 0);
 
     update();
+}
+
+int PixmapNumber::addPixmapGroup(const char *resKey)
+{
+    QList<PixmapRes> group;
+    QString key(resKey);
+    for (char c = '0';c <= '9';c++)
+    {
+        group.append(PixmapManager::get(key + c));
+    }
+    pixmaps_.append(group);
+
+    return pixmaps_.count() - 1;
 }
 
 void PixmapNumber::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -51,11 +60,20 @@ void PixmapNumber::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 
     for (int i = 0;i < digits_.count();i++)
     {
-        PixmapRes &pixmap = pixmaps_[digits_[i]];
+        PixmapRes &pixmap = pixmaps_[group_][digits_[i]];
 
         x -= pixmap.width() + pixmap.pos().x();
         painter->drawPixmap(
-                    x + pixmap.pos().x(),pixmap.pos().y(),
-                    pixmap);
+                    QRectF(x + pixmap.pos().x(),rect_.top() + pixmap.pos().y(),
+                           pixmap.width(),rect_.height()),
+                    pixmap,
+                    pixmap.rect());
     }
+}
+
+void PixmapNumber::setRect(const QRectF &rect)
+{
+    prepareGeometryChange();
+    rect_ = rect;
+    update();
 }

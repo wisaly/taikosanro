@@ -17,6 +17,10 @@ SOURCES += main.cpp\
     notefileparser.cpp \
     song.cpp \
     catagory.cpp \
+    pixmapres.cpp \
+    controller.cpp \
+    keycontroller.cpp \
+    pixmapnumber.cpp \
     mainview/determinerange.cpp \
     mainview/mainwindow.cpp \
     mainview/taikoitem.cpp \
@@ -30,23 +34,24 @@ SOURCES += main.cpp\
     mainview/scoreboard.cpp \
     mainview/soulgauge.cpp \
     mainview/score.cpp \
-    mainview/hitlight.cpp
+    mainview/hitlight.cpp \
     selectview/selectwindow.cpp \
     selectview/selectcanvas.cpp \
     selectview/selectitem.cpp \
     selectview/dirloader.cpp \
     selectview/courseitem.cpp \
     selectview/selectarrow.cpp \
-    pixmapres.cpp \
-    controller.cpp \
-    keycontroller.cpp \
-    pixmapnumber.cpp
+    mainview/comboitem.cpp
 
 HEADERS  += stable.h\
     pixmapmanager.h \
     notefileparser.h \
     song.h \
     catagory.h \
+    pixmapres.h \
+    controller.h \
+    keycontroller.h \
+    pixmapnumber.h \
     mainview/determinerange.h \
     mainview/mainwindow.h \
     mainview/taikoitem.h \
@@ -60,17 +65,14 @@ HEADERS  += stable.h\
     mainview/scoreboard.h \
     mainview/soulgauge.h \
     mainview/score.h \
-    mainview/hitlight.h
+    mainview/hitlight.h \
     selectview/selectwindow.h \
     selectview/selectcanvas.h \
     selectview/selectitem.h \
     selectview/dirloader.h \
     selectview/courseitem.h \
     selectview/selectarrow.h \
-    pixmapres.h \
-    controller.h \
-    keycontroller.h \
-    pixmapnumber.h
+    mainview/comboitem.h
 
 FORMS    += selectview/selectwindow.ui \
     mainview/mainwindow.ui

@@ -12,6 +12,7 @@
 #include "determineresult.h"
 #include "taikoitem.h"
 #include "hitlight.h"
+#include "comboitem.h"
 #include "../notefileparser.h"
 #include "../song.h"
 #include "../pixmapnumber.h"
@@ -31,20 +32,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->graphicsView->setRenderHint(QPainter::TextAntialiasing);
     //ui->graphicsView->setViewport(new QGLWidget);
 
-    NoteCanvas *canvas = new NoteCanvas();
-    scene->addItem(canvas);
-    canvas->setPos(200,50);
-
-    TaikoItem *taikoItem = new TaikoItem;
-    scene->addItem(taikoItem);
-    taikoItem->setPos(0,42);
-    taikoItem->connect(&keyController_,SIGNAL(hit(Ts::TaikoState)),SLOT(hit(Ts::TaikoState)));
-
     hitLight_ = new HitLight();
     hitLight_->setPos(PixmapManager::getPos(Ts::mv::HITLIGHT_POS));
-    hitLight_->setCourse(Ts::MUZUKASHII);
+    hitLight_->setCourse(Ts::ONI);
     scene->addItem(hitLight_);
-    //this->connect(&keyController_,SIGNAL(hit(Ts::TaikoState)),SLOT(testhit(Ts::TaikoState)));
+
+    NoteCanvas *canvas = new NoteCanvas();
+    scene->addItem(canvas);
+    canvas->setPos(PixmapManager::getPos(Ts::mv::CANVAS_POS));
 
     Song *song = new Song("../res/example.tja");
     song->parser().parse(Ts::ONI);
@@ -52,6 +47,18 @@ MainWindow::MainWindow(QWidget *parent) :
     chart_->setParentItem(canvas);
     chart_->setBoundingRect(canvas->boundingRect());
     chart_->connect(&keyController_,SIGNAL(hit(Ts::TaikoState)),SLOT(hit(Ts::TaikoState)));
+
+    TaikoItem *taikoItem = new TaikoItem;
+    scene->addItem(taikoItem);
+    taikoItem->setPos(PixmapManager::getPos(Ts::mv::TAIKO_POS));
+    taikoItem->connect(&keyController_,SIGNAL(hit(Ts::TaikoState)),SLOT(hit(Ts::TaikoState)));
+    taikoItem->setZValue(1);
+
+    ComboItem *comboNumber = new ComboItem;
+    scene->addItem(comboNumber);
+    comboNumber->setPos(PixmapManager::getPos(Ts::mv::COMBO_POS));
+    comboNumber->connect(chart_->score(),SIGNAL(comboChanged(int)),SLOT(comboChanged(int)));
+    comboNumber->setZValue(2);
 
     determine_ = new DetermineResult();
     scene->addItem(determine_);

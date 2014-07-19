@@ -125,6 +125,10 @@ void NoteChart::hit(Ts::TaikoState state)
         {
             detNote_++;
         }
+        else
+        {
+            result = Ts::OUTSIDE;
+        }
     }
 
     score_.add(result,isBigNote,measures_[detMeasure_]->isGGT());

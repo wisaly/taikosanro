@@ -57,6 +57,7 @@ const char* const RES_FILE = "../res/res.ini";
 // resource of main view
 namespace mv
 {
+const char* const CANVAS_POS = "mainview/canvas/pos";
 const char* const CANVAS_BACK = "mainview/canvasback";
 const char* const DETERMINE_CIRCLE = "mainview/determinecircle";
 
@@ -83,13 +84,20 @@ const char* const BIG_YELLOW_BAR_BODY = "mainview/bigyellowbarbody";
 const char* const BIG_YELLOW_BAR_HEAD = "mainview/bigyellowbarhead";
 const char* const BIG_YELLOW_BAR_TAIL = "mainview/bigyellowbartail";
 
+const char* const TAIKO_POS = "mainview/taikoitem/pos";
 const char* const STATE_BACK = "mainview/stateback";
 const char* const STATE_DON_L = "mainview/statedonl";
 const char* const STATE_DON_R = "mainview/statedonr";
 const char* const STATE_KA_L = "mainview/statekal";
 const char* const STATE_KA_R = "mainview/statekar";
 
-const char* const COMBO_DIGIT = "mainview/combo";
+const char* const COMBO_POS = "mainview/combo/pos";
+const char* const COMBO_SIZE = "mainview/combo/size";
+const char* const COMBONUMBER_OFFSET = "mainview/combonumber/offset";
+const char* const COMBONUMBER_SIZE = "mainview/combonumber/size";
+
+const char* const COMBO = "mainview/combo";
+const char* const COMBO_RED = "mainview/combored";
 
 const char* const HITLIGHT_POS = "mainview/hitlight/pos";
 const char* const HITLIGHT_SIZE = "mainview/hitlight/size";
