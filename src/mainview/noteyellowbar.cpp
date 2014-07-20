@@ -59,12 +59,12 @@ bool NoteYellowBar::acceptAct(Ts::TaikoState action)
     return (action & Ts::DON_BOTH) || (action & Ts::KA_BOTH);
 }
 
-void NoteYellowBar::setUnitWidth(int unitWidth)
+void NoteYellowBar::setUnitSize(int unitWidth,int unitHeight)
 {
-    Note::setUnitWidth(unitWidth);
+    Note::setUnitSize(unitWidth,unitHeight);
 
-    // TODO : height
-    rect_ = QRectF(0,0,length_ * unitWidth_,rect_.height());
+    prepareGeometryChange();
+    rect_ = QRectF(0,0,length_ * unitWidth_,unitHeight_);
 }
 
 

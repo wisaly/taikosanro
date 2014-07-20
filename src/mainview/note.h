@@ -34,7 +34,7 @@ public:
 
     virtual bool acceptAct(Ts::TaikoState action);
     virtual bool isBigNote();
-    virtual void setUnitWidth(int unitWidth);
+    virtual void setUnitSize(int unitWidth,int unitHeight);
 
 protected:
     void advance(int phase);
@@ -45,6 +45,7 @@ protected:
     DetermineRange determineRange_;
     int index_;
     int unitWidth_;     // actual width of a note unit
+    int unitHeight_;
     QRectF rect_;
 };
 

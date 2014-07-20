@@ -99,9 +99,15 @@ const char* const COMBO_BREAK = "mainview/combobreak";
 const char* const COMBOBUBNUM_OFFSET = "mainview/combobubnum/offset";
 const char* const COMBOBUBNUM_SIZE = "mainview/combobubnum/size";
 
+const char* const HIT_BUBBLE = "mainview/hitbubble";
+const char* const HITBUBNUM_OFFSET = "mainview/hitbubnum/offset";
+const char* const HITBUBNUM_SIZE = "mainview/hitbubnum/size";
+const char* const HITBUBTEXT = "mainview/hitbubtext";
+
 const char* const COMBO = "mainview/combo";
 const char* const COMBO_RED = "mainview/combored";
 const char* const HIT = "mainview/hit";
+const char* const SCORE = "mainview/score";
 
 const char* const HITLIGHT_POS = "mainview/hitlight/pos";
 const char* const HITLIGHT_SIZE = "mainview/hitlight/size";

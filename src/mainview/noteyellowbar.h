@@ -22,7 +22,7 @@ public:
 
     bool acceptAct(Ts::TaikoState action);
 
-    void setUnitWidth(int unitWidth);
+    void setUnitSize(int unitWidth, int unitHeight);
 
 private:
     int length_;

@@ -70,9 +70,10 @@ bool Note::isBigNote()
             noteType_ == BigYellowBar;
 }
 
-void Note::setUnitWidth(int unitWidth)
+void Note::setUnitSize(int unitWidth,int unitHeight)
 {
     unitWidth_ = unitWidth;
+    unitHeight_ = unitHeight;
 }
 
 void Note::advance(int phase)

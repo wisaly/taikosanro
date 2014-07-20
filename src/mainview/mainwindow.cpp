@@ -14,6 +14,7 @@
 #include "hitlight.h"
 #include "comboitem.h"
 #include "combobubble.h"
+#include "hitbubble.h"
 #include "../notefileparser.h"
 #include "../song.h"
 #include "../pixmapnumber.h"
@@ -58,6 +59,11 @@ MainWindow::MainWindow(QWidget *parent) :
     scene->addItem(comboNumber);
     comboNumber->setPos(PixmapManager::getPos(Ts::mv::COMBO_POS));
     comboNumber->connect(chart_->score(),SIGNAL(comboChanged(int)),SLOT(comboChanged(int)));
+
+    HitBubble *hitBubble = new HitBubble;
+    scene->addItem(hitBubble);
+    hitBubble->setPos(PixmapManager::getPos(Ts::mv::BUBBLE_POS));
+    hitBubble->connect(chart_->score(),SIGNAL(consecutiveChanged(int)),SLOT(consecutiveChanged(int)));
 
     ComboBubble *comboBubble = new ComboBubble;
     scene->addItem(comboBubble);

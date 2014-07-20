@@ -32,7 +32,7 @@ void Measure::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     painter->setPen(Qt::white);
     painter->drawLine(
                 noteRect_.width() / 2 + noteRect_.left(),noteRect_.top(),
-                noteRect_.width() / 2 + noteRect_.left(), noteRect_.bottom());
+                noteRect_.width() / 2 + noteRect_.left(),noteRect_.top() + noteRect_.width());
 }
 
 void Measure::reset()
@@ -59,7 +59,7 @@ void Measure::setBoundingRect(QRectF rect)
     for(int i = 0;i < notes_.count();i++)
     {
         notes_[i]->setPos(notes_[i]->index() * unitWidth,0);
-        notes_[i]->setUnitWidth(unitWidth);
+        notes_[i]->setUnitSize(unitWidth,noteRect_.height());
     }
 }
 
