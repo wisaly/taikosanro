@@ -15,6 +15,7 @@
 #include "comboitem.h"
 #include "combobubble.h"
 #include "hitbubble.h"
+#include "scoreboard.h"
 #include "../notefileparser.h"
 #include "../song.h"
 #include "../pixmapnumber.h"
@@ -69,6 +70,12 @@ MainWindow::MainWindow(QWidget *parent) :
     scene->addItem(comboBubble);
     comboBubble->setPos(PixmapManager::getPos(Ts::mv::BUBBLE_POS));
     comboBubble->connect(chart_->score(),SIGNAL(comboChanged(int)),SLOT(comboChanged(int)));
+
+    ScoreBoard *scoreBoard = new ScoreBoard;
+    scene->addItem(scoreBoard);
+    scoreBoard->setPos(PixmapManager::getPos(Ts::mv::SCOREBOARD_POS));
+    scoreBoard->connect(chart_->score(),SIGNAL(scoreAdded(int)),SLOT(scoreAdded(int)));
+    scoreBoard->connect(chart_->score(),SIGNAL(scoreChanged(int)),SLOT(scoreChanged(int)));
 
     determine_ = new DetermineResult();
     scene->addItem(determine_);

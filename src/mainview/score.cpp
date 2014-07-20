@@ -76,9 +76,11 @@ void Score::add(Ts::DetermineValue detValue, bool isBigNote, bool isGGT)
     // make tenfold score
     addValue = addValue / 10 * 10;
 
-    emit scoreAdded(addValue);
+    if (addValue != 0)
+    {
+        emit scoreAdded(addValue);
 
-    score_ += addValue;
-
-    emit scoreChanged(score_);
+        score_ += addValue;
+        emit scoreChanged(score_);
+    }
 }

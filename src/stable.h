@@ -108,6 +108,14 @@ const char* const COMBO = "mainview/combo";
 const char* const COMBO_RED = "mainview/combored";
 const char* const HIT = "mainview/hit";
 const char* const SCORE = "mainview/score";
+const char* const SCORE_ADD = "mainview/scoreadd";
+
+const char* const SCOREBOARD_POS = "mainview/scoreboard/pos";
+const char* const SCOREBOARD_SIZE = "mainview/scoreboard/size";
+const char* const SCOREADD_OFFSET = "mainview/scoreadd/offset";
+const char* const SCOREADD_SIZE = "mainview/scoreadd/size";
+const char* const SCORETOTAL_OFFSET = "mainview/scoretotal/offset";
+const char* const SCORETOTAL_SIZE = "mainview/scoretotal/size";
 
 const char* const HITLIGHT_POS = "mainview/hitlight/pos";
 const char* const HITLIGHT_SIZE = "mainview/hitlight/size";
