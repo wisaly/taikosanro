@@ -60,7 +60,6 @@ HEADERS  += stable.h\
     mainview/determineresult.h \
     mainview/measure.h \
     mainview/note.h \
-    mainview/noteballon.h \
     mainview/notecanvas.h \
     mainview/notechart.h \
     mainview/noteyellowbar.h \
@@ -76,7 +75,8 @@ HEADERS  += stable.h\
     selectview/selectarrow.h \
     mainview/comboitem.h \
     mainview/combobubble.h \
-    mainview/hitbubble.h
+    mainview/hitbubble.h \
+    mainview/noteballoon.h
 
 FORMS    += selectview/selectwindow.ui \
     mainview/mainwindow.ui
