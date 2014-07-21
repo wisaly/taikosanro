@@ -1,5 +1,5 @@
 #include "measure.h"
-#include "noteballon.h"
+#include "noteballoon.h"
 #include "noteyellowbar.h"
 #include "../stable.h"
 #include <QDebug>
@@ -104,17 +104,17 @@ void Measure::setNotes(NoteTypeList notes, QQueue<int> &ballonHits,QQueue<int> &
             static_cast<NoteYellowBar*>(note)->setLength(
                         length,getTimeLength(length));
         }
-        else if (notes[i] == Note::Ballon)
+        else if (notes[i] == Note::Balloon)
         {
             if (ballonHits.empty() || ballonLen.empty())
                 continue;
 
-            note = new NoteBallon(this,i);
-            static_cast<NoteBallon*>(note)->setCount(
+            note = new NoteBalloon(this,i);
+            static_cast<NoteBalloon*>(note)->setCount(
                         ballonHits.dequeue());
 
             int length = ballonLen.dequeue();
-            static_cast<NoteBallon*>(note)->setLength(
+            static_cast<NoteBalloon*>(note)->setLength(
                         length,getTimeLength(length));
         }
         else

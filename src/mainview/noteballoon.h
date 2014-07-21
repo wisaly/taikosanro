@@ -3,10 +3,10 @@
 
 #include "note.h"
 
-class NoteBallon : public Note
+class NoteBalloon : public Note
 {
 public:
-    NoteBallon(QGraphicsItem *parent,int index);
+    NoteBalloon(QGraphicsItem *parent,int index);
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 

@@ -27,7 +27,6 @@ SOURCES += main.cpp\
     mainview/determineresult.cpp \
     mainview/measure.cpp \
     mainview/note.cpp \
-    mainview/noteballon.cpp \
     mainview/notecanvas.cpp \
     mainview/notechart.cpp \
     mainview/noteyellowbar.cpp \
@@ -43,7 +42,8 @@ SOURCES += main.cpp\
     selectview/selectarrow.cpp \
     mainview/comboitem.cpp \
     mainview/combobubble.cpp \
-    mainview/hitbubble.cpp
+    mainview/hitbubble.cpp \
+    mainview/noteballoon.cpp
 
 HEADERS  += stable.h\
     pixmapmanager.h \
@@ -60,7 +60,6 @@ HEADERS  += stable.h\
     mainview/determineresult.h \
     mainview/measure.h \
     mainview/note.h \
-    mainview/noteballon.h \
     mainview/notecanvas.h \
     mainview/notechart.h \
     mainview/noteyellowbar.h \
@@ -76,7 +75,8 @@ HEADERS  += stable.h\
     selectview/selectarrow.h \
     mainview/comboitem.h \
     mainview/combobubble.h \
-    mainview/hitbubble.h
+    mainview/hitbubble.h \
+    mainview/noteballoon.h
 
 FORMS    += selectview/selectwindow.ui \
     mainview/mainwindow.ui
