@@ -65,6 +65,12 @@ const char* const DETGREAT = "mainview/detgreat";
 const char* const DETGOOD = "mainview/detgood";
 const char* const DETFAIL = "mainview/detfail";
 
+const char* const EXPLOSION_POS = "mainview/explosion/pos";
+const char* const EXPLOSION_SIZE = "mainview/explosion/size";
+const char* const EXPLOSION_BASE = "mainview/explosionbase";
+const char* const EXPLOSION_GREAT = "mainview/explosiongreat";
+const char* const EXPLOSION_GOOD = "mainview/explosiongood";
+
 const char* const NOTE_POS = "mainview/note/pos";
 const char* const NOTE_SIZE = "mainview/note/size";
 

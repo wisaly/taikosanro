@@ -17,6 +17,7 @@
 #include "hitbubble.h"
 #include "scoreboard.h"
 #include "soulgauge.h"
+#include "hitexplosion.h"
 #include "../notefileparser.h"
 #include "../song.h"
 #include "../pixmapnumber.h"
@@ -52,6 +53,8 @@ MainWindow::MainWindow(QWidget *parent) :
     chart_->setBoundingRect(canvas->boundingRect());
     chart_->connect(&keyController_,SIGNAL(hit(Ts::TaikoState)),SLOT(hit(Ts::TaikoState)));
 
+    hitLight_->connect(chart_,SIGNAL(determined(Ts::DetermineValue)),SLOT(determined(Ts::DetermineValue)));
+
     TaikoItem *taikoItem = new TaikoItem;
     scene->addItem(taikoItem);
     taikoItem->setPos(PixmapManager::getPos(Ts::mv::TAIKO_POS));
@@ -84,10 +87,14 @@ MainWindow::MainWindow(QWidget *parent) :
     soulGauge->setPos(PixmapManager::getPos(Ts::mv::SOULGAUGE_POS));
     soulGauge->connect(chart_->score(),SIGNAL(soulChanged(int)),SLOT(soulChanged(int)));
 
+    HitExplosion *hitExplosion = new HitExplosion;
+    scene->addItem(hitExplosion);
+    hitExplosion->setPos(PixmapManager::getPos(Ts::mv::EXPLOSION_POS));
+    hitExplosion->connect(chart_,SIGNAL(determined(Ts::DetermineValue)),SLOT(determined(Ts::DetermineValue)));
+
     determine_ = new DetermineResult();
     scene->addItem(determine_);
     determine_->connect(chart_,SIGNAL(determined(Ts::DetermineValue)),SLOT(determined(Ts::DetermineValue)));
-    hitLight_->connect(chart_,SIGNAL(determined(Ts::DetermineValue)),SLOT(determined(Ts::DetermineValue)));
 
     connect(&timer_,SIGNAL(timeout()),SLOT(timeout()));
     timer_.setTimerType(Qt::PreciseTimer);

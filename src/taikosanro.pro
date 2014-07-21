@@ -43,7 +43,8 @@ SOURCES += main.cpp\
     mainview/comboitem.cpp \
     mainview/combobubble.cpp \
     mainview/hitbubble.cpp \
-    mainview/noteballoon.cpp
+    mainview/noteballoon.cpp \
+    mainview/hitexplosion.cpp
 
 HEADERS  += stable.h\
     pixmapmanager.h \
@@ -76,7 +77,8 @@ HEADERS  += stable.h\
     mainview/comboitem.h \
     mainview/combobubble.h \
     mainview/hitbubble.h \
-    mainview/noteballoon.h
+    mainview/noteballoon.h \
+    mainview/hitexplosion.h
 
 FORMS    += selectview/selectwindow.ui \
     mainview/mainwindow.ui
