@@ -38,7 +38,7 @@ void NoteChart::play()
         currentMeasure_ = 0;
         detMeasure_ = 0;
         detNote_ = 0;
-        score_.init(scoreInit_,scoreDiff_);
+        score_.init(course_,scoreInit_,scoreDiff_);
         playProgress_.start();
         isPlaying_ = true;
 

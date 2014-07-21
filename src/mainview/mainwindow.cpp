@@ -16,6 +16,7 @@
 #include "combobubble.h"
 #include "hitbubble.h"
 #include "scoreboard.h"
+#include "soulgauge.h"
 #include "../notefileparser.h"
 #include "../song.h"
 #include "../pixmapnumber.h"
@@ -76,6 +77,12 @@ MainWindow::MainWindow(QWidget *parent) :
     scoreBoard->setPos(PixmapManager::getPos(Ts::mv::SCOREBOARD_POS));
     scoreBoard->connect(chart_->score(),SIGNAL(scoreAdded(int)),SLOT(scoreAdded(int)));
     scoreBoard->connect(chart_->score(),SIGNAL(scoreChanged(int)),SLOT(scoreChanged(int)));
+
+    SoulGauge *soulGauge = new SoulGauge;
+    scene->addItem(soulGauge);
+    soulGauge->setCourse(Ts::ONI);
+    soulGauge->setPos(PixmapManager::getPos(Ts::mv::SOULGAUGE_POS));
+    soulGauge->connect(chart_->score(),SIGNAL(soulChanged(int)),SLOT(soulChanged(int)));
 
     determine_ = new DetermineResult();
     scene->addItem(determine_);

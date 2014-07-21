@@ -123,6 +123,16 @@ const char* const LIGHT_KANTAN = "mainview/lightkantan";
 const char* const LIGHT_FUTSU = "mainview/lightfutsu";
 const char* const LIGHT_MUZUKASHII = "mainview/lightmuzukashii";
 const char* const LIGHT_ONI = "mainview/lightoni";
+
+const char* const SOULGAUGE_POS = "mainview/soulgauge/pos";
+const char* const SOULUNIT_OFFSET = "mainview/soulunit/offset";
+const char* const SOULUNIT_SIZE = "mainview/soulunit/size";
+const char* const SOUL_KANTAN_BACK = "mainview/soulkantanback";
+const char* const SOUL_KANTAN_FORE = "mainview/soulkantanfore";
+const char* const SOUL_FUTSU_BACK = "mainview/soulfutsuback";
+const char* const SOUL_FUTSU_FORE = "mainview/soulfutsufore";
+const char* const SOUL_ONI_BACK = "mainview/souloniback";
+const char* const SOUL_ONI_FORE = "mainview/soulonifore";
 }
 
 // resource of select view

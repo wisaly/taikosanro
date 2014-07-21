@@ -32,8 +32,7 @@ public:
     int level() const { return level_; }
     void setLevel(int level) { level_ = level; }
 
-    int course() const { return course_; }
-    void setCourse(int course) { course_ = course; }
+    void setCourse(Ts::Course course) { course_ = course; }
 
     int scoreInit() const { return scoreInit_; }
     void setScoreInit(int scoreInit) { scoreInit_ = scoreInit; }
@@ -53,7 +52,7 @@ public slots:
     void hit(Ts::TaikoState state);
 
 private:
-    int course_;
+    Ts::Course course_;
     int level_;
     int scoreInit_;
     int scoreDiff_;
