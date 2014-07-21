@@ -27,7 +27,6 @@ SOURCES += main.cpp\
     mainview/determineresult.cpp \
     mainview/measure.cpp \
     mainview/note.cpp \
-    mainview/noteballon.cpp \
     mainview/notecanvas.cpp \
     mainview/notechart.cpp \
     mainview/noteyellowbar.cpp \
@@ -43,7 +42,8 @@ SOURCES += main.cpp\
     selectview/selectarrow.cpp \
     mainview/comboitem.cpp \
     mainview/combobubble.cpp \
-    mainview/hitbubble.cpp
+    mainview/hitbubble.cpp \
+    mainview/noteballoon.cpp
 
 HEADERS  += stable.h\
     pixmapmanager.h \

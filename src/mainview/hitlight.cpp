@@ -30,6 +30,8 @@ void HitLight::setCourse(const Ts::Course &course)
     case Ts::URA:
         resKey = Ts::mv::LIGHT_ONI;
         break;
+    default:
+        break;
     }
 
     pixmap0_ = PixmapManager::get(resKey + '0');
