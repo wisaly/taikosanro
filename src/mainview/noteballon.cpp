@@ -3,7 +3,7 @@
 #include "noteballon.h"
 
 NoteBallon::NoteBallon(QGraphicsItem *parent, int index) :
-    Note(parent,Note::Ballon,index),
+    Note(parent,Note::Balloon,index),
       count_(0),
       hitCount_(0)
 {

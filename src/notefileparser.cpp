@@ -314,7 +314,7 @@ bool NoteFileParser::parse(Ts::Course loadCourse)
                             noteTypes.append(Note::BigYellowBar);
                             break;
                         case '7':
-                            noteTypes.append(Note::Ballon);
+                            noteTypes.append(Note::Balloon);
                             break;
                         case '8':
                             // never reach here

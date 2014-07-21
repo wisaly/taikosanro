@@ -104,7 +104,7 @@ void Measure::setNotes(NoteTypeList notes, QQueue<int> &ballonHits,QQueue<int> &
             static_cast<NoteYellowBar*>(note)->setLength(
                         length,getTimeLength(length));
         }
-        else if (notes[i] == Note::Ballon)
+        else if (notes[i] == Note::Balloon)
         {
             if (ballonHits.empty() || ballonLen.empty())
                 continue;

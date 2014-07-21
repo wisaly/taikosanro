@@ -22,10 +22,10 @@ public:
         Yam,
     };
 
-   explicit Note(QGraphicsItem *parent,Type noteType,int index);
+    explicit Note(QGraphicsItem *parent,Type noteType,int index);
 
-   QRectF boundingRect() const;
-   void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+    QRectF boundingRect() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget);
 
     int index();
