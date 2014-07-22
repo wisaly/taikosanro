@@ -45,7 +45,8 @@ SOURCES += main.cpp\
     mainview/hitbubble.cpp \
     mainview/noteballoon.cpp \
     object.cpp \
-    objectscene.cpp
+    objectscene.cpp \
+    timestep.cpp
 
 HEADERS  += stable.h\
     pixmapmanager.h \
@@ -80,7 +81,8 @@ HEADERS  += stable.h\
     mainview/hitbubble.h \
     mainview/noteballoon.h \
     object.h \
-    objectscene.h
+    objectscene.h \
+    timestep.h
 
 FORMS    += selectview/selectwindow.ui \
     mainview/mainwindow.ui
